@@ -1,0 +1,110 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2"><%= result[0].nom_jo %> <%= result[0].prenom_jo %></h1>
+  </div>
+
+
+  <div class="col py-3">
+
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active"><%= result[0].nom_jo + ' ' + result[0].prenom_jo %></li>
+
+
+          </ol>
+        </nav>
+      </div>
+      
+    </div>
+  
+  </div>
+  
+  <ul class="list-group">
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Nom:</b></div>
+        <div class="col"><%= result[0].nom_jo %></div>
+      </div>
+    </li>
+    
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Prenom:</b></div>
+        <div class="col"><%= result[0].prenom_jo %></div>
+      </div>
+    </li>
+    <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Nationalite:</b></div>
+          <div class="col"><%= result[0].nationalite_jo %></div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Poste:</b></div>
+          <div class="col"><%= result[0].poste_jo %></div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>N° Maillot:</b></div>
+          <div class="col"><%= result[0].num_mai_jo %></div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Age:</b></div>
+          <div class="col"><%= result[0].age_jo %></div>
+        </div>
+      </li>
+  
+    <li class="list-group-item"> 
+      <div class="row">
+        <div class="col" style="max-width: 140px"> <b>Taille:</b></div>
+        <div class="col"><%= result[0].taille_jo  %> cm</div>
+      </div>
+    </li>
+    <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Poids:</b></div>
+          <div class="col"><%= result[0].poids_jo %> kg </div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Image:</b></div>
+          <div class="col">mzl mdrthache</div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Nombre de buts :</b></div>
+          <div class="col"><%= result[0].nbr_buts_jo %></div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Nombre de passes décisives :</b></div>
+          <div class="col"><%= result[0].nbr_passe_jo %></div>
+        </div>
+      </li>
+      <li class="list-group-item"> 
+        <div class="row">
+          <div class="col" style="max-width: 140px"> <b>Email:</b></div>
+          <div class="col"><%= result[0].email_co %></div>
+        </div>
+      </li>
+  
+   
+  
+    
+  
+    
+  
+  </ul>
+  
+  
