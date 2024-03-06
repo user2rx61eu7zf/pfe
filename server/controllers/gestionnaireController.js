@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const db = require('../config/db');
-const bdd = require('../config/db');
+
 
 
 class Joueur {
@@ -23,27 +23,13 @@ class Joueur {
 
 
 
-exports.homepage = async (req, res) => {
-    const messages = await req.flash('info');
+exports.homepageGestionnaire = async (req, res) => {
+
     const locals = {
-        title: 'NodeJS',
+        title: "Gestionnaire"
     }
-    db.query("SELECT id_jo,nom_jo, prenom_jo, nationalite_jo, poste_jo, num_mai_jo, age_jo, taille_jo, poids_jo,compte.email_co FROM joueur JOIN compte ON joueur.id_co_jo = compte.id_co; ", (err, result) => {
-        if (err) {
-            console.error("erreur sql select data joueurs  " + err);
-            return res.status(500).send("erreur sql select data joueurs");
-        }
 
-
-        // console.log(result)
-
-        res.render('index', { locals, messages, result })
-    })
-
-
-
-
-
+    res.render('../views/Gestionnaire/homepageGestionnaire', locals)
 }
 
 // get nouveau joueur 
@@ -52,7 +38,7 @@ exports.addPlayer = async (req, res) => {
     const locals = {
         title: 'Ajouter un Joueur ',
     }
-    res.render('../views/Player/add', { locals })
+    res.render('../views/Gestionnaire/add', { locals })
 }
 
 // post nouveau joueur 
@@ -101,7 +87,7 @@ exports.postPlayer = async (req, res) => {
 
     await req.flash('info', "Joueur ajouté !!")
 
-    res.redirect('/')
+    res.redirect('/gererJoueurs')
 }
 
 
@@ -121,7 +107,7 @@ exports.viewPlayer = async (req, res) => {
 
 
         const id = result[0].id_jo;
-        res.render('../views/Player/details', { locals, id, result }); // Rend la vue avec les détails du joueur
+        res.render('../views/Gestionnaire/details', { locals, id, result }); // Rend la vue avec les détails du joueur
 
     });
 }
@@ -143,7 +129,7 @@ exports.editPlayer = async (req, res) => {
 
 
         const id = result[0].id_jo;
-        res.render('../views/Player/modifier', { locals, id, result }); // Rend la vue avec les détails du joueur
+        res.render('../views/Gestionnaire/modifier', { locals, id, result }); // Rend la vue avec les détails du joueur
 
     });
 }
@@ -195,7 +181,7 @@ exports.editpost = async (req, res) => {
 
 
 exports.supprimerJoueur = async (req, res) => {
-    bdd.query("DELETE FROM joueur WHERE id_jo= ?", [req.params.id], (err, result) => {
+    db.query("DELETE FROM joueur WHERE id_jo= ?", [req.params.id], (err, result) => {
         if (err) {
             console.error("erreur creer joueur" + err);
             return res.status(500).send("erreur sql ajouter joueur");
@@ -203,10 +189,29 @@ exports.supprimerJoueur = async (req, res) => {
 
     })
     await req.flash('info', "Joueur Supprime !!")
-    res.redirect('/')
+    res.redirect('/gererJoueurs')
 }
-//cherhcer
-exports.chercherJoueur = async (req, res) => {
-    let recherche = req.body.searchTerm;
+
+
+
+exports.gererJoueur = async (req, res) => {
+    const messages = await req.flash('info');
+    const locals = {
+        title: 'Gestion des Joueurs',
+    }
+    db.query("SELECT id_jo,nom_jo, prenom_jo, nationalite_jo, poste_jo, num_mai_jo, age_jo, taille_jo, poids_jo,compte.email_co FROM joueur JOIN compte ON joueur.id_co_jo = compte.id_co; ", (err, result) => {
+        if (err) {
+            console.error("erreur sql select data joueurs  " + err);
+            return res.status(500).send("erreur sql select data joueurs");
+        }
+
+
+        // console.log(result)
+
+        res.render('GestionnaireIndex', { locals, messages, result })
+    })
+
+
+
 
 }

@@ -31,11 +31,12 @@ app.use(flash({ sessionKeyName: 'flashMessage' }));
 
 
 app.use(expressLayouts);
-app.set('layout', './layouts/main');
+app.set('layout', './layouts/mainGestionnaire');
 app.set('view engine', 'ejs');
 
 
-app.use('/', require('./server/routes/player'))
+app.use('/', require('./server/routes/gestionnaire'))
+app.use('/', require('./server/routes/admin'))
 
 
 // handle 404 
@@ -45,4 +46,4 @@ app.get('*', (req, res) => {
 })
 app.listen(port, () => {
     console.log("server listening " + port)
-});
+}); 

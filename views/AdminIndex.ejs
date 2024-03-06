@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Accueil</h1>
+    <h1 class="h2">Accueil Admin</h1>
     <div class="btn-toolbar mb-2 mb-md 0">
       <div class="btn-group me-2">
-        <a href="/add" class="btn btn-outline-primary">+ Ajouter un Joueur </a>
+        <a href="/ajouter_joueur" class="btn btn-outline-primary">+ Ajouter un Joueur </a>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
                   <i class="bi bi-pencil"></i>
                 </a>
   
-                <form action="/edit/<%= element.id_jo %>?_method=DELETE" method="POST" class="position-relative">
+                <form action="/supprimer/<%= element.id_jo %>?_method=DELETE" method="POST" class="position-relative">
                   <button type="submit" class="btn btn-danger btn-small">
                     <i class="bi bi-person-x"></i>
                   </button>
