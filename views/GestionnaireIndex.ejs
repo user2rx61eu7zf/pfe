@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Accueil Gestionnaire</h1>
+    <h1 class="h2">Mes Joueurs</h1>
     <div class="btn-toolbar mb-2 mb-md 0">
       <div class="btn-group me-2">
-        <a href="/ajouter_joueur" class="btn btn-outline-primary">+ Ajouter un Joueur </a>
+        <a href="/ajouter_joueur/<%= userId %>" class="btn btn-outline-primary"><i class="bi bi-person-add"></i> Ajouter un Joueur </a>
       </div>
     </div>
   </div>
@@ -37,15 +37,15 @@
   
               <div class="d-flex flex-row justify-content-end gap-2">
   
-                <a href="/view/<%= element.id_jo %>" type="button" class="btn btn-primary btn-small">
+                <a href="/view/<%= element.id_jo %>/<%= userId %>" type="button" class="btn btn-primary btn-small">
                   <i class="bi bi-eye"></i>
                 </a>
   
-                <a href="/edit/<%= element.id_jo %>" type="button" class="btn btn-warning btn-small">
+                <a href="/edit/<%= element.id_jo %>/<%= userId %>" type="button" class="btn btn-warning btn-small">
                   <i class="bi bi-pencil"></i>
                 </a>
   
-                <form action="/supprimer/<%= element.id_jo %>?_method=DELETE" method="POST" class="position-relative">
+                <form action="/supprimer/<%= element.id_jo %>/<%= userId %>?_method=DELETE" method="POST" class="position-relative">
                   <button type="submit" class="btn btn-danger btn-small">
                     <i class="bi bi-person-x"></i>
                   </button>
@@ -60,4 +60,15 @@
       </tbody>
     </table>
   </div>
-  
+  <script>
+    // Wait for 2 seconds and then close the alert
+    document.querySelectorAll('.alert').forEach(alert => {
+      setTimeout(() => {
+        alert.classList.remove('show');
+        alert.classList.add('hide');
+        setTimeout(() => {
+          alert.remove(); // Remove the alert from the DOM
+        }, 1000); // Remove the alert after 1 second of hiding
+      }, 900); // Hide the alert after 2 seconds
+    });
+  </script>

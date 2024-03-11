@@ -1,5 +1,6 @@
 body {
     font-size: .875rem;
+
 }
 
 .feather {
@@ -105,4 +106,80 @@ body {
 
 .active {
     color: rgb(221, 6, 6);
+}
+
+.nav-item:hover {
+    background-color: #f0f0f0;
+    /* Change background color on hover */
+}
+
+.nav-link:hover {
+    color: #1f3547;
+    /* Change text color on hover */
+}
+
+.search-container input[type="search"].form-control:focus {
+    background-color: #7193b5;
+    /* Change background color when focused */
+}
+
+.search-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    pointer-events: none;
+
+}
+
+.form-control {
+    padding-right: 35px;
+    border-radius: 50px;
+}
+
+/* Add this CSS to your stylesheet */
+
+/* Apply fade animation to alerts */
+.alert {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Apply fade out animation when alert is dismissed */
+.alert.hide {
+    opacity: 0;
+}
+
+/* Add a slight delay before starting the fade out animation */
+.alert.hide.delay {
+    transition-delay: 1s;
+    /* Delay for 1 second before starting the fade out */
+}
+
+/* Add margin to separate alerts */
+.alert+.alert {
+    margin-top: 10px;
+}
+
+.profile-card {
+
+    margin-left: 240px;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: #16659E
+}
+
+h5 {
+    font-weight: bold;
 }

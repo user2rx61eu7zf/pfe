@@ -21,7 +21,7 @@
           <div class="col">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/gestionnaire">Acceuil</a></li>
+                <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Acceuil</a></li>
                 <li class="breadcrumb-item active">Nouveau Joueur</li>
               </ol>
             </nav>
@@ -29,7 +29,7 @@
           
         </div>
       </div>
-      <form action="/ajouter_joueur" method="POST" class="needs-validation" novalidate>
+      <form action="/ajouter_joueur/<%= userId %>" method="POST" class="needs-validation" novalidate>
         <div>
             <label for="validationCustom01" class="form-label">Nom</label>
             <input type="text" class="form-control" name="nom" id="validationCustom01" value="" required>

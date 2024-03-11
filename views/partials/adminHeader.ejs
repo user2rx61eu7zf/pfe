@@ -7,19 +7,22 @@
     </button>
   
     <form class="col-8 col-md-5 col-lg-4 d-flex justify-content-center mb-2 mb-md-0" role="search" method="POST" action="/search">
-      <input type="search" name="searchTerm" class="form-control form-control-dark rounded-0 border-0" placeholder="Faire une Recherche ..." aria-label="Search" style="max-width: 200px;">
-    </form>
     
-    <div class="dropdown text-end">
+      <div class="search-container">
+        <input type="search" name="searchTerm" class="form-control form-control-dark border-0" placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px;">
+        <i class="bi bi-search search-icon" style="color: rgb(10, 37, 212);"></i>
+    </div>
+  </form>
+    
+    <div class="dropdown text-end" style="margin-right: 20px;">
       <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
         <img src="https://avatars.githubusercontent.com/u/102063123?s=96&v=4" alt="mdo" width="32" height="32" class="rounded-circle">
       </a>
-      <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
+      <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#"> <i class="bi bi-person"></i> Mon profile </a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Paramètres </a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li><a class="dropdown-item" href="#">  <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i> Se déconnecter </a></li>
       </ul>
     </div>
   
