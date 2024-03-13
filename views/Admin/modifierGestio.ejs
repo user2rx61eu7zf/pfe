@@ -1,0 +1,123 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Modification: <%= result[0].nom%>
+            <%= result[0].prenom %>
+    </h1>
+
+</div>
+
+<div class="col py-3">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                    <li class="breadcrumb-item active">
+                        <%= result[0].nom%>
+                            <%= result[0].prenom %>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+
+</div>
+
+
+<form action="/edit/<%= result[0].id_ge %>?_method=PUT" method="POST">
+
+    <div class="row form-group mb-4">
+        <div>
+            <label for="validationCustom01" class="form-label">Nom</label>
+            <input type="text" class="form-control" name="nom" id="validationCustom01" value="<%= result[0].nom %>"
+                required>
+            <div class="valid-feedback"></div>
+        </div>
+        <div>
+            <label for="validationCustom02" class="form-label">Prenom</label>
+            <input type="text" class="form-control" name="prenom" id="validationCustom02" value="<%= result[0].prenom%>"
+                required>
+            <div class="valid-feedback"></div>
+        </div>
+
+        <div>
+            <label for="validationCustom01" class="form-label">Age</label>
+            <input type="text" class="form-control" name="age" pattern="[0-9]{2}" id="validationCustom01"
+                value="<%= result[0].age %>" required>
+            <div class="valid-feedback"></div>
+        </div>
+        <div>
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom border-primary">
+                <h1 class="h2">Compte du Joueur</h1>
+            </div>
+
+            <div>
+                <label for="validationCustom01" class="form-label">E-mail</label>
+                <input type="email" class="form-control" name="email" value="<%= result[0].email %>" required>
+                <div class="valid-feedback"></div>
+            </div>
+            <div>
+                <label for="validationCustom01" class="form-label">Mot de passe </label>
+                <div class="input-group">
+                    <input type="password" class="form-control" name="motdepasse" id="password"
+                        value="<%= result[0].mot_de_passe %>" required>
+                    <span class="input-group-text"><i id="icon" class="bi bi-eye-fill "></i></span>
+                </div>
+
+                <div class="valid-feedback"></div>
+            </div>
+
+        </div>
+        <div class="form-group mb-4">
+            <button type="submit" class="btn btn-primary mt-3">Modifier Joueur</button>
+
+            <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" id="deleteButton"
+                data-bs-target="#deleteModal">Supprimer Joueur</button>
+
+        </div>
+
+</form>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Vous etes sur le point de SUPPRIMER un joueur de votre equipe .</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Ceci supprimera de votre equipe le joueur <b class="fw-bold">
+                        <%= result[0].nom%>
+                            <%= result[0].prenom%>
+                    </b><br />
+                    Etes-vous sur ?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <form action="/supprimer/<%= result[0].id_ge %>?_method=DELETE" method="POST" class="position-relative">
+                    <button type="submit" class="btn btn-danger">Oui, Supprimer Joueur</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>document.getElementById("icon").addEventListener("click", function () {
+        var passwordField = document.getElementById("password");
+        var icon = this.querySelector("i");
+
+        if (password.type === "password") {
+            password.type = "text";
+            icon.classList.remove("bi-eye-fill");
+            icon.classList.add("bi-eye-slash-fill");
+        } else {
+            password.type = "password";
+            icon.classList.remove("bi-eye-slash-fill");
+            icon.classList.add("bi-eye-fill");
+        }
+    });
+</script>
