@@ -83,9 +83,11 @@
 
                   <form action="/supprimer/<%= element.id_jo %>/<%= userId %>?_method=DELETE" method="POST"
                     class="position-relative">
-                    <button type="submit" class="btn btn-danger btn-small">
+                    <button type="button" class="btn btn-danger btn-small" data-bs-toggle="modal"
+                      data-bs-target="#deleteModal">
                       <i class="bi bi-person-x"></i>
                     </button>
+
                   </form>
 
                 </div>
@@ -97,6 +99,56 @@
         </tbody>
       </table>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--modal pour supprimer -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title">Vous etes sur le point de SUPPRIMER un joueur de votre equipe .</div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Ceci supprimera de votre equipe le joueur <b class="fw-bold">
+                <%= result[0].nom_jo%>
+                  <%= result[0].prenom_jo%>
+              </b><br />
+              Etes-vous sur ?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <form action="/supprimer/<%= result[0].id_jo %>/<%= userId %>?_method=DELETE" method="POST"
+              class="position-relative">
+              <button type="submit" class="btn btn-danger">Oui, Supprimer Joueur</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--modal pour deco -->
+
+
+
+
+
+
+
+
 
 
     <script>

@@ -34,11 +34,32 @@
         </ul>
         <ul class="nav flex-column mt-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/login">
-                    <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i>
+                <a id="logoutLink" class="nav-linkdeco" data-bs-toggle="modal"
+                    data-bs-target="#logoutConfirmationModal">
+                    <i class="bi bi-box-arrow-left m pb-2" style="color: #DA3E52;"></i>
                     Se déconnecter
                 </a>
             </li>
         </ul>
     </div>
 </nav>
+
+<!-- Modal de confirmation de déconnexion -->
+<div class="modal fade" id="logoutConfirmationModal" tabindex="-1" aria-labelledby="logoutConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutConfirmationModalLabel">Confirmation de Déconnexion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir vous déconnecter?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <a href="/login" class="btn btn-danger">Déconnexion</a>
+            </div>
+        </div>
+    </div>
+</div>

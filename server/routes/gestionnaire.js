@@ -32,11 +32,11 @@ router.put('/modifier_stade/:id', requireAuth, gestionnaireController.editpostSt
 router.delete('/supprimer/:id/:idgest', requireAuth, gestionnaireController.supprimerJoueur)
 router.get('/gererjoueurs/:id', requireAuth, gestionnaireController.gererJoueur);
 router.post('/recherche/:id', requireAuth, gestionnaireController.search);
-router.get('/monprofile/:id', gestionnaireController.monprofile);
+router.get('/monprofile/:id', requireAuth, gestionnaireController.monprofile);
 router.put('/monprofile/:id', upload.single('photo_gest'), gestionnaireController.monprofilepost); // pour changer le mdp 
-router.get('/monequipe/:id/', gestionnaireController.monequipe);
-router.get('/stade/:id/', gestionnaireController.monstade);
-router.get('/ajouter_entraineur/:id/', gestionnaireController.addEntraineur);
+router.get('/monequipe/:id/', requireAuth, gestionnaireController.monequipe);
+router.get('/stade/:id/', requireAuth, gestionnaireController.monstade);
+router.get('/ajouter_entraineur/:id/', requireAuth, gestionnaireController.addEntraineur);
 router.post('/ajouter_entraineur/:id', upload.single('photo'), requireAuth, gestionnaireController.postEntraineur); // ajouter a la bdd
 router.post('/ajouter_stade/:id', requireAuth, gestionnaireController.postStade)
 

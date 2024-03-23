@@ -1,4 +1,4 @@
-<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #16659e;">
+<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
 
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/compteGestionnaire/<%= userId %>">Gestionnaire</a>
 
@@ -35,9 +35,38 @@
       <li>
         <hr class="dropdown-divider">
       </li>
-      <li><a class="dropdown-item" href="/login"> <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i>
+      <li><a class="dropdown-item" href="/login" id="logoutLink" data-bs-toggle="modal"
+          data-bs-target="#logoutConfirmationModal"> <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i>
           Se
           déconnecter </a></li>
+
     </ul>
   </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Retrieve the dark mode toggle checkbox element
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      // Toggle the 'dark-mode' class on the body element
+      document.body.classList.toggle('dark-mode');
+
+      // Save dark mode preference to localStorage
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    // Load dark mode preference from localStorage and apply if set
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.checked = true;
+    }
+
+    // Listen for click event on dark mode toggle checkbox
+    darkModeToggle.addEventListener('change', toggleDarkMode);
+  });
+
+</script>

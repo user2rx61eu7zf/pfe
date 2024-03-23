@@ -4,7 +4,7 @@ body {
 }
 
 body.dark-mode {
-    background-color: #333;
+    background-color: #222831;
     color: #fff;
 }
 
@@ -39,19 +39,51 @@ body.dark-mode {
 
 }
 
+/* Light mode styles */
 .sidebar .nav-link {
     font-weight: 500;
-    color: #333;
+    color: #000;
+    /* Black color */
 }
+
+/* Dark mode styles */
+.dark-mode .sidebar .nav-link {
+    font-weight: 500;
+    color: #8ed5e8;
+    /* Custom color for dark mode */
+}
+
+
+.sidebar .nav-linkdeco {
+
+    font-weight: 500;
+    color: #DA3E52;
+    position: relative;
+    top: -30px;
+    left: 15px;
+    cursor: pointer;
+}
+
+
+
 
 .sidebar .nav-link .feather {
     margin-right: 4px;
     color: #727272;
 }
 
+/* Light mode styles */
 .sidebar .nav-link.active {
-    color: #2470dc;
+    color: #0a80f7;
+    /* Light mode text color */
 }
+
+/* Dark mode styles */
+.dark-mode .sidebar .nav-link.active {
+    color: #fff;
+    /* Dark mode text color */
+}
+
 
 .sidebar .nav-link:hover .feather,
 .sidebar .nav-link.active .feather {
@@ -83,16 +115,13 @@ body.dark-mode {
 }
 
 .navbar .form-control::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
+
     color: white;
     opacity: 1;
-    /* Firefox */
+
 }
 
-.dark-mode .navbar {
-    background-color: #333333;
-    color: #ffffff;
-}
+
 
 .form-control-dark {
     color: #fff;
@@ -112,12 +141,12 @@ body.dark-mode {
 }
 
 .nav-item:hover {
-    background-color: #f0f0f0;
+    background-color: #809ba7;
     /* Change background color on hover */
 }
 
 .nav-link:hover {
-    color: #1f3547;
+    color: #fff;
     /* Change text color on hover */
 }
 
@@ -143,11 +172,19 @@ body.dark-mode {
 .form-control {
     padding-right: 35px;
     border-radius: 50px;
+
 }
 
-/* Add this CSS to your stylesheet */
+.dark-mode .form-control {
+    color: #fff;
+    /* White color */
+    background-color: #222831;
+    /* Dark background color */
+    border-color: #6c757d;
+    /* Border color */
+}
 
-/* Apply fade animation to alerts */
+
 .alert {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
@@ -185,4 +222,166 @@ h3 {
 
 h5 {
     font-weight: bold;
+}
+
+
+
+.breadcrumb .breadcrumb-item a {
+    color: #007bff;
+    /* Link color */
+}
+
+.breadcrumb .breadcrumb-item.active {
+    font-weight: 500;
+    color: #8ed5e8;
+    /* Active item color */
+}
+
+/* Dark mode styles */
+.dark-mode .breadcrumb {
+    background-color: #222831;
+
+}
+
+.breadcrumb>li+li::before {
+    color: #ffffff !important;
+}
+
+
+
+.table-striped tbody tr:nth-child(odd) td {
+    background-color: #f8f9fa;
+
+    font-weight: 400;
+
+}
+
+
+.dark-mode .table-striped tbody tr:nth-child(odd) td {
+    background-color: #222831;
+
+}
+
+/* Light mode styles */
+h4 {
+    color: #000;
+    /* Black color */
+}
+
+/* Dark mode styles */
+.dark-mode h4 {
+    color: #8ed5e8;
+    /* White color */
+}
+
+
+/* Light mode styles */
+.navbar {
+    background-color: #16659e;
+    /* Light mode background color */
+}
+
+/* Dark mode styles */
+.dark-mode .navbar {
+    background-color: rgba(4, 4, 4, 0.8);
+    /* Dark mode background color */
+}
+
+/* Light mode styles */
+.table-striped thead th {
+    background-color: #f8f9fa;
+    /* Light mode background color */
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .table-striped thead th {
+    background-color: #222831;
+    /* Dark mode background color */
+    color: #fff;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+.table td {
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .table td {
+    color: #fff;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+.list-group-item {
+    background-color: #f8f9fa;
+    /* Light mode background color */
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .list-group-item {
+    background-color: #222831;
+    /* Dark mode background color */
+    color: #fff;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+.dropdown-menu {
+    background-color: #fff;
+    /* Light mode background color */
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .dropdown-menu {
+    background-color: #222831;
+    /* Dark mode background color */
+    color: #db0000;
+    /* Dark mode text color */
+}
+
+.dark-mode .dropdown-menu,
+.dark-mode .dropdown-menu a.dropdown-item {
+    color: #fff;
+    /* Set text color to white */
+}
+
+.dark-mode .form-check-label {
+    color: #fff;
+    /* Set text color to white for the switch label */
+}
+
+/* Light mode hover color */
+.dropdown-menu li:hover {
+    background-color: #ff0000;
+    /* Red */
+}
+
+/* Dark mode hover color */
+.dark-mode .dropdown-menu li:hover {
+    background-color: #784141;
+    /* Red */
+}
+
+/* Light mode hover color for list items with links */
+.dropdown-menu li:hover a.dropdown-item {
+    background-color: #744c4c;
+    /* Red */
+    color: #fff;
+    /* White text color */
+}
+
+/* Dark mode hover color for list items with links */
+.dark-mode .dropdown-menu li:hover a.dropdown-item {
+    background-color: #c87474;
+    /* Red */
+    color: #fff;
+    /* White text color */
 }

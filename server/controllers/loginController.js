@@ -84,11 +84,10 @@ exports.comptegestionnaire = (req, res) => {
             console.error("Erreur SQLL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        console.log(results)
 
 
 
-        res.render('../views/Gestionnaire/homepageGestionnaire', { locals, userId, results, layout: './layouts/mainGestionnaire.ejs' });
+        res.render('../views/Gestionnaire/homepageGestionnaire', { locals, userId, results });
     });
 
 
