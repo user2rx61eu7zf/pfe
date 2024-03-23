@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const db = require('../config/db');
+const { use } = require('../routes/admin');
 
 
 
@@ -17,6 +18,27 @@ class Joueur {
         this.motdepasse = motdepasse;
     }
 }
+class Entraineur {
+    constructor({ nom, prenom, nationalite, photo, date, email, motdepasse }) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.photo = photo;
+        this.nationalite = nationalite;
+        this.date = date;
+        this.email = email;
+        this.motdepasse = motdepasse;
+    }
+}
+class Stade {
+    constructor({ nom, ville, adresse, capacite, date, }) {
+        this.nom = nom;
+        this.ville = ville;
+        this.adresse = adresse;
+        this.capacite = capacite;
+        this.date = date;
+
+    }
+}
 
 
 
@@ -25,74 +47,69 @@ class Joueur {
 
 exports.addPlayer = async (req, res) => {
     userId = req.params.id;
+    const messages2 = await req.flash('inf');
     console.log(userId)
     const locals = {
         title: 'Ajouter un Joueur ',
     }
-    res.render('../views/Gestionnaire/add', { locals, userId })
+    db.query("SELECT photo_profil FROM compte WHERE id_co=?", [userId], (err, results) => {
+        if (err) {
+            console.log("err avoir pfp" + err)
+        }
+        res.render('../views/Gestionnaire/add', { locals, userId, messages2, results })
+    })
+
 }
 
 // post nouveau joueur 
 
 exports.postPlayer = async (req, res) => {
+    const { nom, prenom, nationalite, poste, maillot, date, poids, taille, email, motdepasse } = req.body;
+    photojoueur = req.file.filename;
 
-    userid = req.params.id;
-    console.log(userid);
-
-
-    //  console.log(req.body);
-    const newjoueur = new Joueur({
-        nom: req.body.nom,
-        prenom: req.body.prenom,
-        nationalite: req.body.nationalite,
-        poste: req.body.poste,
-        maillot: req.body.maillot,
-        age: req.body.age,
-        poids: req.body.poids,
-        taille: req.body.taille,
-        email: req.body.email,
-        motdepasse: req.body.motdepasse
-    })
-
-    db.query('INSERT INTO compte (id_type,nom_utilisateur, mot_de_passe, email_co) VALUES (?,?,?,?)', [2, newjoueur.nom + " " + newjoueur.prenom, newjoueur.motdepasse, newjoueur.email], (err, result) => {
+    // Check if email already exists
+    db.query('SELECT COUNT(*) AS count FROM compte WHERE email_co = ?', [email], (err, results) => {
         if (err) {
-            console.error("erreur creer compte " + err);
-            return res.status(500).send("erreur sql ajouter compte du joueur");
+            console.error("Erreur lors de la vérification de l'email: " + err);
+            return res.status(500).send("Erreur lors de la vérification de l'email");
         }
-        db.query('SELECT id_co FROM compte WHERE email_co =? ', [newjoueur.email], (err, resultid) => {
-            if (err) {
-                console.error("erreur avoir id  compte " + err);
-                return res.status(500).send("erreur sql avoir id compte du joueur");
-            }
-            // avoir id equipe on on veut ajouter un joueur selon lid du compte de gestionnaire connecte /gestionnaire/7
-            db.query('SELECT id_eq FROM equipe  WHERE id_co_ge_eq=?', [userid], (err, resultideq) => {
+        const emailCount = results[0].count;
+        if (emailCount > 0) {
+            req.flash('inf', "Cet email existe déjà.");
+            return res.redirect(`/ajouter_joueur/${req.params.id}`);
+        } else {
+            // Email doesn't exist, proceed with insertion
+            db.query('INSERT INTO compte (id_type, nom_utilisateur, mot_de_passe, email_co) VALUES (?,?,?,?)', [2, `${nom} ${prenom}`, motdepasse, email], (err, results) => {
                 if (err) {
-                    console.error("erreur avoir id  compte " + err);
-                    return res.status(500).send("erreur sql avoir id compte du joueur");
+                    console.error("Erreur lors de la création du compte: " + err);
+                    return res.status(500).send("Erreur lors de la création du compte");
                 }
-                console.log(resultideq) // id de lequipe que le gestionnaire gere 
-                db.query('INSERT INTO joueur (nom_jo, prenom_jo, nationalite_jo, poste_jo, num_mai_jo, age_jo, taille_jo, poids_jo,id_eq_jo,id_co_jo) VALUES (?,?,?,?,?,?,?,?,?,?) ', [newjoueur.nom, newjoueur.prenom, newjoueur.nationalite, newjoueur.poste, newjoueur.maillot, newjoueur.age, newjoueur.taille, newjoueur.poids, resultideq[0].id_eq, resultid[0].id_co], (err, result) => {
+                db.query('SELECT id_co FROM compte WHERE email_co = ?', [email], (err, resultid) => {
                     if (err) {
-                        console.error("erreur creer joueur" + err);
-                        return res.status(500).send("erreur sql ajouter joueur");
+                        console.error("Erreur lors de l'obtention de l'identifiant du compte: " + err);
+                        return res.status(500).send("Erreur lors de l'obtention de l'identifiant du compte");
                     }
-                })
+                    db.query('SELECT id_eq FROM equipe  WHERE id_co_ge_eq = ?', [req.params.id], (err, resultideq) => {
+                        if (err) {
+                            console.error("Erreur lors de l'obtention de l'identifiant de l'équipe: " + err);
+                            return res.status(500).send("Erreur lors de l'obtention de l'identifiant de l'équipe");
+                        }
+                        console.log(resultideq); // id de l'équipe que le gestionnaire gère 
+                        db.query('INSERT INTO joueur (nom_jo, prenom_jo, photo_jo, nationalite_jo, poste_jo, num_mai_jo, date_naiss_jo, taille_jo, poids_jo, id_eq_jo, id_co_jo) VALUES (?,?,?,?,?,?,?,?,?,?,?) ', [nom, prenom, photojoueur, nationalite, poste, maillot, date, taille, poids, resultideq[0].id_eq, resultid[0].id_co], (err, results) => {
+                            if (err) {
+                                console.error("Erreur lors de la création du joueur: " + err);
+                                return res.status(500).send("Erreur lors de la création du joueur");
+                            }
+                            req.flash('info', "Joueur ajouté !");
+                            res.redirect(`/gererjoueurs/${req.params.id}`);
+                        });
+                    });
+                });
+            });
+        }
+    });
+};
 
-
-
-                // console.log("joueur ajoute")
-                //  console.log("compte cree")
-
-            })
-        })
-
-
-    })
-    await req.flash('info', "Joueur ajouté !!")
-
-    res.redirect(`/gererjoueurs/${req.params.id}`)
-
-}
 
 
 
@@ -105,19 +122,69 @@ exports.viewPlayer = async (req, res) => {
         title: "Voir Détails"
     }
     // Exécute une requête SQL pour récupérer les détails du joueur avec l'ID spécifié
-    db.query('SELECT id_jo,nom_jo, prenom_jo, nationalite_jo, poste_jo, num_mai_jo, age_jo, taille_jo, poids_jo,compte.email_co FROM joueur JOIN compte ON joueur.id_co_jo = compte.id_co AND id_jo=?;', [userId], (err, result) => {
+    db.query('SELECT id_jo,nom_jo, prenom_jo,photo_jo, nationalite_jo, poste_jo, num_mai_jo, date_naiss_jo, taille_jo, poids_jo,compte.email_co FROM joueur JOIN compte ON joueur.id_co_jo = compte.id_co AND id_jo=?;', [userId], (err, results) => {
         if (err) {
             console.error("erreur sql id joueur" + err);
             return res.status(500).send("erreur sql id joueur");
         }
 
 
-        const id = result[0].id_jo;
-        res.render('../views/Gestionnaire/details', { locals, id, result, userId }); // Rend la vue avec les détails du joueur
+        const id = results[0].id_jo;
+        res.render('../views/Gestionnaire/details', { locals, id, results, userId }); // Rend la vue avec les détails du joueur
 
     });
 }
+// voir entraineur
+exports.voirEntraineur = async (req, res) => {
 
+    const userId = req.params.id;  // Récupère l'ID du joueur depuis l'URL
+
+    const locals = {
+        title: "Voir Détails"
+    }
+
+    db.query('SELECT * FROM entraineur INNER JOIN equipe ON equipe.id_eq = entraineur.id_eq_ent INNER JOIN compte ON compte.id_co = entraineur.id_co_ent WHERE id_co_ge_eq=?', [userId], (err, result) => {
+        if (err) {
+            console.log("erreue a avoir les donnes du coach" + err);
+            return res.status(500).send("erreur sql avoir data du coach ")
+        }
+        db.query("SELECT photo_profil FROM compte WHERE id_co=?", [userId], (err, results) => {
+            if (err) {
+                console.log("err avoir pfp" + err)
+            }
+            res.render('../views/Gestionnaire/detailsEntraineur', { locals, userId, results, result });
+        })
+
+    })
+
+
+
+
+
+
+}
+exports.voirStade = async (req, res) => {
+
+    const userId = req.params.id;  // Récupère l'ID du joueur depuis l'URL
+
+    const locals = {
+        title: "Voir Détails"
+    }
+
+    db.query('SELECT * FROM stade INNER JOIN equipe ON equipe.id_eq = stade.id_eq_std WHERE id_co_ge_eq=?', [userId], (err, results) => {
+        if (err) {
+            console.log("erreue a avoir les donnes du stade" + err);
+            return res.status(500).send("erreur sql avoir data du stade ")
+        }
+        res.render('../views/Gestionnaire/detailsStade', { locals, userId, results });
+    })
+
+
+
+
+
+
+}
 // get edit joueur
 
 exports.editPlayer = async (req, res) => {
@@ -129,18 +196,66 @@ exports.editPlayer = async (req, res) => {
         title: "Modifier Joueur"
     }
     // Exécute une requête SQL pour récupérer les détails du joueur avec l'ID spécifié
-    db.query('SELECT id_jo,nom_jo, prenom_jo, nationalite_jo, poste_jo, num_mai_jo, age_jo, taille_jo, poids_jo,compte.email_co,mot_de_passe FROM joueur JOIN compte ON joueur.id_co_jo = compte.id_co AND id_jo=?;', [playerId], (err, result) => {
+    db.query('SELECT id_jo,nom_jo, prenom_jo,photo_jo, nationalite_jo, poste_jo, num_mai_jo, date_naiss_jo, taille_jo, poids_jo,compte.email_co,mot_de_passe FROM joueur JOIN compte ON joueur.id_co_jo = compte.id_co AND id_jo=?;', [playerId], (err, results) => {
         if (err) {
             console.error("erreur sql id joueur" + err);
             return res.status(500).send("erreur sql id joueur");
         }
 
 
-        const id = result[0].id_jo;
-        res.render('../views/Gestionnaire/modifier', { locals, id, result, userId }); // Rend la vue avec les détails du joueur
+        const id = results[0].id_jo;
+        res.render('../views/Gestionnaire/modifier', { locals, id, results, userId }); // Rend la vue avec les détails du joueur
 
     });
 }
+// edit entraineur 
+exports.editEntraineur = async (req, res) => {
+    userId = req.params.id;
+
+    // Récupère l'ID du joueur depuis l'URL
+
+    const locals = {
+        title: "Modifier Entraineur "
+    }
+
+    db.query('SELECT * FROM entraineur JOIN compte ON entraineur.id_co_ent = compte.id_co JOIN equipe ON equipe.id_eq = entraineur.id_eq_ent WHERE id_co_ge_eq = ?;', [userId], (err, results) => {
+        if (err) {
+            console.error("erreur sql page modifier coach " + err)
+            return res.status(500).send("erreur sql page modifier coach");
+        }
+        // console.log(result)
+
+
+
+        res.render('../views/Gestionnaire/modifierEntraineur', { locals, results, userId }); // Rend la vue avec les détails du joueur
+
+    });
+}
+exports.editStade = async (req, res) => {
+    userId = req.params.id;
+
+    // Récupère l'ID du joueur depuis l'URL
+
+    const locals = {
+        title: "Modifier Stade "
+    }
+
+    db.query('SELECT * FROM stade JOIN equipe ON stade.id_eq_std = equipe.id_eq  WHERE id_co_ge_eq = ?;', [userId], (err, results) => {
+        if (err) {
+            console.error("erreur sql page modifier stade " + err)
+            return res.status(500).send("erreur sql page modifier stade");
+        }
+        // console.log(result)
+
+
+
+        res.render('../views/Gestionnaire/modifierStade', { locals, results, userId }); // Rend la vue avec les détails du joueur
+
+    });
+}
+
+
+
 // put edit joueur
 exports.editpost = async (req, res) => {
     playerId = req.params.id
@@ -151,7 +266,7 @@ exports.editpost = async (req, res) => {
         nationalite: req.body.nationalite,
         poste: req.body.poste,
         maillot: req.body.maillot,
-        age: req.body.age,
+        date: req.body.date,
         poids: req.body.poids,
         taille: req.body.taille,
         email: req.body.email,
@@ -167,7 +282,48 @@ exports.editpost = async (req, res) => {
                 console.error("erreur avoir id  compte " + err);
                 return res.status(500).send("erreur sql avoir id compte du joueur");
             }
-            db.query('UPDATE joueur SET nom_jo=?, prenom_jo=?, nationalite_jo=?, poste_jo=?, num_mai_jo=?, age_jo=?, taille_jo=?, poids_jo=?,id_co_jo=? WHERE id_jo=?', [newjoueur.nom, newjoueur.prenom, newjoueur.nationalite, newjoueur.poste, newjoueur.maillot, newjoueur.age, newjoueur.taille, newjoueur.poids, resultid[0].id_co, playerId], (err, result) => {
+            db.query('UPDATE joueur SET nom_jo=?, prenom_jo=?, nationalite_jo=?, poste_jo=?, num_mai_jo=?, date_naiss_jo=?, taille_jo=?, poids_jo=?,id_co_jo=? WHERE id_jo=?', [newjoueur.nom, newjoueur.prenom, newjoueur.nationalite, newjoueur.poste, newjoueur.maillot, newjoueur.date, newjoueur.taille, newjoueur.poids, resultid[0].id_co, playerId], (err, result) => {
+                if (err) {
+                    console.error("erreur modifier joueur" + err);
+                    return res.status(500).send("erreur sql modifier joueur");
+                }
+
+
+
+            })
+        })
+
+
+    })
+
+
+    await req.flash('info', "Joueur Modifié !!")
+
+    res.redirect(`/gererjoueurs/${userId}`,)
+
+}
+exports.editpostEntraineur = async (req, res) => {
+    userId = req.params.id
+
+    const newentraineur = new Entraineur({
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        nationalite: req.body.nationalite,
+        date: req.body.date,
+        email: req.body.email,
+        motdepasse: req.body.motdepasse
+    })
+    db.query('UPDATE compte JOIN entraineur ON compte.id_co = entraineur.id_co_ent JOIN equipe ON equipe.id_eq =entraineur.id_eq_ent SET compte.id_type=?, compte.nom_utilisateur=?, compte.mot_de_passe=?, compte.email_co=? WHERE id_co_ge_eq=?', [2, newentraineur.nom + " " + newentraineur.prenom, newentraineur.motdepasse, newentraineur.email, userId], (err, result) => {
+        if (err) {
+            console.error("erreur creer compte " + err);
+            return res.status(500).send("erreur sql ajouter compte du joueur");
+        }
+        db.query('SELECT id_co FROM compte WHERE email_co =? ', [newentraineur.email], (err, resultid) => {
+            if (err) {
+                console.error("erreur avoir id  compte " + err);
+                return res.status(500).send("erreur sql avoir id compte du joueur");
+            }
+            db.query('UPDATE entraineur JOIN equipe ON equipe.id_eq = entraineur.id_eq_ent SET nom_ent = ?, prenom_ent = ?, nationalite_ent = ?,date_naiss_ent = ? WHERE id_co_ge_eq = ?', [newentraineur.nom, newentraineur.prenom, newentraineur.nationalite, newentraineur.date, userId], (err, result) => {
                 if (err) {
                     console.error("erreur creer joueur" + err);
                     return res.status(500).send("erreur sql ajouter joueur");
@@ -183,9 +339,41 @@ exports.editpost = async (req, res) => {
     })
 
 
-    await req.flash('info', "Joueur Modifié !!")
+    await req.flash('infoentraineur', "Entraineur Modifié !!")
 
-    res.redirect(`/gererjoueurs/${userId}`,)
+    res.redirect(`/monequipe/${userId}`,)
+
+}
+exports.editpostStade = async (req, res) => {
+    userId = req.params.id
+
+    const newstade = new Stade({
+        nom: req.body.nom,
+        ville: req.body.ville,
+        adresse: req.body.adresse,
+        ville: req.body.ville,
+        capacite: req.body.capacite,
+        date: req.body.date,
+
+    })
+    db.query('UPDATE stade  JOIN equipe AS eq1 ON stade.id_eq_std = eq1.id_eq  JOIN equipe AS eq2 ON eq1.id_eq = eq2.id_eq SET stade.nom_std = ?,  stade.ville_std = ?, stade.adresse_std = ?, stade.capacite_std = ?,stade.date_crt=? WHERE eq2.id_co_ge_eq = ? ', [newstade.nom, newstade.ville, newstade.adresse, newstade.capacite, newstade.date, userId], (err, result) => {
+        if (err) {
+            console.error("erreur modifier stade " + err);
+            return res.status(500).send("erreur sql modifier stade");
+        }
+
+
+
+    })
+
+
+
+
+
+
+    await req.flash('editstade', "Stade Modifié !!")
+
+    res.redirect(`/monequipe/${userId}`,)
 
 }
 
@@ -226,16 +414,23 @@ exports.gererJoueur = async (req, res) => {
     const locals = {
         title: 'Gestion des Joueurs',
     }
-    db.query("SELECT joueur.id_jo, joueur.nom_jo, joueur.prenom_jo, joueur.nationalite_jo, joueur.poste_jo, joueur.num_mai_jo, joueur.age_jo, joueur.taille_jo, joueur.poids_jo, compte.email_co FROM joueur JOIN equipe ON joueur.id_eq_jo = equipe.id_eq JOIN compte ON joueur.id_co_jo = compte.id_co WHERE equipe.id_co_ge_eq = ?; ", [userId], (err, result) => {
+    db.query("SELECT joueur.id_jo, joueur.nom_jo, joueur.prenom_jo,photo_jo, joueur.nationalite_jo, joueur.poste_jo, joueur.num_mai_jo, joueur.date_naiss_jo, joueur.taille_jo, joueur.poids_jo, compte.email_co FROM joueur JOIN equipe ON joueur.id_eq_jo = equipe.id_eq JOIN compte ON joueur.id_co_jo = compte.id_co WHERE equipe.id_co_ge_eq = ?; ", [userId], (err, result) => {
         if (err) {
             console.error("erreur sql select data joueurs  " + err);
             return res.status(500).send("erreur sql select data joueurs");
         }
+        db.query("SELECT photo_profil FROM compte WHERE id_co=?", [userId], (err, results) => {
+            if (err) {
+                console.error("erreur sql select pfp  " + err);
+                return res.status(500).send("erreur sql pfp");
+            }
+
+            console.log(results)
+
+            res.render('GestionnaireIndex', { locals, messages, results, userId, result })
+        })
 
 
-        // console.log(result)
-
-        res.render('GestionnaireIndex', { locals, messages, result, userId })
     })
 
 
@@ -266,12 +461,12 @@ exports.monprofile = async (req, res) => {
     const locals = {
         title: "Mon profile"
     }
-    db.query('SELECT nom_utilisateur,email_co FROM compte WHERE id_co=?', [userId], (err, result) => {
+    db.query('SELECT nom_utilisateur,email_co,photo_profil FROM compte WHERE id_co=?', [userId], (err, results) => {
         if (err) {
             console.error("erreur sql page profile  " + err);
             return res.status(500).send("erreur sql page profile ");
         }
-        db.query('SELECT nom_eq FROM equipe WHERE id_co_ge_eq=?', [userId], (err, results) => {
+        db.query('SELECT nom_eq FROM equipe WHERE id_co_ge_eq=?', [userId], (err, result) => {
             if (err) {
                 console.error("erreur sql equipe page profile  " + err);
                 return res.status(500).send("erreur sql equipe page profile ");
@@ -290,46 +485,183 @@ exports.monprofilepost = async (req, res) => {
     const mdpactuel = req.body.mdpactuel;
     const nvmdp = req.body.nvmdp;
 
+
     const locals = {
         title: "Mon profile"
     }
 
-    db.query('SELECT mot_de_passe FROM compte WHERE id_co=?', [userId], (err, result) => {
+    // Store the response object outside the MySQL query callback
+    const response = res;
+
+    db.query('SELECT mot_de_passe, photo_profil FROM compte WHERE id_co=?', [userId], (err, result) => {
         if (err) {
             console.error("erreur sql avoir mdp   " + err);
-            return res.status(500).send("erreur sql avoir mdp ");
+            return response.status(500).send("erreur sql avoir mdp ");
         }
 
         // Check if current password matches
-        if (mdpactuel === result[0].mot_de_passe) {
+        if (mdpactuel === result[0].mot_de_passe && !req.file) {
+            // If current password matches and no file (profile picture) is uploaded
+            photo_gest = result[0].photo_profil;
             // Update password
-            db.query('UPDATE compte SET mot_de_passe=? WHERE id_co=?', [nvmdp, userId], (err, result) => {
+            db.query('UPDATE compte SET mot_de_passe=?,photo_profil=? WHERE id_co=?', [nvmdp, photo_gest, userId], (err, results) => {
                 if (err) {
                     console.error("erreur sql changer mdp   " + err);
-                    return res.status(500).send("erreur sql changer mdp ");
+                    return response.status(500).send("erreur sql changer mdp ");
                 } else {
-                    console.log("password modified");
 
-                    req.flash('info1', 'Mot de passe changé avec succès  ');
-                    res.redirect(`/monprofile/${userId}`);
+                    req.flash('info1', 'Mot de passe changé avec succès');
+                    return response.redirect(`/monprofile/${userId}`);
                 }
             });
+        } else if (!req.body.mdpactuel && !req.file) {
+            // If neither the current password nor the file (profile picture) is updated
+
+            return response.redirect(`/monprofile/${userId}`);
+        } else if (!req.body.mdpactuel && req.file) {
+            // If only the profile picture is being changed
+            photo_gest = req.file.filename;
+            db.query('UPDATE compte SET photo_profil=? WHERE id_co=?', [photo_gest, userId], (err, res) => {
+                if (err) {
+                    console.error("erreur sql changer pfp   " + err);
+                    return response.status(500).send("erreur sql changer pfp ");
+                }
+                return response.redirect(`/monprofile/${userId}`);
+            });
         } else {
-            req.flash('info', ' Mot de passe actuel est faux ');
-            res.redirect(`/monprofile/${userId}`);
+            // If the current password is incorrect
+            req.flash('info', 'Mot de passe actuel est faux');
+            return response.redirect(`/monprofile/${userId}`);
         }
     });
+
 };
 
 exports.monequipe = async (req, res) => {
     userId = req.params.id;
+    const message_ent = await req.flash('infoentraineur');
+    const message_editstade = await req.flash('editstade');
+    const message_stade = await req.flash('infostade');
+
 
     const locals = { title: "Mon equipe" }
 
+    db.query("SELECT * FROM equipe WHERE id_co_ge_eq=? ", [userId], (err, result) => {
+        if (err) {
+            console.error("erreur sql avoir donnee equipe   " + err);
+            return res.status(500).send("erreur sql avoir donnee equipe ");
+        }
+
+        db.query('SELECT * FROM entraineur JOIN equipe ON equipe.id_eq = entraineur.id_eq_ent WHERE equipe.id_co_ge_eq = ?', [userId], (err, resu) => {
+            if (err) {
+                console.error("erreur sql avoir donnee entaineur   " + err);
+                return res.status(500).send("erreur sql avoir donnee entraineur ");
+            }
+            db.query('SELECT * FROM stade  JOIN equipe ON equipe.id_eq = stade.id_eq_std WHERE equipe.id_co_ge_eq = ? ', [userId], (err, resultstd) => {
+                if (err) {
+                    console.error("erreur sql avoir donnee stade   " + err);
+                    return res.status(500).send("erreur sql avoir donnee stade ");
+                }
+                db.query('SELECT * FROM compte WHERE id_co=? ', [userId], (err, results) => {
+                    if (err) {
+                        console.error("erreur sql avoir pfp  " + err);
+                        return res.status(500).send("erreur sql pfp ")
+                    }
+                    console.log(results)
+                    console.log(result)
+                    res.render('../views/Gestionnaire/equipe', { locals, results, resu, message_ent, message_stade, resultstd, result, message_editstade })
+                })
 
 
-    res.render('../views/Gestionnaire/equipe', { locals })
+            })
 
+
+        })
+
+
+    })
+}
+exports.addEntraineur = async (req, res) => {
+    userId = req.params.id;
+    const message_email = await req.flash('inf2');
+    const locals = { title: "Ajouter Entraineur " }
+
+    db.query("SELECT photo_profil FROM compte WHERE id_co=?", [userId], (err, results) => {
+        if (err) {
+            console.log("err avoir pfp" + err)
+        }
+        res.render('../views/Gestionnaire/add_entraineur', { locals, message_email, results })
+    })
+
+
+}
+
+exports.postEntraineur = async (req, res) => {
+    userId = req.params.id;
+    const newentraineur = new Entraineur({
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        nationalite: req.body.nationalite,
+        photo: req.file.filename,
+        date: req.body.date,
+        email: req.body.email,
+        motdepasse: req.body.motdepasse
+    })
+
+
+    db.query('SELECT COUNT(*) AS count FROM compte WHERE email_co = ?', [newentraineur.email], (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la vérification de l'email: " + err);
+            return res.status(500).send("Erreur lors de la vérification de l'email");
+        }
+        const emailCount = result[0].count;
+        if (emailCount > 0) {
+            req.flash('inf2', "Cet email existe déjà.");
+            return res.redirect(`/ajouter_entraineur/${req.params.id}`);
+        } else {
+            // Email doesn't exist, proceed with insertion
+            db.query('INSERT INTO compte (id_type, nom_utilisateur, mot_de_passe, email_co) VALUES (?,?,?,?)', [3, `${newentraineur.nom} ${newentraineur.prenom}`, newentraineur.motdepasse, newentraineur.email], (err, result) => {
+                if (err) {
+                    console.error("Erreur lors de la création du compte: " + err);
+                    return res.status(500).send("Erreur lors de la création du compte");
+                }
+                db.query('SELECT id_eq FROM equipe WHERE id_co_ge_eq = ?', [userId], (err, resultideq) => {
+                    if (err) {
+                        console.error("Erreur sql lors de l'obtention de l'identifiant du equipe: " + err);
+                        return res.status(500).send("Erreur sql lors de l'obtention de l'identifiant de lequipe");
+                    }
+                    db.query('SELECT id_co FROM compte  WHERE email_co = ?', [newentraineur.email], (err, resultidco) => {
+                        if (err) {
+                            console.error("Erreur sql lors de l'obtention de l'identifiant du compte: " + err);
+                            return res.status(500).send("Erreur sql lors de l'obtention de l'identifiant du compte");
+                        }
+                        db.query(' INSERT INTO entraineur ( nom_ent, prenom_ent, date_naiss_ent ,img_ent, nationalite_ent, id_eq_ent, id_co_ent) VALUES ( ?,?,?, ?,?, ?, ?);', [newentraineur.nom, newentraineur.prenom, newentraineur.date, newentraineur.photo, newentraineur.nationalite, resultideq[0].id_eq, resultidco[0].id_co], (err, result) => {
+                            if (err) {
+                                console.error("Erreur lors de la création du entraineur: " + err);
+                                return res.status(500).send("Erreur lors de la création du entraineur");
+                            }
+                            req.flash('infoentraineur', "Entraineur ajouté !");
+                            res.redirect(`/monequipe/${req.params.id}`);
+                        });
+                    });
+                });
+            });
+        }
+    });
+
+
+}
+
+
+exports.monstade = async (req, res) => {
+    userId = req.params.id;
+    const locals = { title: "Mon equipe" }
+    db.query("SELECT photo_profil FROM compte WHERE id_co=?", [userId], (err, results) => {
+        if (err) {
+            console.log("err avoir pfp" + err)
+        }
+        res.render('../views/Gestionnaire/ajouterStade', { locals, results })
+    })
 
 
 
@@ -341,3 +673,32 @@ exports.monequipe = async (req, res) => {
 
 }
 
+
+exports.postStade = async (req, res) => {
+    userId = req.params.id;
+    const newstade = new Stade({
+        nom: req.body.nom,
+        ville: req.body.ville,
+        adresse: req.body.adresse,
+        capacite: req.body.capacite,
+        date: req.body.date
+    })
+    db.query(' SELECT id_eq FROM equipe WHERE equipe.id_co_ge_eq = ?', [userId], (err, result) => {
+        if (err) {
+            console.log("erreur sql avoir id equipe  " + err)
+            return res.status(500).send("erreur sql avoir id equipe ")
+        }
+        console.log(res)
+        db.query('INSERT INTO STADE (nom_std,ville_std,adresse_std,capacite_std,date_crt,id_eq_std) VALUES (?,?,?,?,?,?) ', [newstade.nom, newstade.ville, newstade.adresse, newstade.capacite, newstade.date, result[0].id_eq], (err, result) => {
+            if (err) {
+                console.log("erreur sql ajouter stade" + err)
+                return res.status(500).send("erreur sql ajouter stade")
+            }
+
+        })
+        req.flash('infostade', "Stade ajouté !");
+        res.redirect(`/monequipe/${req.params.id}`);
+    })
+
+
+}

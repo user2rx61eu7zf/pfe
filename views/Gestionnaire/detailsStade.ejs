@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        voir_stade
+    </h1>
+</div>
+
+
+<div class="col py-3">
+
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Accueil</a></li>
+
+                    <li class="breadcrumb-item"><a href="/monequipe/<%= userId %>">Mon equipe</a></li>
+
+                    <li class="breadcrumb-item">Voir details Stade</li>
+
+
+                    </li>
+
+
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+
+</div>
+
+
+<ul class="list-group">
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Nom du stade:</b></div>
+            <div class="col">
+                <%= results.length> 0 ? results[0].nom_std : 'null' %>
+            </div>
+        </div>
+    </li>
+
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Ville:</b></div>
+            <div class="col">
+                <%= results.length> 0 ? results[0].ville_std : 'null' %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Adresse:</b></div>
+            <div class="col">
+                <%= results.length> 0 ? results[0].adresse_std : 'null' %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Capacité:</b></div>
+            <div class="col">
+                <%= results.length> 0 ? results[0].capacite_std : 'null' %>
+            </div>
+        </div>
+    </li>
+
+
+
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Date de Creation:</b></div>
+            <div class="col">
+                <% if(results.length> 0) {
+                    // Get the date of birth string
+                    var dateOfBirthString = results[0].date_crt;
+
+                    // Create a new Date object from the date string
+                    var dateOfBirth = new Date(dateOfBirthString);
+
+                    // Format the date to your desired format (e.g., "DD/MM/YYYY")
+                    var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
+                    + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
+                    + dateOfBirth.getFullYear();
+
+                    // Output the formatted date
+                    %> <%= formattedDateOfBirth %>
+                        <% } else { // Output 'null' if no result is available %> null <% } %>
+            </div>
+        </div>
+
+    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>

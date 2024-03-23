@@ -1,38 +1,43 @@
 <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #16659e;">
 
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/compteGestionnaire/<%= userId %>">Gestionnaire</a>
-  
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+    data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <form class="col-8 col-md-5 col-lg-4 d-flex justify-content-center mb-2 mb-md-0" role="search" method="POST" action="/recherche/<%= userId %>">
-    
+  <form class="col-8 col-md-5 col-lg-4 d-flex justify-content-center mb-2 mb-md-0" role="search" method="POST"
+    action="/recherche/<%= userId %>">
+
     <div class="search-container">
-      <input type="search" name="searchTerm" class="form-control form-control-dark border-0" placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px;">
+      <input type="search" name="searchTerm" class="form-control form-control-dark border-0"
+        placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px;">
       <i class="bi bi-search search-icon" style="color: rgb(10, 37, 212);"></i>
+    </div>
+  </form>
+
+  <div class="dropdown text-end" style="margin-right: 20px;">
+    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+      data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="/images/<%= results[0].photo_profil %>" alt="" width="32" height="32" class="rounded-circle">
+
+    </a>
+    <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
+      <li><a class="dropdown-item" href="/monprofile/<%= userId %>"> <i class="bi bi-person"></i> Mon profile </a>
+      </li>
+      <li class="dropdown-item">
+        <div class="form-check form-switch" style=" margin-left: auto;">
+          <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+          <label class="form-check-label" for="darkModeToggle"> Mode sombre </label>
+        </div>
+      </li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item" href="/login"> <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i>
+          Se
+          déconnecter </a></li>
+    </ul>
   </div>
-</form>
-
-  
-<div class="dropdown text-end" style="margin-right: 20px;">
-  <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-    <img src="https://avatars.githubusercontent.com/u/102063123?s=96&v=4" alt="mdo" width="32" height="32" class="rounded-circle">
-  </a>
-  <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
-    <li><a class="dropdown-item" href="/monprofile/<%= userId %>"> <i class="bi bi-person"></i> Mon profile </a></li>
-    <li class="dropdown-item">
-      <div class="form-check form-switch" style=" margin-left: auto;">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-        <label class="form-check-label" for="flexSwitchCheckChecked"> Mode sombre </label>
-      </div>
-    </li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="/login">  <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i> Se déconnecter </a></li>
-  </ul>
-</div>
-
-
 </header>
-
-

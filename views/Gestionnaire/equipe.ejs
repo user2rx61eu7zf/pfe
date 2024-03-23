@@ -1,1 +1,183 @@
-hhhhhhhhhhh
+<div class="col py-1">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Acceuil</a>
+                    </li>
+                    <li class="breadcrumb-item active">Mon equipe</li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<div class="profile-card">
+    <div class="text-center">
+
+
+        <% if (result && result.length> 0 && result[0].logo_eq) { %>
+            <img src="<%= result[0].logo_eq %>" class="img-fluid rounded-circle mb-3" alt="Profile Picture"
+                style="width: 160px; height: 180px;">
+            <% } else { %>
+                <p>No logo found</p>
+                <% } %>
+
+                    <h3>
+                        <%= result.length> 0 ? result[0].nom_eq: 'null' %>
+                    </h3>
+                    <h5>
+                        <%= result.length> 0 ? result[0].ville_eq: 'null' %>
+                    </h5>
+                    <p>
+                        <%= result.length> 0 ? result[0].abre_eq: 'null' %>
+                    </p>
+    </div>
+    <hr>
+    <% message_ent.forEach(element=> { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= element %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% }) %>
+            <h4>Entraineur:</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <tbody>
+                        <tr class="align-middle">
+                            <td>
+                                <%= resu.length> 0 ? resu[0].nom_ent : 'Ajouter votre entraineur ' %>
+                            </td>
+                            <td>
+                                <%= resu.length> 0 ? resu[0].prenom_ent : '' %>
+                            </td>
+                            <td>
+                                <div style="position: relative; margin-left: 50px;">
+                                    <% if (resu.length> 0 && resu[0].img_ent) { %>
+                                        <img src="/images/<%= resu[0].img_ent %>"
+                                            class="img-fluid rounded-circle mb-3 mt-3" alt="Description of the image"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                        <% } else { %>
+                                            <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3"
+                                                alt="image" style="width: 50px; height: 50px; object-fit: cover;">
+                                            <% } %>
+                                </div>
+
+                            </td>
+
+
+                            <td class="text-end">
+                                <div class="d-flex flex-row justify-content-end gap-2 align-items-center">
+                                    <a href="/ajouter_entraineur/<%= userId %>" id="add_btn" type="button"
+                                        class="btn btn-success btn-small">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </a>
+                                    <a href="/voir_entraineur/<%= userId %>" type="button"
+                                        class="btn btn-primary btn-small">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="/modifier_entraineur/<%= userId %>" type="button"
+                                        class="btn btn-warning btn-small">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+            <hr>
+            <% message_stade.forEach(element=> { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <%= element %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% }) %>
+                    <% message_editstade.forEach(element=> { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <%= element %>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                        <% }) %>
+                            <h4>Stade:</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm">
+
+
+                                    <tbody>
+
+                                        <tr class="align-middle">
+                                            <td>
+                                                <%= resultstd.length> 0 ? resultstd[0].nom_std : 'Ajouter votre stade '
+                                                    %>
+                                            </td>
+                                            <td>
+                                                <%= resultstd.length> 0 ? resultstd[0].ville_std : '' %>
+                                            </td>
+                                            <td>
+                                                <%= resultstd.length> 0 ? resultstd[0].capacite_std : '' %>
+                                            </td>
+
+                                            <td class="text-end">
+                                                <div class="d-flex flex-row justify-content-end gap-2">
+                                                    <a href="/stade/<%= userId %>" id="add_btn_std" type="button"
+                                                        class="btn btn-success btn-small">
+                                                        <i class="bi bi-plus-circle"></i>
+                                                    </a>
+                                                    <a href="/voir_stade/<%= userId %>" type="button"
+                                                        class="btn btn-primary btn-small">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+
+                                                    <a href="/modifier_stade/<%= userId %>" type="button"
+                                                        class="btn btn-warning btn-small">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+
+
+
+                                                </div>
+                                                </t d>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            </form>
+
+</div>
+<script>
+    //desac le bouton add entraineur
+    document.addEventListener('DOMContentLoaded', function () {
+        var element = document.getElementById("add_btn");
+        var nomEnt = "<%= resu.length > 0 ? resu[0].nom_ent : 'null' %>";
+
+        if (nomEnt !== 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true"); // Add aria-disabled attribute
+        } else {
+            element.addEventListener('click', function (event) {
+                window.location.href = "/ajouter_entraineur/<%= userId %>";
+            });
+        }
+    });
+    //desac le bouton add stade
+    document.addEventListener('DOMContentLoaded', function () {
+        var element = document.getElementById("add_btn_std");
+        var nomEnt = "<%= resultstd.length > 0 ? resultstd[0].nom_std : 'null' %>";
+
+        if (nomEnt !== 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true"); // Add aria-disabled attribute
+        } else {
+            element.addEventListener('click', function (event) {
+                window.location.href = "/ajouter_stade/<%= userId %>";
+            });
+        }
+    });
+</script>

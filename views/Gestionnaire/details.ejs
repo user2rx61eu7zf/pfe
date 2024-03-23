@@ -1,110 +1,187 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"><%= result[0].nom_jo %> <%= result[0].prenom_jo %></h1>
-  </div>
+  <h1 class="h2">
+    <%= results[0].nom_jo %>
+      <%= results[0].prenom_jo %>
+  </h1>
+</div>
 
 
-  <div class="col py-3">
+<div class="col py-3">
 
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-            <li class="breadcrumb-item active"><%= result[0].nom_jo + ' ' + result[0].prenom_jo %></li>
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+          <li class="breadcrumb-item active">
+            <%= results[0].nom_jo + ' ' + results[0].prenom_jo %>
+          </li>
 
 
-          </ol>
-        </nav>
-      </div>
-      
+        </ol>
+      </nav>
     </div>
-  
+
   </div>
-  
-  <ul class="list-group">
-  
-    <li class="list-group-item"> 
-      <div class="row">
-        <div class="col" style="max-width: 140px"> <b>Nom:</b></div>
-        <div class="col"><%= result[0].nom_jo %></div>
+
+</div>
+
+<ul class="list-group">
+
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Nom:</b></div>
+      <div class="col">
+        <%= results[0].nom_jo %>
       </div>
-    </li>
-    
-  
-    <li class="list-group-item"> 
-      <div class="row">
-        <div class="col" style="max-width: 140px"> <b>Prenom:</b></div>
-        <div class="col"><%= result[0].prenom_jo %></div>
+    </div>
+  </li>
+
+
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Prenom:</b></div>
+      <div class="col">
+        <%= results[0].prenom_jo %>
       </div>
-    </li>
-    <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Nationalite:</b></div>
-          <div class="col"><%= result[0].nationalite_jo %></div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Poste:</b></div>
-          <div class="col"><%= result[0].poste_jo %></div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>N° Maillot:</b></div>
-          <div class="col"><%= result[0].num_mai_jo %></div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Age:</b></div>
-          <div class="col"><%= result[0].age_jo %></div>
-        </div>
-      </li>
-  
-    <li class="list-group-item"> 
-      <div class="row">
-        <div class="col" style="max-width: 140px"> <b>Taille:</b></div>
-        <div class="col"><%= result[0].taille_jo  %> cm</div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Nationalite:</b></div>
+      <div class="col">
+        <%= results[0].nationalite_jo %>
       </div>
-    </li>
-    <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Poids:</b></div>
-          <div class="col"><%= result[0].poids_jo %> kg </div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Image:</b></div>
-          <div class="col">mzl mdrthache</div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Nombre de buts :</b></div>
-          <div class="col"><%= result[0].nbr_buts_jo %></div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Nombre de passes décisives :</b></div>
-          <div class="col"><%= result[0].nbr_passe_jo %></div>
-        </div>
-      </li>
-      <li class="list-group-item"> 
-        <div class="row">
-          <div class="col" style="max-width: 140px"> <b>Email:</b></div>
-          <div class="col"><%= result[0].email_co %></div>
-        </div>
-      </li>
-  
-   
-  
-    
-  
-    
-  
-  </ul>
-  
-  
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Poste:</b></div>
+      <div class="col">
+        <%= results[0].poste_jo %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>N° Maillot:</b></div>
+      <div class="col">
+        <%= results[0].num_mai_jo %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Date de Naissance:</b></div>
+      <div class="col">
+        <% if(results.length> 0) {
+          // Get the date of birth string
+          var dateOfBirthString = results[0].date_naiss_jo;
+
+          // Create a new Date object from the date string
+          var dateOfBirth = new Date(dateOfBirthString);
+
+          // Format the date to your desired format (e.g., "DD/MM/YYYY")
+          var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
+          + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
+          + dateOfBirth.getFullYear();
+
+          // Output the formatted date
+          %> <%= formattedDateOfBirth %>
+            <% } else { // Output 'null' if no result is available %> null <% } %>
+      </div>
+    </div>
+
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Age:</b></div>
+      <div class="col">
+        <% if(results.length> 0) {
+          // Get the date of birth string
+          var dateOfBirthString = results[0].date_naiss_jo;
+
+          // Create a new Date object from the date string
+          var dateOfBirth = new Date(dateOfBirthString);
+
+          // Calculate the current date
+          var currentDate = new Date();
+
+          // Calculate the difference in milliseconds between the current date and the birth date
+          var timeDiff = currentDate.getTime() - dateOfBirth.getTime();
+
+          // Calculate the age based on the time difference
+          var ageDate = new Date(timeDiff);
+          var calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+          // Output the calculated age
+          %> <%= calculatedAge %>
+            <% } else { // Output 'null' if no result is available %> null <% } %>
+      </div>
+    </div>
+  </li>
+
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Taille:</b></div>
+      <div class="col">
+        <%= results[0].taille_jo %> cm
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Poids:</b></div>
+      <div class="col">
+        <%= results[0].poids_jo %> kg
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Image:</b></div>
+      <div class="col">
+        <% if ( results[0].photo_jo) { %>
+          <img src="/images/<%= results[0].photo_jo %>" class="img-fluid mb-3 mt-3 rounded"
+            alt="Description of the image" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+
+          <% } else { %>
+            <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
+              style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+            <% } %>
+
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Nombre de buts :</b></div>
+      <div class="col">
+        <%= results[0].nbr_buts_jo %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Nombre de passes décisives :</b></div>
+      <div class="col">
+        <%= results[0].nbr_passe_jo %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"> <b>Email:</b></div>
+      <div class="col">
+        <%= results[0].email_co %>
+      </div>
+    </div>
+  </li>
+
+
+
+
+
+
+
+</ul>

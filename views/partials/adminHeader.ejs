@@ -35,3 +35,25 @@
   </div>
 
 </header>
+
+<script>
+  function toggleDarkMode() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    // Save user preference to local storage
+    const isDarkMode = body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+  }
+
+  // Check if dark mode preference is saved in local storage
+  document.addEventListener('DOMContentLoaded', function () {
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      document.getElementById('darkModeToggle').checked = true; // Check the toggle switch
+    }
+  });
+
+  // Event listener for dark mode toggle button
+  document.getElementById('darkModeToggle').addEventListener('change', toggleDarkMode);
+</script>

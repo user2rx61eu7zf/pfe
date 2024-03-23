@@ -1,7 +1,8 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
-const fileUpload = require('express-fileupload');
+const path = require('path')
+
 const session = require('express-session');
 const cookieParser = require('cookie-parser'); // Importez cookieParser avant requireAuth
 const methodOverride = require('method-override');
@@ -14,10 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(fileUpload());
-app.use(express.static('public'));
 
-// Express session
+app.use(express.static('public'));
+app.use(express.static('server'));
+app.use('/images', express.static(path.join(__dirname, 'server', 'images')));
+
+
 app.use(
     session({
         secret: 'secret',
@@ -31,6 +34,8 @@ app.use(
 
 // Flash Messages 
 app.use(flash({ sessionKeyName: 'flashMessage' }));
+
+
 
 app.use(expressLayouts);
 app.set('layout', './layouts/mainGestionnaire');

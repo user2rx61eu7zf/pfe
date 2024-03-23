@@ -1,0 +1,146 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <%= results.length> 0 ? results[0].nom_ent : 'null' %> <%= results.length> 0 ? results[0].prenom_ent : 'null' %>
+    </h1>
+</div>
+
+
+<div class="col py-3">
+
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Accueil</a></li>
+
+                    <li class="breadcrumb-item"><a href="/monequipe/<%= userId %>">Mon equipe</a></li>
+
+                    <li class="breadcrumb-item">Voir details entraineur</li>
+
+
+                    </li>
+
+
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+
+</div>
+
+
+<ul class="list-group">
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Nom:</b></div>
+            <div class="col">
+                <%= result.length> 0 ? result[0].nom_ent : 'null' %>
+            </div>
+        </div>
+    </li>
+
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Prenom:</b></div>
+            <div class="col">
+                <%= result.length> 0 ? result[0].prenom_ent : 'null' %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Nationalite:</b></div>
+            <div class="col">
+                <%= result.length> 0 ? result[0].nationalite_ent : 'null' %>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Age:</b></div>
+            <div class="col">
+                <% if(result.length> 0) {
+
+                    var dateOfBirthString = result[0].date_naiss_ent;
+
+
+                    var dateOfBirth = new Date(dateOfBirthString);
+
+
+                    var currentDate = new Date();
+
+
+                    var timeDiff = currentDate.getTime() - dateOfBirth.getTime();
+
+
+                    var ageDate = new Date(timeDiff);
+                    var calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+
+                    %> <%= calculatedAge %>
+                        <% } else { // Output 'null' if no result is available %> null <% } %>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Date de Naissance:</b></div>
+            <div class="col">
+                <% if(result.length> 0) {
+
+                    var dateOfBirthString = result[0].date_naiss_ent;
+
+
+                    var dateOfBirth = new Date(dateOfBirthString);
+
+                    var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
+                    + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
+                    + dateOfBirth.getFullYear();
+
+                    %> <%= formattedDateOfBirth %>
+                        <% } else { // Output 'null' if no result is available %> null <% } %>
+            </div>
+        </div>
+
+    </li>
+
+
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Image:</b></div>
+            <div style="position: relative; margin-left: 50px;">
+                <% if (result.length> 0 && result[0].img_ent) { %>
+                    <img src="/images/<%= result[0].img_ent %>" class="img-fluid mb-3 mt-3 rounded"
+                        alt="Description of the image"
+                        style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                    <% } else { %>
+                        <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
+                            style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                        <% } %>
+            </div>
+        </div>
+    </li>
+
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Email:</b></div>
+            <div class="col">
+                <%= results.length> 0 ? result[0].email_co : 'null' %>
+            </div>
+        </div>
+    </li>
+
+
+
+
+
+
+
+</ul>

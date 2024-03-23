@@ -79,15 +79,16 @@ exports.comptegestionnaire = (req, res) => {
         title: "Gestionnaire"
     };
 
-    db.query('SELECT c.nom_utilisateur, e.nom_eq FROM compte c JOIN equipe e ON c.id_co = e.id_co_ge_eq WHERE c.id_co = ?', [userId], (err, results) => {
+    db.query('SELECT c.nom_utilisateur ,c.photo_profil, e.nom_eq FROM compte c JOIN equipe e ON c.id_co = e.id_co_ge_eq WHERE c.id_co = ?', [userId], (err, results) => {
         if (err) {
-            console.error("Erreur SQL : " + err);
+            console.error("Erreur SQLL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        console.log(results)
 
 
 
-        res.render('../views/Gestionnaire/homepageGestionnaire', { locals, userId, results });
+        res.render('../views/Gestionnaire/homepageGestionnaire', { locals, userId, results, layout: './layouts/mainGestionnaire.ejs' });
     });
 
 
