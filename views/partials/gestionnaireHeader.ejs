@@ -1,6 +1,6 @@
 <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
 
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/compteGestionnaire/<%= userId %>">Gestionnaire</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/compteGestionnaire/<%= gestId %>">Gestionnaire</a>
 
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
     data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,7 +8,7 @@
   </button>
 
   <form class="col-8 col-md-5 col-lg-4 d-flex justify-content-center mb-2 mb-md-0" role="search" method="POST"
-    action="/recherche/<%= userId %>">
+    action="/recherche/<%= gestId %>">
 
     <div class="search-container">
       <input type="search" name="searchTerm" class="form-control form-control-dark border-0"
@@ -20,11 +20,16 @@
   <div class="dropdown text-end" style="margin-right: 20px;">
     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
       data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="/images/<%= results[0].photo_profil %>" alt="" width="32" height="32" class="rounded-circle">
+      <% if (results.length> 0 && results[0].photo_profil) { %>
+        <img src="/images/<%= results[0].photo_profil %>" class=" rounded-circle " alt="Description of the image"
+          style="width: 32px; height: 32px;">
+        <% } else { %>
+          <img src="/images/default.jpg" class=" rounded-circle" alt="image" style="width: 32; height: 32px; ">
+          <% } %>
 
     </a>
     <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
-      <li><a class="dropdown-item" href="/monprofile/<%= userId %>"> <i class="bi bi-person"></i> Mon profile </a>
+      <li><a class="dropdown-item" href="/monprofile/<%= gestId %>"> <i class="bi bi-person"></i> Mon profile </a>
       </li>
       <li class="dropdown-item">
         <div class="form-check form-switch" style=" margin-left: auto;">

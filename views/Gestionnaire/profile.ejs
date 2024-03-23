@@ -3,7 +3,7 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Acceuil</a>
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a>
                     </li>
                     <li class="breadcrumb-item active">Mon profile</li>
                 </ol>
@@ -47,7 +47,7 @@
     </div>
     <hr>
     <h4>Changer le mot de passe:</h4>
-    <form action="/monprofile/<%= userId %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    <form action="/monprofile/<%= gestId %>?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <input type="password" class="form-control" name="mdpactuel" placeholder="Mot de passe actuel">
         </div>

@@ -11,9 +11,9 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Accueil</a></li>
 
-                    <li class="breadcrumb-item"><a href="/monequipe/<%= userId %>">Mon equipe</a></li>
+                    <li class="breadcrumb-item"><a href="/monequipe/<%= gestId %>">Mon equipe</a></li>
 
                     <li class="breadcrumb-item">Voir details Stade</li>
 
@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col" style="max-width: 140px"> <b>Nom du stade:</b></div>
             <div class="col">
-                <%= results.length> 0 ? results[0].nom_std : 'null' %>
+                <%= result.length> 0 ? result[0].nom_std : 'null' %>
             </div>
         </div>
     </li>
@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col" style="max-width: 140px"> <b>Ville:</b></div>
             <div class="col">
-                <%= results.length> 0 ? results[0].ville_std : 'null' %>
+                <%= result.length> 0 ? result[0].ville_std : 'null' %>
             </div>
         </div>
     </li>
@@ -54,7 +54,7 @@
         <div class="row">
             <div class="col" style="max-width: 140px"> <b>Adresse:</b></div>
             <div class="col">
-                <%= results.length> 0 ? results[0].adresse_std : 'null' %>
+                <%= result.length> 0 ? result[0].adresse_std : 'null' %>
             </div>
         </div>
     </li>
@@ -62,7 +62,7 @@
         <div class="row">
             <div class="col" style="max-width: 140px"> <b>Capacité:</b></div>
             <div class="col">
-                <%= results.length> 0 ? results[0].capacite_std : 'null' %>
+                <%= result.length> 0 ? result[0].capacite_std : 'null' %>
             </div>
         </div>
     </li>
@@ -74,9 +74,9 @@
         <div class="row">
             <div class="col" style="max-width: 140px"> <b>Date de Creation:</b></div>
             <div class="col">
-                <% if(results.length> 0) {
+                <% if(result.length> 0) {
                     // Get the date of birth string
-                    var dateOfBirthString = results[0].date_crt;
+                    var dateOfBirthString = result[0].date_crt;
 
                     // Create a new Date object from the date string
                     var dateOfBirth = new Date(dateOfBirthString);

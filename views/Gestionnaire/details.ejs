@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
   <h1 class="h2">
-    <%= results[0].nom_jo %>
-      <%= results[0].prenom_jo %>
+    <%= result[0].nom_jo %>
+      <%= result[0].prenom_jo %>
   </h1>
 </div>
 
@@ -14,7 +14,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
           <li class="breadcrumb-item active">
-            <%= results[0].nom_jo + ' ' + results[0].prenom_jo %>
+            <%= result[0].nom_jo + ' ' + result[0].prenom_jo %>
           </li>
 
 
@@ -26,13 +26,14 @@
 
 </div>
 
+
 <ul class="list-group">
 
   <li class="list-group-item">
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Nom:</b></div>
       <div class="col">
-        <%= results[0].nom_jo %>
+        <%= result[0].nom_jo %>
       </div>
     </div>
   </li>
@@ -42,7 +43,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Prenom:</b></div>
       <div class="col">
-        <%= results[0].prenom_jo %>
+        <%= result[0].prenom_jo %>
       </div>
     </div>
   </li>
@@ -50,7 +51,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Nationalite:</b></div>
       <div class="col">
-        <%= results[0].nationalite_jo %>
+        <%= result[0].nationalite_jo %>
       </div>
     </div>
   </li>
@@ -58,7 +59,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Poste:</b></div>
       <div class="col">
-        <%= results[0].poste_jo %>
+        <%= result[0].poste_jo %>
       </div>
     </div>
   </li>
@@ -66,7 +67,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>N° Maillot:</b></div>
       <div class="col">
-        <%= results[0].num_mai_jo %>
+        <%= result[0].num_mai_jo %>
       </div>
     </div>
   </li>
@@ -74,9 +75,9 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Date de Naissance:</b></div>
       <div class="col">
-        <% if(results.length> 0) {
+        <% if(result.length> 0) {
           // Get the date of birth string
-          var dateOfBirthString = results[0].date_naiss_jo;
+          var dateOfBirthString = result[0].date_naiss_jo;
 
           // Create a new Date object from the date string
           var dateOfBirth = new Date(dateOfBirthString);
@@ -99,7 +100,7 @@
       <div class="col">
         <% if(results.length> 0) {
           // Get the date of birth string
-          var dateOfBirthString = results[0].date_naiss_jo;
+          var dateOfBirthString = result[0].date_naiss_jo;
 
           // Create a new Date object from the date string
           var dateOfBirth = new Date(dateOfBirthString);
@@ -125,7 +126,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Taille:</b></div>
       <div class="col">
-        <%= results[0].taille_jo %> cm
+        <%= result[0].taille_jo %> cm
       </div>
     </div>
   </li>
@@ -133,7 +134,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Poids:</b></div>
       <div class="col">
-        <%= results[0].poids_jo %> kg
+        <%= result[0].poids_jo %> kg
       </div>
     </div>
   </li>
@@ -141,8 +142,8 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Image:</b></div>
       <div class="col">
-        <% if ( results[0].photo_jo) { %>
-          <img src="/images/<%= results[0].photo_jo %>" class="img-fluid mb-3 mt-3 rounded"
+        <% if ( result[0].photo_jo) { %>
+          <img src="/images/<%= result[0].photo_jo %>" class="img-fluid mb-3 mt-3 rounded"
             alt="Description of the image" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
 
           <% } else { %>
@@ -157,7 +158,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Nombre de buts :</b></div>
       <div class="col">
-        <%= results[0].nbr_buts_jo %>
+        <%= result[0].nbr_buts_jo %>
       </div>
     </div>
   </li>
@@ -165,7 +166,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Nombre de passes décisives :</b></div>
       <div class="col">
-        <%= results[0].nbr_passe_jo %>
+        <%= result[0].nbr_passe_jo %>
       </div>
     </div>
   </li>
@@ -173,7 +174,7 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Email:</b></div>
       <div class="col">
-        <%= results[0].email_co %>
+        <%= result[0].email_co %>
       </div>
     </div>
   </li>

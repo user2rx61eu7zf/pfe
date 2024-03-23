@@ -18,15 +18,15 @@ const upload = multer({ storage: storage })
 
 
 
-router.get('/view/:id/:idgest', requireAuth, gestionnaireController.viewPlayer);
+router.get('/view/:idgest/:id', requireAuth, gestionnaireController.viewPlayer);
 router.get('/voir_entraineur/:id', requireAuth, gestionnaireController.voirEntraineur);
 router.get('/voir_stade/:id', requireAuth, gestionnaireController.voirStade);
-router.get('/edit/:id/:idgest', requireAuth, gestionnaireController.editPlayer);
+router.get('/edit/:idgest/:id', requireAuth, gestionnaireController.editPlayer);
 router.get('/modifier_entraineur/:id/', requireAuth, gestionnaireController.editEntraineur);
 router.get('/modifier_stade/:id/', requireAuth, gestionnaireController.editStade);
 router.get('/ajouter_joueur/:id', requireAuth, gestionnaireController.addPlayer);
 router.post('/ajouter_joueur/:id', upload.single('photojoueur'), requireAuth, gestionnaireController.postPlayer);
-router.put('/edit/:id/:idgest', requireAuth, gestionnaireController.editpost)
+router.put('/edit/:idgest/:id', requireAuth, gestionnaireController.editpost)
 router.put('/modifier_entraineur/:id', requireAuth, gestionnaireController.editpostEntraineur)
 router.put('/modifier_stade/:id', requireAuth, gestionnaireController.editpostStade)
 router.delete('/supprimer/:id/:idgest', requireAuth, gestionnaireController.supprimerJoueur)

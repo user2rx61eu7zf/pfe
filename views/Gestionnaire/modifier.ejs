@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Modification: <%= results[0].nom_jo%>
-      <%= results[0].prenom_jo %>
+  <h1 class="h2">Modification: <%= result[0].nom_jo%>
+      <%= result[0].prenom_jo %>
   </h1>
 
 </div>
@@ -10,11 +10,11 @@
     <div class="col">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Accueil</a></li>
-          <li class="breadcrumb-item"><a href="/gererjoueurs/<%= userId %>">Gestion des joueur</a></li>
+          <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Accueil</a></li>
+          <li class="breadcrumb-item"><a href="/gererjoueurs/<%= gestId %>">Gestion des joueur</a></li>
           <li class="breadcrumb-item active"> Mofidier :
             <%= results[0].nom_jo%>
-              <%= results[0].prenom_jo %>
+              <%= result[0].prenom_jo %>
           </li>
         </ol>
       </nav>
@@ -25,25 +25,25 @@
 </div>
 
 
-<form action="/edit/<%= results[0].id_jo %>/<%= userId %>?_method=PUT" method="POST">
+<form action="/edit/<%= result[0].id_jo %>/<%= gestId %>?_method=PUT" method="POST">
 
   <div class="row form-group mb-4">
     <div>
       <label for="validationCustom01" class="form-label">Nom</label>
-      <input type="text" class="form-control" name="nom" id="validationCustom01" value="<%= results[0].nom_jo %>"
+      <input type="text" class="form-control" name="nom" id="validationCustom01" value="<%= result[0].nom_jo %>"
         required>
       <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom02" class="form-label">Prenom</label>
-      <input type="text" class="form-control" name="prenom" id="validationCustom02" value="<%= results[0].prenom_jo%>"
+      <input type="text" class="form-control" name="prenom" id="validationCustom02" value="<%= result[0].prenom_jo%>"
         required>
       <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom02" class="form-label">Nationalite</label>
       <input type="text" class="form-control" name="nationalite" id="validationCustom02"
-        value="<%= results[0].nationalite_jo %>" required>
+        value="<%= result[0].nationalite_jo %>" required>
       <div class="valid-feedback"></div>
     </div>
     <div>
@@ -59,25 +59,25 @@
     <div>
       <label for="validationCustom01" class="form-label">N° Maillot</label>
       <input type="text" class="form-control" name="maillot" pattern="[0-9]{1,2}" id="validationCustom01"
-        value="<%= results[0].num_mai_jo %>" required>
+        value="<%= result[0].num_mai_jo %>" required>
       <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom01" class="form-label">Date de naissance </label>
       <input type="date" class="form-control" name="date" id="validationCustom01"
-        value="<%= results.length > 0 && results[0].date_naiss_jo !== null ? results[0].date_naiss_jo.toISOString().substring(0,10) : '' %>">
+        value="<%= result.length > 0 && result[0].date_naiss_jo !== null ? result[0].date_naiss_jo.toISOString().substring(0,10) : '' %>">
       <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom01" class="form-label">Poids</label>
       <input type="text" class="form-control" name="poids" pattern="[0-9]{2}" id="validationCustom01"
-        value="<%= results[0].poids_jo %>" required>
+        value="<%= result[0].poids_jo %>" required>
       <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom01" class="form-label">Taille</label>
       <input type="text" class="form-control" name="taille" pattern="[0-9]{3}" id="validationCustom01"
-        value="<%= results[0].taille_jo %>" required>
+        value="<%= result[0].taille_jo %>" required>
       <div class="valid-feedback"></div>
       <div class="invalid-feedback">En centimètre</div>
       <div
@@ -87,14 +87,14 @@
 
       <div>
         <label for="validationCustom01" class="form-label">E-mail</label>
-        <input type="email" class="form-control" name="email" value="<%= results[0].email_co %>" required>
+        <input type="email" class="form-control" name="email" value="<%= result[0].email_co %>" required>
         <div class="valid-feedback"></div>
       </div>
       <div>
         <label for="validationCustom01" class="form-label">Mot de passe </label>
         <div class="input-group">
           <input type="password" class="form-control" name="motdepasse" id="password"
-            value="<%= results[0].mot_de_passe %>" required>
+            value="<%= result[0].mot_de_passe %>" required>
           <span class="input-group-text"><i id="icon" class="bi bi-eye-fill "></i></span>
         </div>
 
@@ -123,15 +123,15 @@
       <div class="modal-body">
         <p>
           Ceci supprimera de votre equipe le joueur <b class="fw-bold">
-            <%= results[0].nom_jo%>
-              <%= results[0].prenom_jo%>
+            <%= result[0].nom_jo%>
+              <%= result[0].prenom_jo%>
           </b><br />
           Etes-vous sur ?
         </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <form action="/supprimer/<%= results[0].id_jo %>/<%= userId %>?_method=DELETE" method="POST"
+        <form action="/supprimer/<%= result[0].id_jo %>/<%= gestId %>?_method=DELETE" method="POST"
           class="position-relative">
           <button type="submit" class="btn btn-danger">Oui, Supprimer Joueur</button>
         </form>

@@ -28,8 +28,8 @@
             <div class="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Acceuil</a></li>
-                        <li class="breadcrumb-item active"><a href="/monequipe/<%= userId %>">Mon equipe</a>
+                        <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a></li>
+                        <li class="breadcrumb-item active"><a href="/monequipe/<%= gestId %>">Mon equipe</a>
                         </li>
                         <li class="breadcrumb-item active">Modifier entraineur</li>
                     </ol>
@@ -38,35 +38,35 @@
 
         </div>
     </div>
-    <form action="/modifier_entraineur/<%= userId %>?_method=PUT" method="POST" novalidate>
+    <form action="/modifier_entraineur/<%= gestId %>?_method=PUT" method="POST" novalidate>
         <div>
             <label for="validationCustom01" class="form-label">Nom :</label>
             <input type="text" class="form-control" name="nom" id="validationCustom01"
-                value="<%= results.length> 0 ? results[0].nom_ent : 'null' %>" required>
+                value="<%= result.length> 0 ? result[0].nom_ent : 'null' %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom02" class="form-label">Prenom :</label>
             <input type="text" class="form-control" name="prenom" id="validationCustom02"
-                value="<%= results.length> 0 ? results[0].prenom_ent : 'null' %>" required>
+                value="<%= result.length> 0 ? result[0].prenom_ent : 'null' %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom02" class="form-label">Nationalite :</label>
             <input type="text" class="form-control" name="nationalite" id="validationCustom02"
-                value="<%= results.length> 0 ? results[0].nationalite_ent: 'null' %>" required>
+                value="<%= result.length> 0 ? result[0].nationalite_ent: 'null' %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Photo:</label>
             <input type="file" class="form-control" name="photo" id="validationCustom01"
-                value="<%= results.length> 0 ? results[0].img_ent : 'null' %>">
+                value="<%= result.length> 0 ? result[0].img_ent : 'null' %>">
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Date de Naissance :</label>
             <input type="date" class="form-control" name="date" id="validationCustom01"
-                value="<%= results.length > 0 && results[0].date_naiss_ent !== null ? results[0].date_naiss_ent.toISOString().substring(0,10) : '' %>"
+                value="<%= result.length > 0 && result[0].date_naiss_ent !== null ? result[0].date_naiss_ent.toISOString().substring(0,10) : '' %>"
                 required>
 
             <div class="valid-feedback"></div>
@@ -82,7 +82,7 @@
             <div>
                 <label for="validationCustom01" class="form-label">E-mail</label>
                 <input type="email" class="form-control" name="email"
-                    value="<%= results.length> 0 ? results[0].email_co : 'null' %>" required>
+                    value="<%= result.length> 0 ? result[0].email_co : 'null' %>" required>
                 <div class="valid-feedback"></div>
 
             </div>
@@ -90,7 +90,7 @@
                 <label for="validationCustom01" class="form-label">Mot de passe </label>
                 <div class="input-group">
                     <input type="password" class="form-control" name="motdepasse" id="password"
-                        value="<%= results.length> 0 ? results[0].mot_de_passe : 'null' %>" required>
+                        value="<%= result.length> 0 ? result[0].mot_de_passe : 'null' %>" required>
                     <span class="input-group-text"><i id="icon" class="bi bi-eye-fill "></i></span>
                 </div>
 

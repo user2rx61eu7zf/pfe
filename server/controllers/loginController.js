@@ -35,18 +35,18 @@ exports.comptePage = async (req, res) => {
     });
 
     // Query the database to get the user with the provided email
-    db.query('SELECT * FROM compte WHERE email_co = ?', [newuser.email], async (err, result) => {
+    db.query('SELECT * FROM compte WHERE email_co = ?', [newuser.email], async (err, results) => {
         if (err) {
             console.error("Error getting user data during login: ", err);
             return res.status(500).send("Error getting user data during login");
         }
 
-        if (!result[0] || newuser.password != result[0].mot_de_passe) {
+        if (!results[0] || newuser.password != results[0].mot_de_passe) {
             await req.flash('info', "Email or password is incorrect!");
             return res.redirect('/login');
         } else {
-            const idType = result[0].id_type;
-            const userId = result[0].id_co;
+            const idType = results[0].id_type;
+            const userId = results[0].id_co;
             const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_EXPIRES,
             });
@@ -74,12 +74,12 @@ exports.comptePage = async (req, res) => {
 
 
 exports.comptegestionnaire = (req, res) => {
-    const userId = req.params.id;
+    const gestId = req.params.idgest;
     const locals = {
         title: "Gestionnaire"
     };
 
-    db.query('SELECT c.nom_utilisateur ,c.photo_profil, e.nom_eq FROM compte c JOIN equipe e ON c.id_co = e.id_co_ge_eq WHERE c.id_co = ?', [userId], (err, results) => {
+    db.query('SELECT c.nom_utilisateur ,c.photo_profil, e.nom_eq FROM compte c JOIN equipe e ON c.id_co = e.id_co_ge_eq WHERE c.id_co = ?', [gestId], (err, results) => {
         if (err) {
             console.error("Erreur SQLL : " + err);
             return res.status(500).send("Erreur SQL");
@@ -87,7 +87,7 @@ exports.comptegestionnaire = (req, res) => {
 
 
 
-        res.render('../views/Gestionnaire/homepageGestionnaire', { locals, userId, results });
+        res.render('../views/Gestionnaire/homepageGestionnaire', { locals, gestId, results });
     });
 
 
@@ -95,6 +95,6 @@ exports.comptegestionnaire = (req, res) => {
 exports.compteadmin = async (req, res) => {
     const userId = req.params.id;
     // Render the compte page with the user's ID
-    res.render('../views/Admin/homepageAdmin', { userId: userId, layout: './layouts/mainAdmin.ejs' })
+    res.render('../views/Admin/homepageAdmin', { userId, layout: './layouts/mainAdmin.ejs' })
 }
 

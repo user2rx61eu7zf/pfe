@@ -28,8 +28,8 @@
             <div class="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Acceuil</a></li>
-                        <li class="breadcrumb-item active"><a href="/monequipe/<%= userId %>">Mon equipe</a>
+                        <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a></li>
+                        <li class="breadcrumb-item active"><a href="/monequipe/<%= gestId %>">Mon equipe</a>
                         </li>
                         <li class="breadcrumb-item active">Modifier stade</li>
                     </ol>
@@ -38,35 +38,35 @@
 
         </div>
     </div>
-    <form action="/modifier_stade/<%= userId %>?_method=PUT" method="POST" novalidate>
+    <form action="/modifier_stade/<%= gestId %>?_method=PUT" method="POST" novalidate>
         <div>
             <label for="validationCustom01" class="form-label">Nom du Stade :</label>
             <input type="text" class="form-control" name="nom" id="validationCustom01"
-                value="<%= results.length> 0 ? results[0].nom_std : 'null' %>" required>
+                value="<%= result.length> 0 ? result[0].nom_std : 'null' %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom02" class="form-label">Ville :</label>
             <input type="text" class="form-control" name="ville" id="validationCustom02"
-                value="<%= results.length> 0 ? results[0].ville_std : 'null' %>" required>
+                value="<%= result.length> 0 ? result[0].ville_std : 'null' %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom02" class="form-label">Adresse :</label>
             <input type="text" class="form-control" name="adresse" id="validationCustom02"
-                value="<%= results.length> 0 ? results[0].adresse_std: 'null' %>" required>
+                value="<%= result.length> 0 ? result[0].adresse_std: 'null' %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Capacité:</label>
             <input type="text" class="form-control" name="capacite" id="validationCustom01"
-                value="<%= results.length> 0 ? results[0].capacite_std : 'null' %>">
+                value="<%= result.length> 0 ? result[0].capacite_std : 'null' %>">
             <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Date de Creation :</label>
             <input type="date" class="form-control" name="date" id="validationCustom01"
-                value="<%= results.length > 0 && results[0].date_crt !== null ? results[0].date_crt.toISOString().substring(0,10) : '' %>"
+                value="<%= result.length > 0 && result[0].date_crt !== null ? result[0].date_crt.toISOString().substring(0,10) : '' %>"
                 required>
 
             <div class="valid-feedback"></div>
