@@ -235,11 +235,7 @@ h5 {
     /* Link color */
 }
 
-.breadcrumb .breadcrumb-item.active {
-    font-weight: 500;
-    color: #8ed5e8;
-    /* Active item color */
-}
+
 
 /* Dark mode styles */
 .dark-mode .breadcrumb {
@@ -247,9 +243,7 @@ h5 {
 
 }
 
-.breadcrumb>li+li::before {
-    color: #ffffff !important;
-}
+
 
 
 

@@ -4,380 +4,447 @@
 <head>
     <meta charset="UTF-8" />
     <script src="https://kit.fontawesome.com/b1114fa42b.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/css/gerermatch.css">
 </head>
 
-
-
 <body>
-    <div class="profile-card mt-3 ">
-        <div class="text-center">
-            <div class="match">
-                <div class="match-header">
-
-                    <div class="match-tournament text-center">
-                        <img src="" />
-                        Ligue de football RELIZANE
-                    </div>
-
-                </div>
-                <div class="match-content">
-                    <div class="column">
-                        <div class="team team--home">
-                            <div class="team-logo">
-                                <img src="https://www.lfw-relizane.com/terifeh/2023/04/AR.AIN-TARIk.png" />
-                            </div>
-                            <h2 class="team-name">Chelsea</h2>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="match-details">
-                            <div class="match-date">22/01/2024 <strong>16:00</strong></div>
-                            <div class="match-score">
-                                <span class="match-score-number match-score-number--leading">3</span>
-                                <span class="match-score-divider">:</span>
-                                <span class="match-score-number">1</span>
-                            </div>
-                            <div class="match-time-lapsed">72'</div>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="team team--away">
-                            <div class="team-logo">
-                                <img src="https://www.lfw-relizane.com/terifeh/2023/10/CRB.Sidi_.Med_.Benaouda.png" />
-                            </div>
-                            <h2 class="team-name">Man Utd</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="box">
-            <div class="left-buttons">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#debutModal">
-                    <i class="fas fa-hourglass-start"></i> Début de match
-                </button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#repriseModal">
-                    <i class="fa-solid fa-clock-rotate-left "></i> Début 2e période
-                </button>
-
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#penaltyModal">
-                    <i class="fa-regular fa-futbol"></i> Pénalty </button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rougeModal">
-                    <i class="fa-solid fa-square " style="color: #fd1e00;"></i> Carton rouge</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finModal">
-                    <i class="fa-solid fa-hourglass-end "></i> Fin de match</button>
-
-
-
-            </div>
-
-            <div class=" right-buttons">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mitempsModal">
-                    <i class="fa-solid fa-hourglass-half "></i>
-                    Mi-temps</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#butModal">
-                    <i class="fa-regular fa-futbol "></i> But</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jauneModal">
-                    <i class="fa-solid fa-square " style="color: #FFD43B;"></i> Carton jaune</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changementModal">
-                    <i class="fa-solid fa-right-left "></i> Changements</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#prolongationModal">
-                    <i class="fa-solid fa-stopwatch "></i> Pronlongations</button>
-
-            </div>
-        </div>
-
 
 </body>
-
-
-
-<!--modal debut de match -->
-
-<div class="modal fade" id="debutModal" tabindex="-1" aria-labelledby="debutModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Début de match</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Voulez-vous vraiment commencer le match ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <form action="/commencer" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Oui</button>
-                </form>
-            </div>
+<div class="col py-1">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/">Acceuil</a></li>
+                    <li class="breadcrumb-item active">Match en temps reel </li>
+                </ol>
+            </nav>
         </div>
+
     </div>
-</div>
 
-<!--modal fin de match -->
+    <body>
+        <div class="profile-card mt-3 ">
+            <div class="text-center">
+                <div class="match">
+                    <div class="match-header">
 
-<div class="modal fade" id="finModal" tabindex="-1" aria-labelledby="finModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Fin de match</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="match-tournament text-center">
+                            <img src="" />
+                            Ligue de football RELIZANE
+                        </div>
+
+                    </div>
+                    <div class="match-content">
+                        <div class="column">
+                            <div class="team team--home">
+                                <div class="team-logo">
+                                    <img src="<%= reslogo[0].logo_eq %>" />
+                                </div>
+                                <h2 class="team-name">
+                                    <%= result[0].equipe_1 %>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="match-details">
+                                <div class="match-date">
+                                    <% if(result.length> 0) {
+                                        var dateOfBirthString = result[0].date_ma;
+                                        var dateOfBirth = new Date(dateOfBirthString);
+                                        var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
+                                        + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
+                                        + dateOfBirth.getFullYear();
+                                        %> <%= formattedDateOfBirth %>
+                                            <% } else { e %> null <% } %>
+                                                    <strong>
+                                                        <%= result[0].horaire_ma.split(':').slice(0, 2).join(':') %>
+
+                                                    </strong>
+                                </div>
+                                <div class="match-score">
+                                    <span class="match-score-number match-score-number--leading">
+                                        <%= result[0].score_eq1 %>
+                                    </span>
+                                    <span class="match-score-divider">:</span>
+                                    <span class="match-score-number">
+                                        <%= result[0].score_eq2 %>
+                                    </span>
+                                </div>
+                                <div class="match-time-lapsed" id="timer"> <span id="minutes"></span>:<span
+                                        id="seconds"></span></div>
+
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="team team--away">
+                                <div class="team-logo">
+                                    <img <img src="<%= reslogo[1].logo_eq %>" />
+                                </div>
+                                <h2 class="team-name">
+                                    <%= result[0].equipe_2 %>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Vous confirmez que le match est terminé ?</p>
+            <hr>
+            <div class="box">
+                <div class="left-buttons">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#debutModal">
+                        <i class="fas fa-hourglass-start"></i> Début de match
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#repriseModal">
+                        <i class="fa-solid fa-clock-rotate-left "></i> Début 2e période
+                    </button>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#penaltyModal">
+                        <i class="fa-regular fa-futbol"></i> Pénalty </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rougeModal">
+                        <i class="fa-solid fa-square " style="color: #fd1e00;"></i> Carton rouge</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finModal">
+                        <i class="fa-solid fa-hourglass-end "></i> Fin de match</button>
+
+
+
+                </div>
+
+                <div class=" right-buttons">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mitempsModal">
+                        <i class="fa-solid fa-hourglass-half "></i>
+                        Mi-temps</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#butModal">
+                        <i class="fa-regular fa-futbol "></i> But</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jauneModal">
+                        <i class="fa-solid fa-square " style="color: #FFD43B;"></i> Carton jaune</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#changementModal">
+                        <i class="fa-solid fa-right-left "></i> Changements</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#prolongationModal">
+                        <i class="fa-solid fa-stopwatch "></i> Pronlongations</button>
+
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <form action="/fin" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Oui</button>
-                </form>
+            <!--modal debut de match -->
+
+            <div class="modal fade" id="debutModal" tabindex="-1" aria-labelledby="debutModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Début de match</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Voulez-vous vraiment commencer le match ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-success" onclick="start()"
+                                data-bs-dismiss="modal">Oui</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
+            <!--modal fin de match -->
 
-<!--modal prolongation -->
+            <div class="modal fade" id="finModal" tabindex="-1" aria-labelledby="finModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Fin de match</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Vous confirmez que le match est terminé ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
 
-<div class="modal fade" id="prolongationModal" tabindex="-1" aria-labelledby="pronlongationModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Prolongation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
+                                onclick="stop()">Oui</button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Vous confirmez que le match va au prolongation (120 min) ?</p>
+
+
+            <!--modal prolongation -->
+
+            <div class="modal fade" id="prolongationModal" tabindex="-1" aria-labelledby="pronlongationModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Prolongation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Vous confirmez que le match va au prolongation (120 min) ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <form action="/prolongation" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Oui</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <form action="/prolongation" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Oui</button>
-                </form>
+
+
+            <!--modal mi temps   -->
+
+            <div class="modal fade" id="mitempsModal" tabindex="-1" aria-labelledby="mitempsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Mi-temps</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>vous confirmer que c'est la Mi-temps du match ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <form action="/mitemps" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
+            <!--modal reprise 2eme periode  -->
 
-<!--modal mi temps   -->
+            <div class="modal fade" id="repriseModal" tabindex="-1" aria-labelledby="repriseModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Début 2e mi-temps</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>vous confirmer que la 2e mi-temps commence ?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 
-<div class="modal fade" id="mitempsModal" tabindex="-1" aria-labelledby="mitempsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Mi-temps</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
+                                onclick="start2()">Confirmer</button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>vous confirmer que c'est la Mi-temps du match ?</p>
+
+            <!--modal but  -->
+
+            <div class="modal fade" id="butModal" tabindex="-1" aria-labelledby="butModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">But</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Equipe</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                            <br>
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Joueur</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <form action="/but" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/mitemps" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
+
+            <!--modal carton jaune  -->
+
+            <div class="modal fade" id="jauneModal" tabindex="-1" aria-labelledby="jauneModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Carton jaune </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Equipe</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                            <br>
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Joueur</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <form action="/jaune" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<!--modal reprise 2eme periode  -->
 
-<div class="modal fade" id="repriseModal" tabindex="-1" aria-labelledby="repriseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Début 2e mi-temps</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!--modal penlaty  -->
+
+            <div class="modal fade" id="penaltyModal" tabindex="-1" aria-labelledby="penlatyModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Penalty </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Equipe</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <form action="/penlaty" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>vous confirmer que la 2e mi-temps commence ?</p>
+
+            <!--modal carton rouge  -->
+
+            <div class="modal fade" id="rougeModal" tabindex="-1" aria-labelledby="rougeeModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Carton rouge </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Equipe</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                            <br>
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Joueur</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <form action="/rouge" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/reprise" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
+            <!--modal changement  -->
+
+            <div class="modal fade" id="changementModal" tabindex="-1" aria-labelledby="changementModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="debutModalLabel">Changement </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Equipe</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                            <br>
+                            <p>Joueur entrant :</p>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Joueur IN</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                            <p>Joueur sortant :</p>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected disabled value="">Joueur OUT</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <form action="/changement" method="POST" class="position-relative">
+                                <button type="submit" class="btn btn-success">Confirmer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+            <script>
+                var timerInterval; // Declare timerInterval as a global variable
 
-<!--modal but  -->
+                function start() {
+                    var sec = -1;
+                    function pad(val) { return (val < 10 ? "0" : "") + val; }
+                    timerInterval = setInterval(function () {
+                        $("#seconds").html(pad(++sec % 60));
+                        $("#minutes").html(pad(parseInt(sec / 60, 10) % 60));
+                        $("#hours").html(pad(parseInt(sec / 3600, 10)));
+                    }, 1000);
+                }
 
-<div class="modal fade" id="butModal" tabindex="-1" aria-labelledby="butModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">But</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+                function start2() {
+                    var sec = 45 * 60; // Start from minute 45
+                    function pad(val) { return (val < 10 ? "0" : "") + val; }
+                    timerInterval = setInterval(function () {
+                        $("#seconds").html(pad(++sec % 60));
+                        $("#minutes").html(pad(parseInt(sec / 60, 10) % 60));
+                        $("#hours").html(pad(parseInt(sec / 3600, 10)));
+                    }, 1000);
+                }
 
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Equipe</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-                <br>
+                function stop() {
+                    clearInterval(timerInterval); // Stop the timer
+                }
+            </script>
 
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Joueur</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/but" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--modal carton jaune  -->
-
-<div class="modal fade" id="jauneModal" tabindex="-1" aria-labelledby="jauneModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Carton jaune </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Equipe</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-                <br>
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Joueur</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/jaune" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--modal penlaty  -->
-
-<div class="modal fade" id="penaltyModal" tabindex="-1" aria-labelledby="penlatyModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Penalty </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Equipe</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/penlaty" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--modal carton rouge  -->
-
-<div class="modal fade" id="rougeModal" tabindex="-1" aria-labelledby="rougeeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Carton rouge </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Equipe</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-                <br>
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Joueur</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/rouge" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--modal changement  -->
-
-<div class="modal fade" id="changementModal" tabindex="-1" aria-labelledby="changementModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="debutModalLabel">Changement </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Equipe</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-                <br>
-                <p>Joueur entrant :</p>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Joueur IN</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-                <p>Joueur sortant :</p>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected disabled value="">Joueur OUT</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <form action="/changement" method="POST" class="position-relative">
-                    <button type="submit" class="btn btn-success">Confirmer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+    </body>
 
 
 

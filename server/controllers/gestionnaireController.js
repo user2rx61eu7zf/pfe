@@ -201,8 +201,8 @@ exports.voirStade = async (req, res) => {
 // get edit joueur
 
 exports.editPlayer = async (req, res) => {
-    playerId = req.params.id;
-    gestId = req.params.idgest;
+    gestId = req.params.id;
+    playerId = req.params.idgest;
     // Récupère l'ID du joueur depuis l'URL
 
     const locals = {
@@ -218,7 +218,7 @@ exports.editPlayer = async (req, res) => {
             if (err) {
                 console.log("erreur avoir pfp page edit joueur")
             }
-            const id = results[0].id_jo;
+            const id = result[0].id_jo;
             res.render('../views/Gestionnaire/modifier', { locals, id, results, result, gestId }); // Rend la vue avec les détails du joueur
         })
 
@@ -470,16 +470,23 @@ exports.gererJoueur = async (req, res) => {
 }
 
 exports.search = async (req, res) => {
-    userId = req.params.id
+    gestId = req.params.id
     let recherche = req.body.searchTerm;
     db.query("SELECT joueur.id_jo, joueur.nom_jo, joueur.prenom_jo FROM joueur JOIN equipe ON joueur.id_eq_jo = equipe.id_eq JOIN compte ON joueur.id_co_jo = compte.id_co WHERE (joueur.nom_jo LIKE ? OR joueur.prenom_jo LIKE ?) AND equipe.id_co_ge_eq = ?"
-        , [`%${recherche}%`, `%${recherche}%`, userId], (err, result) => {
+        , [`%${recherche}%`, `%${recherche}%`, gestId], (err, result) => {
             if (err) {
                 console.error("erreur sql recherche  " + err);
                 return res.status(500).send("erreur sql recherche");
             }
+            db.query("SELECT photo_profil FROM compte WHERE id_co=?", [gestId], (err, results) => {
+                if (err) {
+                    console.error("erreur sql avoir pfp page recherche  " + err);
+                    return res.status(500).send("erreur sql avoir pfp page recherche");
+                }
+                res.render('../views/Gestionnaire/recherche', { result, gestId, results });
+            })
             // console.log(result);
-            res.render('../views/Gestionnaire/recherche', { result, userId });
+
         });
 
 }
@@ -737,6 +744,7 @@ exports.postStade = async (req, res) => {
 
 exports.gerermatch = async (req, res) => {
     gestId = req.params.id;
+    matchId = req.params.idmatch;
     const locals = {
         title: "Gestion de match"
     }
@@ -744,8 +752,55 @@ exports.gerermatch = async (req, res) => {
         if (err) {
             console.log("erreur sql avoir pfp page gestion match " + err)
         }
-        res.render('../views/Gestionnaire/gerermatch', { locals, gestId, results })
+        db.query("SELECT id_ma FROM `match` WHERE id_co_ge_ma=?", [gestId], (err, result) => {
+            if (err) {
+                console.log("erreur sql avoir id match page gestion match " + err)
+                return res.status(500).send("erreur sql avoir id match")
+            }
+            console.log(result)
+            if (result.length === 0) { res.render("../views/Gestionnaire/pas_daffectation", { results }) }
+            else {
+                res.redirect(`/match/${gestId}/${result[0].id_ma}`)
+            }
+
+
+        })
+
     })
+
+
+
+}
+
+exports.match = async (req, res) => {
+    gestId = req.params.id;
+    matchId = req.params.idmatch;
+    const locals = {
+        title: "Gestion de match"
+    }
+    db.query('SELECT * FROM compte  WHERE id_co=? ', [gestId], (err, results) => {
+        if (err) {
+            console.log("erreur sql avoir pfp page gestion match " + err)
+        }
+        db.query("SELECT * FROM `match`WHERE id_co_ge_ma=?", [gestId], (err, result) => {
+            if (err) {
+                console.log("erreur sql avoir info match page gestion match " + err)
+            }
+            db.query("SELECT logo_eq FROM equipe WHERE nom_eq IN (?,?);", [result[0].equipe_1, result[0].equipe_2], (err, reslogo) => {
+                if (err) {
+                    console.log("erreur avoir les logo de lequipe" + err)
+                }
+                console.log(reslogo)
+                res.render('../views/Gestionnaire/gerermatch', { locals, gestId, results, result, reslogo })
+            })
+
+        })
+
+
+    })
+
+
+
 
 
 

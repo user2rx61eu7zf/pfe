@@ -6,6 +6,8 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const { requireAuth } = require('./server/config/auth');
+var $ = require("jquery");
+
 
 const app = express();
 const port = 3000;
