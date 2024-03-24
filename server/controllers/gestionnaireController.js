@@ -417,7 +417,7 @@ exports.supprimerJoueur = async (req, res) => {
             console.error("erreur sql avoir id compte joueurs supprime" + err);
             return res.status(500).send("erreur sql avoir id compte joueurs supprime");
         }
-        // console.log(res)
+        console.log(res)
         db.query("DELETE FROM joueur WHERE id_jo= ?", [req.params.id], (err, result) => {
             if (err) {
                 console.error("erreur sql supp joueur" + err);
@@ -730,6 +730,23 @@ exports.postStade = async (req, res) => {
         req.flash('infostade', "Stade ajouté !");
         res.redirect(`/monequipe/${req.params.id}`);
     })
+
+
+}
+
+
+exports.gerermatch = async (req, res) => {
+    gestId = req.params.id;
+    const locals = {
+        title: "Gestion de match"
+    }
+    db.query('SELECT * FROM compte  WHERE id_co=? ', [gestId], (err, results) => {
+        if (err) {
+            console.log("erreur sql avoir pfp page gestion match " + err)
+        }
+        res.render('../views/Gestionnaire/gerermatch', { locals, gestId, results })
+    })
+
 
 
 }

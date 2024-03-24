@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+:root {
+    --color-text-primary: #1c2a38;
+    --color-text-secondary: #8A8F98;
+    --color-text-alert: #d72641;
+    --color-text-icon: #dbdade;
+    --color-bg-primary: #fff;
+    --color-bg-secondary: #f3f5f9;
+    --color-bg-alert: #fdeaec;
+    --color-theme-primary: #623ce6;
+}
+
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+
+
+
+strong {
+    font-weight: 600;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+
+}
+
+
+
+
+.match-header {
+    display: flex;
+    padding: 16px;
+    border-bottom: 2px solid rgba(#303030, 0.1);
+}
+
+
+
+.match-tournament {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-left: 85px;
+
+    img {
+        width: 20px;
+        margin-right: 12px;
+    }
+
+}
+
+.match-actions {
+    display: flex;
+    margin-left: auto;
+}
+
+
+
+
+.match-content {
+    display: flex;
+    position: relative;
+}
+
+.column {
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100%/3);
+}
+
+
+
+
+.team-logo {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--color-bg-primary);
+    box-shadow: 0 4px 4px 0 rgba(#303030, 0.15),
+        0 0 0 15px var(--color-bg-secondary);
+
+    img {
+        width: 50px;
+    }
+
+}
+
+.team-name {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+
+.match-date {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+
+    strong {
+        color: var (--color-text-primary);
+    }
+}
+
+.match-score {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.match-score-number {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+
+    &--leading {
+        color: var(--color-theme-primary);
+    }
+}
+
+.match-score-divider {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    color: var (--color-text-icon);
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.match-time-lapsed {
+    color: #DF9443;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-buttons,
+.right-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-buttons button,
+.right-buttons button {
+    width: 220px;
+    height: 50px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+}

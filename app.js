@@ -2,9 +2,8 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const path = require('path')
-
 const session = require('express-session');
-const cookieParser = require('cookie-parser'); // Importez cookieParser avant requireAuth
+const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const { requireAuth } = require('./server/config/auth');
 
@@ -15,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-
 app.use(express.static('public'));
 app.use(express.static('server'));
 app.use('/images', express.static(path.join(__dirname, 'server', 'images')));
