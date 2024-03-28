@@ -38,7 +38,8 @@
 
         </div>
     </div>
-    <form action="/modifier_entraineur/<%= gestId %>?_method=PUT" method="POST" novalidate>
+    <form action="/modifier_entraineur/<%= gestId %>?_method=PUT" method="POST" novalidate
+        enctype="multipart/form-data">
         <div>
             <label for="validationCustom01" class="form-label">Nom :</label>
             <input type="text" class="form-control" name="nom" id="validationCustom01"
@@ -59,7 +60,7 @@
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Photo:</label>
-            <input type="file" class="form-control" name="photo" id="validationCustom01"
+            <input type="file" class="form-control" name="photo" accept="image/*" id="validationCustom01"
                 value="<%= result.length> 0 ? result[0].img_ent : 'null' %>">
             <div class="valid-feedback"></div>
         </div>

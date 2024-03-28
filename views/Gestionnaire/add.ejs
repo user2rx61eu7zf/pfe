@@ -32,8 +32,8 @@
           <div class="col">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= userId %>">Acceuil</a></li>
-                <li class="breadcrumb-item"><a href="/gererjoueurs/<%= userId %>">Gestion des joueurs </a></li>
+                <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a></li>
+                <li class="breadcrumb-item"><a href="/gererjoueurs/<%= gestId %>">Gestion des joueurs </a></li>
                 <li class="breadcrumb-item active">Nouveau Joueur</li>
               </ol>
             </nav>
@@ -41,7 +41,7 @@
 
         </div>
       </div>
-      <form action="/ajouter_joueur/<%= userId %>" method="POST" class="needs-validation" novalidate
+      <form action="/ajouter_joueur/<%= gestId %>" method="POST" class="needs-validation" novalidate
         enctype="multipart/form-data">
         <div>
           <label for="validationCustom01" class="form-label">Nom</label>
@@ -55,8 +55,7 @@
         </div>
         <div>
           <label for="validationCustom01" class="form-label">Photo:</label>
-          <input type="file" class="form-control" name="photojoueur" id="validationCustom01" value="" required
-            accept="image/*">
+          <input type="file" class="form-control" name="photojoueur" id="validationCustom01" value="" accept="image/*">
           <div class="valid-feedback"></div>
         </div>
         <div>

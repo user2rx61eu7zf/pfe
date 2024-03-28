@@ -20,6 +20,8 @@ app.use(express.static('public'));
 app.use(express.static('server'));
 app.use('/images', express.static(path.join(__dirname, 'server', 'images')));
 
+
+
 // Express session
 app.use(
     session({

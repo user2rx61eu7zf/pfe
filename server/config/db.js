@@ -18,4 +18,19 @@ bdd.connect((err) => {
     console.log("connexion a la base de donne : " + bdd.state)
 })
 
+// function dbQuery(sql, params) {
+//     return new Promise((resolve, reject) => {
+//         bdd.query(sql, params, (err, results) => {
+//             if (err) {
+//                 reject(err);
+//             } else {
+//                 resolve(results);
+//             }
+//         });
+//     });
+// }
 module.exports = bdd;
+// module.exports = { dbQuery };
+
+
+

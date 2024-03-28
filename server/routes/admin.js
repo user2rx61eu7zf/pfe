@@ -10,4 +10,7 @@ router.post("/ajouter_gestionnaire", adminController.postGestionnaire);
 //router.put("/edit/:id", adminController.editpost);
 router.delete("/supprimer/:id", adminController.supprimerGestionnaire);
 router.get("/gererGestionnaire", adminController.gererGestionnaire);
+
+
+
 module.exports = router;

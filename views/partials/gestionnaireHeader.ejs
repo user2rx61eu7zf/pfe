@@ -11,67 +11,38 @@
     action="/recherche/<%= gestId %>">
 
     <div class="search-container">
-      <input type="search" name="searchTerm" class="form-control form-control-dark border-0"
-        placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px;">
-      <i class="bi bi-search search-icon" style="color: rgb(10, 37, 212);"></i>
+      <input type="search" name="searchTerm" class="form-control form-control-dark border-0" placeholder="Rechercher "
+        aria-label="Search" style="width: 500px;background: linear-gradient(to right, #1c1876, #085015); color: white;">
+      <i class="bi bi-search search-icon" style="color: rgb(38, 224, 13);"></i>
     </div>
   </form>
+
+
 
   <div class="dropdown text-end" style="margin-right: 20px;">
     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
       data-bs-toggle="dropdown" aria-expanded="false">
-      <% if (results.length> 0 && results[0].photo_profil) { %>
-        <img src="/images/<%= results[0].photo_profil %>" class=" rounded-circle " alt="Description of the image"
-          style="width: 32px; height: 32px;">
-        <% } else { %>
-          <img src="/images/default.jpg" class=" rounded-circle" alt="image" style="width: 32; height: 32px; ">
-          <% } %>
-
+      <img src="/images/<%= results[0].photo_profil %>" alt="" width="32" height="32"
+        class="rounded-circle profile-picture">
     </a>
     <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
-      <li><a class="dropdown-item" href="/monprofile/<%= gestId %>"> <i class="bi bi-person"></i> Mon profile </a>
-      </li>
+      <li><a class="dropdown-item" href="/monprofile/<%= gestId %>"><i class="bi bi-person"></i> Mon profile</a></li>
       <li class="dropdown-item">
-        <div class="form-check form-switch" style=" margin-left: auto;">
+        <div class="form-check form-switch" style="margin-left: auto;">
           <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
-          <label class="form-check-label" for="darkModeToggle"> Mode sombre </label>
+          <label class="form-check-label" for="darkModeToggle">Mode sombre</label>
         </div>
       </li>
       <li>
         <hr class="dropdown-divider">
       </li>
-      <li><a class="dropdown-item" href="/login" id="logoutLink" data-bs-toggle="modal"
-          data-bs-target="#logoutConfirmationModal"> <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i>
-          Se
-          déconnecter </a></li>
-
+      <li>
+        <a class="dropdown-item" href="/login" id="logoutLink" data-bs-toggle="modal"
+          data-bs-target="#logoutConfirmationModal">
+          <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i>
+          <span style="color: #fe0800;">Se déconnecter</span>
+        </a>
+      </li>
     </ul>
   </div>
 </header>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Retrieve the dark mode toggle checkbox element
-    const darkModeToggle = document.getElementById('darkModeToggle');
-
-    // Function to toggle dark mode
-    function toggleDarkMode() {
-      // Toggle the 'dark-mode' class on the body element
-      document.body.classList.toggle('dark-mode');
-
-      // Save dark mode preference to localStorage
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    }
-
-    // Load dark mode preference from localStorage and apply if set
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      darkModeToggle.checked = true;
-    }
-
-    // Listen for click event on dark mode toggle checkbox
-    darkModeToggle.addEventListener('change', toggleDarkMode);
-  });
-
-</script>

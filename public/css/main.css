@@ -26,7 +26,9 @@ body.dark-mode {
     left: 0;
     z-index: 100;
     padding: 48px 0 0;
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
 
 }
 
@@ -41,61 +43,71 @@ body.dark-mode {
     overflow-x: hidden;
     overflow-y: auto;
 
+
 }
 
-/* Light mode styles */
+
 .sidebar .nav-link {
     font-weight: 500;
     color: #000;
-    /* Black color */
+    font-size: 16px;
+
 }
 
-/* Dark mode styles */
+
 .dark-mode .sidebar .nav-link {
     font-weight: 500;
-    color: #8ed5e8;
-    /* Custom color for dark mode */
+    color: #ffffff;
+    font-size: 16px;
+
 }
 
 
 .sidebar .nav-linkdeco {
 
     font-weight: 500;
+    font-size: 16px;
     color: #DA3E52;
     position: relative;
     top: -30px;
     left: 15px;
     cursor: pointer;
+
+
 }
+
+
 
 
 
 
 .sidebar .nav-link .feather {
     margin-right: 4px;
-    color: #727272;
+    color: #3013c0;
 }
 
-/* Light mode styles */
 .sidebar .nav-link.active {
-    color: #0a80f7;
-    /* Light mode text color */
+    color: #3013c0;
+
 }
 
-/* Dark mode styles */
+
 .dark-mode .sidebar .nav-link.active {
     color: #fff;
-    /* Dark mode text color */
+
 }
 
 
 .sidebar .nav-link:hover .feather,
 .sidebar .nav-link.active .feather {
-    color: inherit;
+    color: #3013c0;
 }
 
-.sidebar-heading {
-    font-size: .75rem;
+
+
+.dark-mode .sidebar .nav-link.active {
+    color: #da3e52;
+
 }
 
 /*
@@ -109,28 +121,18 @@ body.dark-mode {
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
 
-.navbar .navbar-toggler {
-    top: .25rem;
-    right: 1rem;
-}
+
 
 .navbar .form-control {
-    padding: .75rem 1rem;
+    padding: .60rem;
+
 }
 
 .navbar .form-control::placeholder {
 
-    color: white;
+    color: #d1d2e1;
     opacity: 1;
 
-}
-
-
-
-.form-control-dark {
-    color: #fff;
-    background-color: rgba(255, 255, 255, .1);
-    border-color: rgba(255, 255, 255, .1);
 }
 
 .form-control-dark:focus {
@@ -140,53 +142,55 @@ body.dark-mode {
 
 
 
-.active {
-    color: rgb(221, 6, 6);
+
+
+
+
+.sidebar .nav-item:hover :not(.sidebar .nav-linkdeco):not(a.sidebar .nav-linkdeco) {
+    background-color: #1d9840 !important;
+
 }
 
-.nav-item:hover {
-    background-color: #809ba7;
-    /* Change background color on hover */
-}
+
+
+
+
 
 .nav-link:hover {
     color: #fff;
-    /* Change text color on hover */
+
 }
 
-.search-container input[type="search"].form-control:focus {
-    background-color: #7193b5;
-    /* Change background color when focused */
-}
+
 
 .search-container {
     position: relative;
     cursor: pointer;
+
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: 200px;
+
+
+
 }
 
 .search-icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 15px;
+    left: 450px;
     pointer-events: none;
 
 }
 
 .form-control {
-    padding-right: 35px;
+
     border-radius: 50px;
 
 }
 
-.dark-mode .form-control {
-    color: #fff;
-    /* White color */
-    background-color: #222831;
-    /* Dark background color */
-    border-color: #6c757d;
-    /* Border color */
-}
+
 
 
 .alert {
@@ -194,18 +198,18 @@ body.dark-mode {
     transition: opacity 0.5s ease-in-out;
 }
 
-/* Apply fade out animation when alert is dismissed */
+
 .alert.hide {
     opacity: 0;
 }
 
-/* Add a slight delay before starting the fade out animation */
+
 .alert.hide.delay {
     transition-delay: 1s;
-    /* Delay for 1 second before starting the fade out */
+
 }
 
-/* Add margin to separate alerts */
+
 .alert+.alert {
     margin-top: 10px;
 }
@@ -218,30 +222,45 @@ body.dark-mode {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 h3 {
     color: #16659E
 }
 
+
+
 h5 {
     font-weight: bold;
 }
+
+.breadcrumb .breadcrumb-item.active {
+    font-weight: 500;
+    color: #000000;
+    /* Active item color */
+}
+
+.dark-mode .breadcrumb {
+    background-color: #d03819;
+
+}
+
+.breadcrumb>li+li::before {
+    color: #000000 !important;
+}
+
 
 
 
 .breadcrumb .breadcrumb-item a {
     color: #007bff;
-    /* Link color */
-}
-
-
-
-/* Dark mode styles */
-.dark-mode .breadcrumb {
-    background-color: #222831;
 
 }
+
+
+
+
 
 
 
@@ -260,7 +279,7 @@ h5 {
 
 }
 
-/* Light mode styles */
+
 h4 {
     color: #000;
     /* Black color */
@@ -268,21 +287,55 @@ h4 {
 
 /* Dark mode styles */
 .dark-mode h4 {
-    color: #8ed5e8;
-    /* White color */
+    color: #16659E
+        /* White color */
 }
 
 
 /* Light mode styles */
 .navbar {
-    background-color: #16659e;
-    /* Light mode background color */
+    background: linear-gradient(to right, #1c1876, #085015);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.dark-mode .navbar .navbar-nav .nav-link {
+    color: #ffffff;
+
+}
+
+
+.dark-mode .navbar .navbar-nav .nav-link:hover {
+    color: #e0e0e0;
+
+}
+
+
+
+
+/* Dark mode navbar brand styles */
+.dark-mode .navbar .navbar-brand {
+    color: #ffffff;
+    /* White text color for brand */
+}
+
+/* Dark mode navbar brand hover styles */
+.dark-mode .navbar .navbar-brand:hover {
+    color: #e0e0e0;
+    /* Lighter text color on hover */
 }
 
 /* Dark mode styles */
 .dark-mode .navbar {
     background-color: rgba(4, 4, 4, 0.8);
     /* Dark mode background color */
+}
+
+/* Dark mode form control placeholder color */
+.dark-mode .navbar .form-control::placeholder {
+    color: #b0b0b0;
+    /* Light gray placeholder text */
 }
 
 /* Light mode styles */
@@ -346,7 +399,7 @@ h4 {
 .dark-mode .dropdown-menu {
     background-color: #222831;
     /* Dark mode background color */
-    color: #db0000;
+    color: #00db54;
     /* Dark mode text color */
 }
 
@@ -363,19 +416,19 @@ h4 {
 
 /* Light mode hover color */
 .dropdown-menu li:hover {
-    background-color: #ff0000;
+    background-color: #0da44f;
     /* Red */
 }
 
 /* Dark mode hover color */
 .dark-mode .dropdown-menu li:hover {
-    background-color: #784141;
+    background-color: #0da44f;
     /* Red */
 }
 
 /* Light mode hover color for list items with links */
 .dropdown-menu li:hover a.dropdown-item {
-    background-color: #744c4c;
+    background-color: #0da44f;
     /* Red */
     color: #fff;
     /* White text color */
@@ -383,8 +436,57 @@ h4 {
 
 /* Dark mode hover color for list items with links */
 .dark-mode .dropdown-menu li:hover a.dropdown-item {
-    background-color: #c87474;
+    background-color: #41784c;
     /* Red */
     color: #fff;
     /* White text color */
+}
+
+.dark-mode .modal-header .modal-title,
+.dark-mode .modal-body p {
+    color: #ffffff;
+    /* White text color */
+}
+
+.dark-mode .modal-content {
+    background-color: #000;
+    /* Black background color */
+}
+
+.dark-mode .col .breadcrumb {
+    background-color: #20212a;
+    /* Black background color */
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    /* Remove underline */
+}
+
+.profile-picture {
+    width: 32px;
+    /* Adjust the width as needed */
+    height: 32px;
+    /* Adjust the height as needed */
+    overflow: hidden;
+    border-radius: 50%;
+    /* Make it a circle */
+    border: 2px solid #ffffff;
+    /* Add a border for better contrast */
+}
+
+.profile-picture:hover {
+    border-color: #ccc;
+    /* Change border color on hover */
+}
+
+.deconncter {
+    margin-top: 200px;
+
+
+}
+
+.deconncter .nav-link {
+    color: rgb(255, 0, 0);
+    /* Change the color to your desired color */
 }

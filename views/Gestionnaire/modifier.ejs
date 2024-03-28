@@ -25,7 +25,7 @@
 </div>
 
 
-<form action="/edit/<%= result[0].id_jo %>/<%= gestId %>?_method=PUT" method="POST">
+<form action="/edit/<%= result[0].id_jo %>/<%= gestId %>?_method=PUT" method="POST" enctype="multipart/form-data">
 
   <div class="row form-group mb-4">
     <div>
@@ -38,6 +38,12 @@
       <label for="validationCustom02" class="form-label">Prenom</label>
       <input type="text" class="form-control" name="prenom" id="validationCustom02" value="<%= result[0].prenom_jo%>"
         required>
+      <div class="valid-feedback"></div>
+    </div>
+    <div>
+      <label for="validationCustom02" class="form-label">Photo</label>
+      <input type="file" class="form-control" name="photo" accept="image/*" id="validationCustom02"
+        value="<%= result.length> 0 ? result[0].photo_jo : 'null' %>">
       <div class="valid-feedback"></div>
     </div>
     <div>

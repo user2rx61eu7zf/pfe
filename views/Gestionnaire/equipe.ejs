@@ -18,7 +18,7 @@
 
 
         <% if (result && result.length> 0 && result[0].logo_eq) { %>
-            <img src="<%= result[0].logo_eq %>" class="img-fluid rounded-circle mb-3" alt="Profile Picture"
+            <img src="/images/<%=result[0].logo_eq %>" class="img-fluid rounded-circle mb-3" alt="Profile Picture"
                 style="width: 160px; height: 180px;">
             <% } else { %>
                 <p>No logo found</p>
@@ -71,11 +71,11 @@
                                         class="btn btn-success btn-small">
                                         <i class="bi bi-plus-circle"></i>
                                     </a>
-                                    <a href="/voir_entraineur/<%= gestId %>" type="button"
+                                    <a href="/voir_entraineur/<%= gestId %>" id="voir_ent_btn" type="button"
                                         class="btn btn-primary btn-small">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="/modifier_entraineur/<%= gestId %>" type="button"
+                                    <a href="/modifier_entraineur/<%= gestId %>" id="edit_ent_btn" type="button"
                                         class="btn btn-warning btn-small">
                                         <i class="bi bi-pencil"></i>
                                     </a>
@@ -132,13 +132,13 @@
                                                         class="btn btn-success btn-small">
                                                         <i class="bi bi-plus-circle"></i>
                                                     </a>
-                                                    <a href="/voir_stade/<%= gestId %>" type="button"
+                                                    <a href="/voir_stade/<%= gestId %>" id="voir_std_btn" type="button"
                                                         class="btn btn-primary btn-small">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
 
-                                                    <a href="/modifier_stade/<%= gestId %>" type="button"
-                                                        class="btn btn-warning btn-small">
+                                                    <a href="/modifier_stade/<%= gestId %>" id="edit_std_btn"
+                                                        type="button" class="btn btn-warning btn-small">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
 
@@ -156,21 +156,20 @@
 
 </div>
 <script>
-    //desac le bouton add entraineur
     document.addEventListener('DOMContentLoaded', function () {
         var element = document.getElementById("add_btn");
         var nomEnt = "<%= resu.length > 0 ? resu[0].nom_ent : 'null' %>";
 
         if (nomEnt !== 'null') {
             element.classList.add("disabled");
-            element.setAttribute("aria-disabled", "true"); // Add aria-disabled attribute
+            element.setAttribute("aria-disabled", "true");
         } else {
             element.addEventListener('click', function (event) {
                 window.location.href = "/ajouter_entraineur/<%= gestId %>";
             });
         }
     });
-    //desac le bouton add stade
+
     document.addEventListener('DOMContentLoaded', function () {
         var element = document.getElementById("add_btn_std");
         var nomEnt = "<%= resultstd.length > 0 ? resultstd[0].nom_std : 'null' %>";
@@ -184,4 +183,42 @@
             });
         }
     });
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        var element = document.getElementById("voir_std_btn");
+        var element2 = document.getElementById("edit_std_btn");
+
+        var nomstd = "<%= resultstd.length > 0 ? resultstd[0].nom_std : 'null' %>";
+
+
+
+        if (nomstd == 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true");
+            element2.classList.add("disabled");
+            element2.setAttribute("aria-disabled", "true");
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        var element = document.getElementById("voir_ent_btn");
+        var element2 = document.getElementById("edit_ent_btn");
+
+        var ent = "<%= resu.length > 0 ? resu[0].nom_ent : 'null' %>";
+        console.log(ent);
+
+
+
+        if (ent == 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true");
+            element2.classList.add("disabled");
+            element2.setAttribute("aria-disabled", "true");
+        }
+    });
+
+
 </script>

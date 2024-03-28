@@ -87,8 +87,8 @@ body {
 
 
 .team-logo {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -119,12 +119,17 @@ body {
     strong {
         color: var (--color-text-primary);
     }
+
+    margin-top: -25px;
+
 }
 
 .match-score {
     margin-top: 12px;
     display: flex;
     align-items: center;
+
+
 }
 
 .match-score-number {
@@ -148,21 +153,11 @@ body {
 }
 
 .match-time-lapsed {
-    color: #DF9443;
+    color: #f10000;
     font-size: 14px;
     font-weight: 600;
-    margin-top: 8px;
+    margin-top: 50px;
 }
-
-
-
-
-
-
-
-
-
-
 
 .box {
     display: flex;
@@ -184,4 +179,10 @@ body {
     font-size: 16px;
     font-weight: 400;
     font-family: "Inter", sans-serif;
+}
+
+.match-time-lapsed #extra {
+    font-size: 16px;
+    color: #f10000;
+    font-weight: 600;
 }

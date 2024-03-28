@@ -9,23 +9,46 @@
     <link rel="stylesheet" href="/css/gerermatch.css">
 </head>
 
+
 <body>
+    <div class="col py-1">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a></li>
+                        <li class="breadcrumb-item active">Match en temps reel </li>
+                    </ol>
+                </nav>
+            </div>
 
-</body>
-<div class="col py-1">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/compteGestionnaire/">Acceuil</a></li>
-                    <li class="breadcrumb-item active">Match en temps reel </li>
-                </ol>
-            </nav>
+
+            <% message_carton_jaune.forEach(element=> { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <%= element %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% }) %>
+                    <% message_carton_rouge.forEach(element=> { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <%= element %>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                        <% }) %>
+                            <% message_but.forEach(element=> { %>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <%= element %>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                                <% }) %>
+
+
+
+
+
         </div>
-
-    </div>
-
-    <body>
         <div class="profile-card mt-3 ">
             <div class="text-center">
                 <div class="match">
@@ -41,7 +64,7 @@
                         <div class="column">
                             <div class="team team--home">
                                 <div class="team-logo">
-                                    <img src="<%= reslogo[0].logo_eq %>" />
+                                    <img src="/images/<%= reseq[0].logo_eq %>" />
                                 </div>
                                 <h2 class="team-name">
                                     <%= result[0].equipe_1 %>
@@ -73,15 +96,20 @@
                                         <%= result[0].score_eq2 %>
                                     </span>
                                 </div>
-                                <div class="match-time-lapsed" id="timer"> <span id="minutes"></span>:<span
-                                        id="seconds"></span></div>
+                                <div class="match-time-lapsed" id="timer">
+                                    <span id="extra"></span>
+                                    <br>
+                                    <span id="minutes"></span>
+                                    <span id="separator">:</span>
+                                    <span id="seconds"></span>
+                                </div>
 
                             </div>
                         </div>
                         <div class="column">
                             <div class="team team--away">
                                 <div class="team-logo">
-                                    <img <img src="<%= reslogo[1].logo_eq %>" />
+                                    <img <img src="/images/<%= reseq[1].logo_eq %>" />
                                 </div>
                                 <h2 class="team-name">
                                     <%= result[0].equipe_2 %>
@@ -129,323 +157,656 @@
 
                 </div>
             </div>
-            <!--modal debut de match -->
+        </div>
 
-            <div class="modal fade" id="debutModal" tabindex="-1" aria-labelledby="debutModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Début de match</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Voulez-vous vraiment commencer le match ?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-success" onclick="start()"
-                                data-bs-dismiss="modal">Oui</button>
-                        </div>
+        <!--modal debut de match -->
+
+        <div class="modal fade" id="debutModal" tabindex="-1" aria-labelledby="debutModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="debutModalLabel">Début de match</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Voulez-vous vraiment commencer le match ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" id="startBtn" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--modal fin de match -->
+        <!--modal fin de match -->
 
-            <div class="modal fade" id="finModal" tabindex="-1" aria-labelledby="finModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Fin de match</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Vous confirmez que le match est terminé ?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <div class="modal fade" id="finModal" tabindex="-1" aria-labelledby="finModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="debutModalLabel">Fin de match</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Vous confirmez que le match est terminé ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
 
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
-                                onclick="stop()">Oui</button>
+                        <button type="submit" id="stopBtn" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
 
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <!--modal prolongation -->
+        <!--modal prolongation -->
 
-            <div class="modal fade" id="prolongationModal" tabindex="-1" aria-labelledby="pronlongationModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Prolongation</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Vous confirmez que le match va au prolongation (120 min) ?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <form action="/prolongation" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Oui</button>
-                            </form>
-                        </div>
+        <div class="modal fade" id="prolongationModal" tabindex="-1" aria-labelledby="pronlongationModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="debutModalLabel">Prolongation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Vous confirmez que le match va au prolongation (120 min) ?</p>
+                    </div>
+                    <div class="modal-footer">
+
+
+                        <button type="submit" id="startExtBtn" class="btn btn-success"
+                            data-bs-dismiss="modal">Oui</button>
+                        <button type="submit" id="stopExt1Btn" class="btn btn-danger"
+                            data-bs-dismiss="modal">Pause</button>
+                        <button type=" submit" class="btn btn-success" data-bs-dismiss="modal" onclick="ext2()">
+                            2e</button>
+                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" id="stopext"
+                            onclick="stopext2()">Fin</button>
+
+
+
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <!--modal mi temps   -->
+        <!--modal mi temps   -->
 
-            <div class="modal fade" id="mitempsModal" tabindex="-1" aria-labelledby="mitempsModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Mi-temps</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>vous confirmer que c'est la Mi-temps du match ?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <form action="/mitemps" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Confirmer</button>
-                            </form>
-                        </div>
+        <div class="modal fade" id="mitempsModal" tabindex="-1" aria-labelledby="mitempsModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="debutModalLabel">Mi-temps</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>vous confirmer que c'est la Mi-temps du match ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                        <button type="submit" id="mitempsBtn" class="btn btn-success"
+                            data-bs-dismiss="modal">Confirmer</button>
+
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--modal reprise 2eme periode  -->
+        <!--modal reprise 2eme periode  -->
 
-            <div class="modal fade" id="repriseModal" tabindex="-1" aria-labelledby="repriseModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Début 2e mi-temps</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>vous confirmer que la 2e mi-temps commence ?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <div class="modal fade" id="repriseModal" tabindex="-1" aria-labelledby="repriseModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="debutModalLabel">Début 2e mi-temps</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>vous confirmer que la 2e mi-temps commence ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal"
-                                onclick="start2()">Confirmer</button>
+                        <button type="submit" id="start2Btn" class="btn btn-success" data-bs-dismiss="modal" ">Confirmer</button>
 
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--modal but  -->
+        <!--modal but  -->
 
-            <div class="modal fade" id="butModal" tabindex="-1" aria-labelledby="butModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">But</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+        <div class=" modal fade" id="butModal" tabindex="-1" aria-labelledby="butModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="debutModalLabel">But</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/but/<%= gestId %>/<%= matchId %>" method="POST">
+                                            <p>Equipe:</p>
+                                            <div class="dropdown">
+                                                <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                    id="dropdownequipe" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="background-color: white;color: black; position: relative;">
+                                                    Equipe <span class="caret"></span>
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Equipe</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                            <br>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownequipe"
+                                                    id="dropdownEquipeMenu">
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Joueur</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <form action="/but" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Confirmer</button>
-                            </form>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextbut('<%= reseq[1].nom_eq %>')">
+                                                            <%= reseq[1].nom_eq %>
+                                                                <img src="/images/<%= reseq[1].logo_eq %>" alt=""
+                                                                    width=" 32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                        </a>
+
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextbut('<%= reseq[0].nom_eq %>')">
+                                                            <%= reseq[0].nom_eq %>
+                                                                <img src="/images/<%= reseq[0].logo_eq %>" alt=""
+                                                                    width=" 32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <input type="hidden" name="equipe" id="selectedEquipe">
+                                            </div>
+                                            <hr>
+                                            <p>Joueur buteur:</p>
+
+                                            <div class="dropdown">
+                                                <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                    id="dropdownjoueur" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="background-color: white;color: black; position: relative;">
+
+                                                    Joueur <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownjoueur">
+
+
+                                                    <p style="padding-left: 10px;">
+                                                        <img src="/images/<%= reseq[1].logo_eq %> " alt="" width="32"
+                                                            height="32" class="rounded-circle profile-picture">
+                                                        <%=reseq[1].nom_eq %>
+                                                    </p>
+                                                    <% resjoeq1.forEach(function(jo) { %>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#"
+                                                                onclick="updateDropdownTextjo('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                        <%= jo.prenom_jo %>
+                                                                            <img src="/images/<%= jo.photo_jo %>" alt=""
+                                                                                width="32" height="32"
+                                                                                class="rounded-circle profile-picture">
+                                                            </a>
+                                                        </li>
+                                                        <% }); %>
+
+                                                            <div class="dropdown-divider"></div>
+
+                                                            <p style="padding-left: 10px;">
+                                                                <img src="/images/<%= reseq[0].logo_eq %> " alt=""
+                                                                    width="32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                                <%= reseq[0].nom_eq %>
+                                                            </p>
+
+
+
+                                                            <% resjoeq2.forEach(function(jo) { %>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"
+                                                                        onclick="updateDropdownTextjo('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                        <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                                <%= jo.prenom_jo %>
+                                                                                    <img src="/images/<%= jo.photo_jo %>"
+                                                                                        alt="" width="32" height="32"
+                                                                                        class="rounded-circle profile-picture">
+                                                                    </a>
+                                                                </li>
+                                                                <% }); %>
+
+                                                </ul>
+                                                <input type="hidden" name="joueur" id="selectedJoueur">
+
+
+                                            </div>
+                                            <hr>
+                                            <p>Joueur passeur décisif :</p>
+
+                                            <div class="dropdown">
+                                                <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                    id="dropdownpasseur" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="background-color: white;color: black; position: relative;">
+
+                                                    Joueur <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownpasseur">
+
+
+                                                    <p style="padding-left: 10px;">
+                                                        <img src="/images/<%= reseq[1].logo_eq %> " alt="" width="32"
+                                                            height="32" class="rounded-circle profile-picture">
+                                                        <%=reseq[1].nom_eq %>
+                                                    </p>
+                                                    <% resjoeq1.forEach(function(jo) { %>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#"
+                                                                onclick="updateDropdownTextjop('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                        <%= jo.prenom_jo %>
+                                                                            <img src="/images/<%= jo.photo_jo %>" alt=""
+                                                                                width="32" height="32"
+                                                                                class="rounded-circle profile-picture">
+                                                            </a>
+                                                        </li>
+                                                        <% }); %>
+
+                                                            <div class="dropdown-divider"></div>
+
+                                                            <p style="padding-left: 10px;">
+                                                                <img src="/images/<%= reseq[0].logo_eq %> " alt=""
+                                                                    width="32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                                <%= reseq[0].nom_eq %>
+                                                            </p>
+
+
+
+                                                            <% resjoeq2.forEach(function(jo) { %>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"
+                                                                        onclick="updateDropdownTextjop('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                        <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                                <%= jo.prenom_jo %>
+                                                                                    <img src="/images/<%= jo.photo_jo %>"
+                                                                                        alt="" width="32" height="32"
+                                                                                        class="rounded-circle profile-picture">
+                                                                    </a>
+                                                                </li>
+                                                                <% }); %>
+
+                                                </ul>
+                                                <input type="hidden" name="joueur" id="selectedpasseur">
+
+
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Annuler</button>
+
+                                                <button type="submit" class="btn btn-success">Confirmer</button>
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                    </div>
+
+
+
+                    <!--modal carton jaune  -->
+
+
+                    <div class="modal fade" id="jauneModal" tabindex="-1" aria-labelledby="jauneModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="debutModalLabel">Carton jaune </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/jaune/<%= gestId%>/<%= matchId%>" method="POST">
+                                        <div class="modal-body">
+
+                                            <p>Equipe:</p>
+                                            <div class="dropdown">
+                                                <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                    id="dropdownjaune" data-bs-toggle="dropdown" aria-expanded="false"
+                                                    style="background-color: white;color: black; position: relative;">
+                                                    Equipe <span class="caret"></span>
+
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownjaune">
+
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextjaune('<%= reseq[1].nom_eq %>')">
+                                                            <%= reseq[1].nom_eq %>
+                                                                <img src="/images/<%= reseq[1].logo_eq %>" alt=""
+                                                                    width=" 32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                        </a>
+
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextjaune('<%= reseq[0].nom_eq %>')">
+                                                            <%= reseq[0].nom_eq %>
+                                                                <img src="/images/<%= reseq[0].logo_eq %>" alt=""
+                                                                    width=" 32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <input type="hidden" name="equipejaune" id="selectedequipejaune">
+                                            </div>
+                                            <hr>
+                                            <p>Joueur:</p>
+                                            <div class="dropdown">
+                                                <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                    id="dropdownjoueurjaune" data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    style="background-color: white;color: black; position: relative;">
+
+                                                    Joueur <span class="caret"></span>
+                                                </button>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownjoueurjaune">
+                                                    <p style="padding-left: 10px;">
+                                                        <img src="/images/<%= reseq[1].logo_eq %> " alt="" width="32"
+                                                            height="32" class="rounded-circle profile-picture">
+                                                        <%=reseq[1].nom_eq %>
+                                                    </p>
+                                                    <% resjoeq1.forEach(function(jo) { %>
+                                                        <li>
+                                                            <a class="dropdown-item" href="#"
+                                                                onclick="updateDropdownTextjoueurjaune('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                        <%= jo.prenom_jo %>
+                                                                            <img src="/images/<%= jo.photo_jo %>" alt=""
+                                                                                width="32" height="32"
+                                                                                class="rounded-circle profile-picture">
+                                                            </a>
+                                                        </li>
+                                                        <% }); %>
+
+                                                            <div class="dropdown-divider"></div>
+
+                                                            <p style="padding-left: 10px;">
+                                                                <img src="/images/<%= reseq[0].logo_eq %> " alt=""
+                                                                    width="32" height="32"
+                                                                    class="rounded-circle profile-picture">
+                                                                <%= reseq[0].nom_eq %>
+                                                            </p>
+
+
+
+                                                            <% resjoeq2.forEach(function(jo) { %>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#"
+                                                                        onclick="updateDropdownTextjoueurjaune('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                        <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                                <%= jo.prenom_jo %>
+                                                                                    <img src="/images/<%= jo.photo_jo %>"
+                                                                                        alt="" width="32" height="32"
+                                                                                        class="rounded-circle profile-picture">
+                                                                    </a>
+                                                                </li>
+                                                                <% }); %>
+
+                                                </ul>
+                                                <input type="hidden" name="joueurjaune" id="selectedjoueurjaune">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Annuler</button>
+
+                                            <button type="submit" class="btn btn-success">Confirmer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!--modal carton jaune  -->
-
-            <div class="modal fade" id="jauneModal" tabindex="-1" aria-labelledby="jauneModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Carton jaune </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Equipe</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                            <br>
-
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Joueur</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <form action="/jaune" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Confirmer</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
-            <!--modal penlaty  -->
+                    <!--modal penlaty  -->
 
-            <div class="modal fade" id="penaltyModal" tabindex="-1" aria-labelledby="penlatyModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Penalty </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Equipe</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
+                    <div class="modal fade" id="penaltyModal" tabindex="-1" aria-labelledby="penlatyModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="debutModalLabel">Penalty </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <form action="/penlaty" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Confirmer</button>
-                            </form>
+                                    <div class="dropdown">
+                                        <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                            id="dropdownequipepeno" data-bs-toggle="dropdown" aria-expanded="false"
+                                            style="background-color: white;color: black; position: relative;">
+                                            Equipe <span class="caret"></span>
+
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownequipe">
+
+                                            <li>
+                                                <a class="dropdown-item" href="#"
+                                                    onclick="updateDropdownText('<%= reseq[1].nom_eq %>')">
+                                                    <%= reseq[1].nom_eq %>
+                                                        <img src="/images/<%= reseq[1].logo_eq %>" alt="" width=" 32"
+                                                            height="32" class="rounded-circle profile-picture">
+                                                </a>
+
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#"
+                                                    onclick="updateDropdownText('<%= reseq[0].nom_eq %>')">
+                                                    <%= reseq[0].nom_eq %>
+                                                        <img src="/images/<%= reseq[0].logo_eq %>" alt="" width=" 32"
+                                                            height="32" class="rounded-circle profile-picture">
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Annuler</button>
+                                    <form action="/penlaty" method="POST" class="position-relative">
+                                        <button type="submit" class="btn btn-success">Confirmer</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!--modal carton rouge  -->
+                    <!--modal carton rouge  -->
 
-            <div class="modal fade" id="rougeModal" tabindex="-1" aria-labelledby="rougeeModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Carton rouge </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
+                    <div class="modal fade" id="rougeModal" tabindex="-1" aria-labelledby="rougeeModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="debutModalLabel">Carton rouge </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/rouge/<%= gestId%>/<%= matchId %>" method="POST">
+                                        <p>Equipe:</p>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                id="dropdownrouge" data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="background-color: white;color: black; position: relative;">
+                                                Equipe <span class="caret"></span>
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Equipe</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                            <br>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownrouge">
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Joueur</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <form action="/rouge" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Confirmer</button>
-                            </form>
+                                                <li>
+                                                    <a class="dropdown-item" href="#"
+                                                        onclick="updateDropdownTextrouge('<%= reseq[1].nom_eq %>')">
+                                                        <%= reseq[1].nom_eq %>
+                                                            <img src="/images/<%= reseq[1].logo_eq %>" alt=""
+                                                                width=" 32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                    </a>
+
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#"
+                                                        onclick="updateDropdownTextrouge('<%= reseq[0].nom_eq %>')">
+                                                        <%= reseq[0].nom_eq %>
+                                                            <img src="/images/<%= reseq[0].logo_eq %>" alt=""
+                                                                width=" 32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <input type="hidden" name="equiperouge" id="selectedequiperouge">
+                                        </div>
+                                        <hr>
+                                        <p>Joueur:</p>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                id="dropdownjoueurrouge" data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="background-color: white;color: black; position: relative;">
+
+                                                Joueur <span class="caret"></span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownjoueurrouge">
+                                                <p style="padding-left: 10px;">
+                                                    <img src="/images/<%= reseq[1].logo_eq %> " alt="" width="32"
+                                                        height="32" class="rounded-circle profile-picture">
+                                                    <%=reseq[1].nom_eq %>
+                                                </p>
+                                                <% resjoeq1.forEach(function(jo) { %>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextjoueurrouge('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                            <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                    <%= jo.prenom_jo %>
+                                                                        <img src="/images/<%= jo.photo_jo %>" alt=""
+                                                                            width="32" height="32"
+                                                                            class="rounded-circle profile-picture">
+                                                        </a>
+                                                    </li>
+                                                    <% }); %>
+
+                                                        <div class="dropdown-divider"></div>
+
+                                                        <p style="padding-left: 10px;">
+                                                            <img src="/images/<%= reseq[0].logo_eq %> " alt=""
+                                                                width="32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                            <%= reseq[0].nom_eq %>
+                                                        </p>
+
+
+
+                                                        <% resjoeq2.forEach(function(jo) { %>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#"
+                                                                    onclick="updateDropdownTextjoueurrouge('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                    <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                            <%= jo.prenom_jo %>
+                                                                                <img src="/images/<%= jo.photo_jo %>"
+                                                                                    alt="" width="32" height="32"
+                                                                                    class="rounded-circle profile-picture">
+                                                                </a>
+                                                            </li>
+                                                            <% }); %>
+
+                                            </ul>
+                                            <input type="hidden" name="joueurrouge" id="selectedjoueurrouge">
+
+                                        </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Annuler</button>
+
+                                    <button type="submit" class="btn btn-success">Confirmer</button>
+
+                                </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!--modal changement  -->
 
-            <div class="modal fade" id="changementModal" tabindex="-1" aria-labelledby="changementModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="debutModalLabel">Changement </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
 
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Equipe</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                            <br>
-                            <p>Joueur entrant :</p>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Joueur IN</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                            <p>Joueur sortant :</p>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected disabled value="">Joueur OUT</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <form action="/changement" method="POST" class="position-relative">
-                                <button type="submit" class="btn btn-success">Confirmer</button>
-                            </form>
+                    <!--modal changement  -->
+
+
+                    <div class="modal fade" id="changementModal" tabindex="-1" aria-labelledby="changementModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="debutModalLabel">Changement </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected disabled value="">Equipe</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                    </select>
+                                    <br>
+                                    <p>Joueur entrant :</p>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected disabled value="">Joueur IN</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                    </select>
+                                    <p>Joueur sortant :</p>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected disabled value="">Joueur OUT</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Annuler</button>
+                                    <form action="/changement" method="POST" class="position-relative">
+                                        <button type="submit" class="btn btn-success">Confirmer</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <script>
-                var timerInterval; // Declare timerInterval as a global variable
 
-                function start() {
-                    var sec = -1;
-                    function pad(val) { return (val < 10 ? "0" : "") + val; }
-                    timerInterval = setInterval(function () {
-                        $("#seconds").html(pad(++sec % 60));
-                        $("#minutes").html(pad(parseInt(sec / 60, 10) % 60));
-                        $("#hours").html(pad(parseInt(sec / 3600, 10)));
-                    }, 1000);
-                }
 
-                function start2() {
-                    var sec = 45 * 60; // Start from minute 45
-                    function pad(val) { return (val < 10 ? "0" : "") + val; }
-                    timerInterval = setInterval(function () {
-                        $("#seconds").html(pad(++sec % 60));
-                        $("#minutes").html(pad(parseInt(sec / 60, 10) % 60));
-                        $("#hours").html(pad(parseInt(sec / 3600, 10)));
-                    }, 1000);
-                }
-
-                function stop() {
-                    clearInterval(timerInterval); // Stop the timer
-                }
-            </script>
-
-    </body>
-
+                    <script src="/config/gerermatch.js"></script>
+</body>
 
 
 
