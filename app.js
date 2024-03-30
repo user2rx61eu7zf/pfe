@@ -45,6 +45,7 @@ app.set('view engine', 'ejs');
 
 app.use('/', require('./server/routes/gestionnaire'));
 app.use('/', require('./server/routes/admin'));
+app.use('/', require('./server/routes/visiteur'));
 app.use('/', require('./server/routes/login.JS'));
 
 // handle 404 

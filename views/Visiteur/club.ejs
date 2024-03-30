@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/img/LFW-R.png">
+    <link rel="stylesheet" href="/css/club.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <a href="/calendrier">Calendrier</a>
+            <a href="/classement">Classement</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">S'inscrire | Se connecter </ a>
+                <form class="search-form">
+                    <input type="text" placeholder="Search">
+                    <button type="submit">Search</button>
+                </form>
+                <div id="search-results"></div>
+                <div class="social-icons">
+                    <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                        <img src="github.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://mail.google.com" target="_blank" class="social-link">
+                        <img src="gmail.png" alt="Gmail" class="social-icon">
+                    </a>
+                </div>
+                <span></span>
+        </nav>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="container">
+                        <h2>Top Buteurs</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>G</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Player 1</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>Player 2</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>Player 3</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>Player 4</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <td>Player 5</td>
+                                    <td>7</td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="container">
+                        <!-- Placeholder content -->
+                        <h2>Top Assists</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Assists</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table rows for best assists -->
+                                <tr>
+                                    <td>Player A</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>Player B</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>Player C</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>Player D</td>
+                                    <td>12</td>
+                                </tr>
+                                <tr>
+                                    <td>Player E</td>
+                                    <td>12</td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="container">
+                        <h2>Classement dans la Ligue</h2>
+                        <div class="league-ranking">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Place</th>
+                                        <th>G</th>
+                                        <th>P</th>
+                                        <th>B.P</th>
+                                        <th>B.C</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>10</td>
+                                        <td>5</td>
+                                        <td>30</td>
+                                        <td>20</td>
+                                        <td>25</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mid-container">
+
+                    <% club.forEach(function(club) { %>
+                        <div class="club-info">
+                            <img src="/img/<%= club.logo_eq %>" alt="Team Logo" class="team-logo">
+                            <h2 class="club-name">
+                                <%= club.nom_eq %>
+                            </h2>
+                            <p>
+                                <%= club.abre_eq %>
+                            </p>
+
+                        </div>
+                        <% }); %>
+
+                            <div class="club-in">
+                                <div class="coach-container">
+                                    <p class="coach-title">Entraineur :</p>
+                                    <% if (ent.img_ent) { %>
+                                        <img src="/images/default.jpg" class="coach-image " alt="coach">
+                                        <% } else { %>
+                                            <img src="/images/default.jpg" class=" coach-image " alt="coach">
+                                            <% } %>
+
+                                                <div class="coach-info">
+                                                    <h4 class="coach-name">
+                                                        <%= ent.length> 0 ? ent[0].nom_ent : 'null' %>
+                                                            <%= ent.length> 0 ? ent[0].prenom_ent : 'null' %>
+
+
+                                                    </h4>
+                                                    <p class=" coach-details">Date de naissance : <% if(ent.length> 0) {
+
+                                                            var dateOfBirthString = ent[0].date_naiss_ent;
+
+
+                                                            var dateOfBirth = new Date(dateOfBirthString);
+
+                                                            var formattedDateOfBirth = (" 0" +
+                                                            dateOfBirth.getDate()).slice(-2)
+                                                            + "/" +
+                                                            ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                                            dateOfBirth.getFullYear(); %>
+                                                            <%= formattedDateOfBirth %>
+                                                                <% } else { // Output 'null' if no result is available
+                                                                    %> null
+                                                                    <% } %>
+                                                    </p>
+                                                    <p class="coach-details">Nationalité: <%= ent.length> 0 ?
+                                                            ent[0].nationalite_ent : 'null' %>
+                                                    </p>
+                                                </div>
+                                </div>
+                                <p class="player-title">Joueurs</p>
+                                <div class="player-list">
+                                    <% joueur.forEach(function(joueur) { %>
+                                        <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
+                                            <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
+                                                class="coach-image" style="margin-left: 50px;">
+                                            <div class="player-info">
+                                                <h4 class="player-name">
+                                                    <%= joueur.nom_jo %>
+                                                </h4>
+                                                <p class="player-position">
+                                                    <%= joueur.poste_jo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                            </div>
+                </div>
+                <div class="col-lg-3">
+                    <!-- Right container for table of club titles -->
+                    <div class="container">
+                        <!-- Placeholder content -->
+                        <h2>Club Honeurs</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>League Title</td>
+                                    <td>2021</td>
+                                </tr>
+                                <tr>
+                                    <td>Cup Title</td>
+                                    <td>2020</td>
+                                </tr>
+                                <!-- Add more table rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2>Stade du club </h2>
+                    <div class="stadium-info">
+                        <!-- Stadium Name and Logo -->
+                        <div class="stadium-header">
+                            <img src="/img/stade.jpg" alt="Stadium Logo" class="stadium-logo">
+                            <h3 class="stadium-name">
+                                <%= std.length> 0 ? std[0].nom_std : 'null' %>
+                            </h3>
+                        </div>
+                        <div class="stadium-details">
+                            <p><strong>Capacité:</strong>
+                                <%= std.length> 0 ? std[0].capacite_std : 'null' %>
+                            </p>
+                            <p><strong>Adresse:</strong>
+                                <%= std.length> 0 ? std[0].ville_std : 'null' %>,
+                                    <%= std.length> 0 ? std[0].adresse_std : 'null' %>
+                            </p>
+                            <p><strong>Date de creation :</strong>
+                                <% if(ent.length> 0) {
+                                    var dateOfBirthString = std[0].date_crt;
+                                    var dateOfBirth = new Date(dateOfBirthString);
+                                    var formattedDateOfBirth = (" 0" +
+                                    dateOfBirth.getDate()).slice(-2)
+                                    + "/" +
+                                    ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                    dateOfBirth.getFullYear(); %>
+                                    <%= formattedDateOfBirth %>
+                                        <% } else { // Output 'null' if no result is available %> null
+                                            <% } %>
+                            </p>
+                        </div>
+                    </div>
+                    <h2>Injuries and Suspensions</h2>
+                    <div class="injuries-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Type</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table rows for injuries and suspensions will go here -->
+                                <tr>
+                                    <td>Player A</td>
+                                    <td>Injury</td>
+                                    <td>2 weeks</td>
+                                </tr>
+                                <tr>
+                                    <td>Player B</td>
+                                    <td>Suspension</td>
+                                    <td>1 match</td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2>Club Social Media</h2>
+                    <div class="social-media">
+                        <div class="social-media-item">
+                            <a href="https://twitter.com/club_twitter" target="_blank">
+                                <img src="twitter.png" alt="Twitter" class="social-media-logo">
+                            </a>
+                        </div>
+                        <div class="social-media-item">
+                            <a href="https://www.facebook.com/club_facebook" target="_blank">
+                                <img src="facebook.png" alt="Facebook" class="social-media-logo">
+                            </a>
+                        </div>
+                        <div class="social-media-item">
+                            <a href="https://www.instagram.com/club_instagram" target="_blank">
+                                <img src="gmail.png" alt="Instagram" class="social-media-logo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        // Get all player boxes
+        const playerBoxes = document.querySelectorAll('.player-box');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var playerBoxes = document.querySelectorAll('.player-box');
+            playerBoxes.forEach(function (box) {
+                box.addEventListener('click', handlePlayerClick);
+            });
+
+            function handlePlayerClick(event) {
+
+                var playerId = this.dataset.playerId;
+
+                window.location.href = "/joueur/" + playerId;
+            }
+        });
+
+        playerBoxes.forEach(box => {
+            box.addEventListener('click', handlePlayerClick);
+        });
+    </script>
+</body>
+
+</html>

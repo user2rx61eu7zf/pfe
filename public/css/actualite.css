@@ -1,0 +1,234 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    overflow: auto;
+    background-color: white;
+}
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+nav {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #043c6e, #14810a);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 1;
+}
+
+.logo {
+    height: 150px;
+    width: 150px;
+}
+
+nav a:not(:last-child) {
+    margin-right: 10px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.search-form input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.search-form button {
+    padding: 5px 10px;
+    background-color: #0ed53a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+@media (max-width: 768px) {
+    .search-form {
+        margin-top: 10px;
+    }
+}
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icon {
+    width: 30px; 
+    margin-right: 0%;
+}
+
+nav a {
+    position: relative;
+    display: inline-block;
+    font-size: 1em;
+    color: #fff;
+    text-decoration: none;
+    padding: 0 23px;
+    z-index: 1;
+}
+
+nav span {
+    position: absolute;
+    top: 0;
+    left: 14%;
+    width: 95px;
+    height: 100%;
+    background: linear-gradient(45deg, #70e040, #1bffff);
+    border-radius: 8px;
+    transition: left .5s ease, width .5s ease;
+}
+nav a:nth-child(1):hover~span {
+    left: 15%;
+    width: 95px;
+}
+
+nav a:nth-child(2):hover~span {
+    left: 15%;
+    width: 95px;
+}
+
+nav a:nth-child(3):hover~span {
+    left: 20.5%;
+    width: 110px;
+}
+
+nav a:nth-child(4):hover~span {
+    left: 28.3%;
+    width: 115px;
+}
+
+nav a:nth-child(5):hover~span {
+    left: 37.5%;
+    width: 110px;
+}
+
+nav a:nth-child(6):hover~span {
+    left: 46.3%;
+    width: 95px;
+}
+nav a:nth-child(7):hover~span {
+    left: 54%;
+    width: 200px;
+}
+
+.news-container {
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    display: grid;
+    gap: 20px;
+    position: absolute;
+    margin-top: 50px;
+    padding-bottom: 80px;
+    padding-top: 80px; 
+   
+}
+@media (min-width: 1024px) {
+    .news-container {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+.news-title-container {
+    text-align: center;
+}
+.news-title {
+    font-size: 24px;
+    font-family: "Playfair Display", serif;
+    font-weight: bold;
+    color: #010915;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.news-article {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    height: fit-content;
+}
+.news-article:hover {
+    transform: scale(1.05);
+}
+.news-image {
+    width: 100%;
+    height: auto;
+}
+.article-content {
+    padding:10px;
+    object-fit: cover;
+}
+.article-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+.pagination a {
+    color: #1351a3;
+    text-decoration: none;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+.pagination a:hover {
+    background-color: #1351a3;
+    color: #fff;
+}
+.dropdown {
+    position: absolute;
+    top: 50px;
+    right: 13px;
+    padding: 10px;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #1351a3;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-item:hover {
+    background-color: #1351a3;
+    color: #fff;
+}

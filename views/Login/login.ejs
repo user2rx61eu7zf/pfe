@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Se Connecter</title>
-    <link rel="stylesheet" href="/public/css/logincss.css" />
-  </head>
-  <body>
-    
- 
-    <div class="content">
-      <div class="login-container">
-        <h2>Se Connecter</h2>
 
-        
-        
-        <% messages.forEach(element => { %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <%= element %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          <% }) %>
-    <form action="/compte" method="post"   >
-          <input type="text" name="email" placeholder="Email" required />
-          <br />
-          <input type="password" name="password"  placeholder="Password" required/>
-          <br />
-          <input  type="submit" value="Login" />
-        </form> 
-        <!--flash message email ou faux mot de passe -->
-        
-        <a href="#" class="forgot-password">Forgot Password?</a>
-        
-      </div>
-      
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Se Connecter</title>
+  <link rel="stylesheet" href="/css/logincss.css" />
+
+</head>
+
+<body>
+  <div class="login-container">
+    <img src="/img/LFW-R.png" class="icon-image" alt="Icon">
+    <div class="welcome-text">
+      <h1>Bienvenue ! </h1>
     </div>
-    
 
-    <footer>
-      <p>
-        <a href="https://github.com/user2rx61eu7zf">user2rx61eu7zf</a> | GESION
-        DE LA LIGUE DE FOORBALL RELIZANE
-      </p>
-    </footer>
-  </body>
+    <div class="login-content">
+      <h2>Se Connecter</h2>
+      <% messages.forEach(element=> { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <%= element %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% }) %>
+          <form action="/compte" method="post">
+            <input type="text" name="email" placeholder="Email" required />
+            <br />
+            <input type="password" name="password" placeholder="Password" required />
+            <br />
+            <input type="submit" value="Login" />
+          </form>
+          <!--flash message email ou faux mot de passe -->
+          <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+          <a href="#" class="forgot-password">S'inscrire</a>
+    </div>
+  </div>
+</body>
+
 </html>

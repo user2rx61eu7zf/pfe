@@ -29,8 +29,6 @@ bdd.connect((err) => {
 //         });
 //     });
 // }
+
 module.exports = bdd;
 // module.exports = { dbQuery };
-
-
-

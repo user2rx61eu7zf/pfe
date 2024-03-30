@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+body {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fffbfb;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+nav {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #5c1b00, #02377c);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 1;
+}
+.logo {
+    height:150px;
+    width:150px; 
+}
+nav a:not(:last-child) {
+    margin-right: 10px;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.search-form input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.search-form button {
+    padding: 5px 10px;
+    background-color: #0ed53a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+@media (max-width: 768px) {
+    .search-form {
+        margin-top: 10px;
+    }
+}
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+.social-icon {
+    width: 30px; 
+    margin-right: 0%;
+}
+
+nav a {
+    position: relative;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    z-index: 1;
+}
+
+
+nav span {
+    position: absolute;
+    top: 0;
+    left: 14.3%;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(45deg, #70e040, #1bffff);
+    border-radius: 8px;
+    transition: left .5s ease, width .5s ease;
+}
+
+
+nav a:nth-child(2):hover~span {
+    left: 14.3%;
+    width: 80px;
+    
+    
+   
+}
+
+nav a:nth-child(3):hover~span {
+    left: 21.2%;
+    width: 80px;
+}
+
+nav a:nth-child(4):hover~span {
+    left: 27.9%;
+    width: 115px;
+}
+
+nav a:nth-child(5):hover~span {
+    left: 37.7%;
+    width: 110px;
+}
+
+nav a:nth-child(6):hover~span {
+    left: 47%;
+    width: 80px;
+}
+nav a:nth-child(7):hover~span {
+    left: 54.5%;
+    width: 120px;
+}
+.club-container {
+    width: 100%;
+    margin-top: 0%;
+    height: calc(100vh - 250px);;
+}
+.centered-buttons {
+    display: flex;
+    position: absolute;
+    left: 30%;
+    top:20px;
+    margin-bottom: 20px;
+    margin-top: 50px; 
+}
+.btn-group .btn {
+    margin-right: 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: all 0.3s ease; 
+}
+
+.btn-group .btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+.club-card {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.club-card:hover {
+    transform: scale(1.05);
+}
+
+.club-logo {
+    width: 60px;
+    height: 60px;
+}
+
+.club-details {
+    padding: 25px;
+}

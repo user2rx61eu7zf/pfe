@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/classement.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="actualite.html">News</a>
+            <a href="/calendrier">Calendrier</a>
+            <a href="/classement">Classement</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/login"> Se connecter</a>
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="classement-container">
+            <div class="classement-buttons">
+                <button id="seniorBtn">Classement Senior</button>
+                <button id="juniorBtn">Classement Junior</button>
+                <div class="dropdown">
+                    <ul class="dropdown-menu" aria-labelledby="juniorDropdown">
+                        <li><a class="dropdown-item" href="#" data-division="under19">Under 19</a></li>
+                        <li><a class="dropdown-item" href="#" data-division="under17">Under 17</a></li>
+                        <li><a class="dropdown-item" href="#" data-division="under15">Under 15</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="classement-table" id="seniorTable">
+                <h3>Classement Senior</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placement</th>
+                            <th>Club</th>
+                            <th>PT</th>
+                            <th>J</th>
+                            <th>G</th>
+                            <th>P</th>
+                            <th>N</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>OM.RELIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>AR.AMMI MOUSSA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>CRB.HAMADNA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>CRB.OUARIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>CRB.Sidi-Med-Benaouda</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>6</td>
+                            <td>FCSL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>7</td>
+                            <td>IRBSK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>MB.BELHACEL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>9</td>
+                            <td>RC.KALAA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>RMB.MATMAR</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>11</td>
+                            <td>WB.OUED-RHIOU</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>AR.AIN-TARIK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="classement-table" id="juniorTable">
+                <h3 id="divisionTitle">Classement Junior-19</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placement</th>
+                            <th>Club</th>
+                            <th>PT</th>
+                            <th>J</th>
+                            <th>G</th>
+                            <th>P</th>
+                            <th>N</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>OM.RELIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>AR.AMMI MOUSSA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>CRB.HAMADNA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>CRB.OUARIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>CRB.Sidi-Med-Benaouda</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>6</td>
+                            <td>FCSL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>7</td>
+                            <td>IRBSK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>MB.BELHACEL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>9</td>
+                            <td>RC.KALAA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>RMB.MATMAR</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>11</td>
+                            <td>WB.OUED-RHIOU</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>AR.AIN-TARIK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 id="divisionTitle">Classement Junior-17</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placement</th>
+                            <th>Club</th>
+                            <th>PT</th>
+                            <th>J</th>
+                            <th>G</th>
+                            <th>P</th>
+                            <th>N</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>OM.RELIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>AR.AMMI MOUSSA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>CRB.HAMADNA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>CRB.OUARIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>CRB.Sidi-Med-Benaouda</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>6</td>
+                            <td>FCSL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>7</td>
+                            <td>IRBSK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>MB.BELHACEL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>9</td>
+                            <td>RC.KALAA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>RMB.MATMAR</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>11</td>
+                            <td>WB.OUED-RHIOU</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>AR.AIN-TARIK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 id="divisionTitle">Classement Junior-15</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Placement</th>
+                            <th>Club</th>
+                            <th>PT</th>
+                            <th>J</th>
+                            <th>G</th>
+                            <th>P</th>
+                            <th>N</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>OM.RELIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>AR.AMMI MOUSSA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>CRB.HAMADNA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>CRB.OUARIZANE</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>CRB.Sidi-Med-Benaouda</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>6</td>
+                            <td>FCSL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>7</td>
+                            <td>IRBSK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>8</td>
+                            <td>MB.BELHACEL</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>9</td>
+                            <td>RC.KALAA</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>10</td>
+                            <td>RMB.MATMAR</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>11</td>
+                            <td>WB.OUED-RHIOU</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td>12</td>
+                            <td>AR.AIN-TARIK</td>
+                            <td>30</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('seniorBtn').addEventListener('click', function () {
+            document.getElementById('seniorTable').style.display = 'block';
+            document.getElementById('juniorTable').style.display = 'none';
+        });
+
+        document.getElementById('juniorBtn').addEventListener('click', function () {
+            document.getElementById('seniorTable').style.display = 'none';
+            document.getElementById('juniorTable').style.display = 'block';
+        });
+        document.querySelectorAll('#juniorDropdown .dropdown-item').forEach(function (item) {
+            item.addEventListener('click', function () {
+                var division = item.getAttribute('data-division');
+                document.getElementById('data-division').innerHTML = 'Classement Junior - ' + division;
+            });
+
+        });
+    </script>
+</body>
+
+</html>

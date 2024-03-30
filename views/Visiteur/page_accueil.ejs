@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/page_accueil.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Loogo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <a href="/calendrier">Calendrier</a>
+            <a href="/classement">Classement</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">Se connecter </a>
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active c-item">
+                    <img src="/front/image/ban.jpeg" class="d-block w-100 c-img" alt="Slide 1">
+                    <div class="carousel-caption top-0 mt-4">
+                        <p class="mt-5 fs-3 text-uppercase">Nouveau match Le 13jan</p>
+                        <h1 class="display-1 fw-bolder text-capitalize">OM.Relizane wins?</h1>
+                        <button class="btn btn-primary px-4 py-2 fs-5 mt-3"
+                            onclick="window.location.href='actualite.html' ">View
+                            details</button>
+                    </div>
+                </div>
+                <div class="carousel-item c-item">
+                    <img src="/front/image/stade.jpg" class="d-block w-100 c-img" alt="Slide 2">
+                    <div class="carousel-caption top-0 mt-4">
+                        <p class="text-uppercase fs-3 mt-5">The season has arrived</p>
+                        <p class="display-1 fw-bolder text-capitalize">3 available tours</p>
+                        <button class="btn btn-primary px-4 py-2 fs-5 mt-3"
+                            onclick="window.location.href='actualite.html' " data-bs-toggle="modal"
+                            data-bs-target="#booking-modal">View details</button>
+                    </div>
+                </div>
+                <div class="carousel-item c-item">
+                    <img src="/front/image/trr.jpg" class="d-block w-100 c-img" alt="Slide 3">
+                    <div class="carousel-caption top-0 mt-4">
+                        <p class="text-uppercase fs-3 mt-5">Destination activities</p>
+                        <p class="display-1 fw-bolder text-capitalize">Go glacier hiking</p>
+                        <button class="btn btn-primary px-4 py-2 fs-5 mt-3"
+                            onclick="window.location.href='actualite.html'" data-bs-toggle="modal"
+                            data-bs-target="#booking-modal">View details</button>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    </div>
+</body>
+
+</html>

@@ -1,7 +1,8 @@
 const mysql = require('mysql');
-const db = require('../config/db');
+
 const jwt = require('jsonwebtoken')
 var cookieParser = require('cookie-parser')
+const db = require('../config/db');
 
 
 

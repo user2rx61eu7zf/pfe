@@ -1,0 +1,365 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to right, #5c1b00, #02377c);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 1;
+}
+.logo {
+    height:150px;
+    width:150px; 
+}
+nav a:not(:last-child) {
+    margin-right: 10px;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.search-form input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.search-form button {
+    padding: 5px 10px;
+    background-color: #0ed53a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+@media (max-width: 768px) {
+    .search-form {
+        margin-top: 10px;
+    }
+}
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icon {
+    width: 30px; 
+    margin-right: 0%;
+}
+
+nav a {
+    position: relative;
+    display: inline-block;
+    font-size: 1em;
+    color: #fff;
+    text-decoration: none;
+    padding: 0 23px;
+    z-index: 1;
+}
+
+nav span {
+    position: absolute;
+    top: 0;
+    left: 11.5%;
+    width: 95px;
+    height: 100%;
+    background: linear-gradient(45deg, #70e040, #1bffff);
+    border-radius: 8px;
+    transition: left .5s ease, width .5s ease;
+}
+nav a:nth-child(1):hover~span {
+    left: 12%;
+    width: 95px;
+}
+
+nav a:nth-child(2):hover~span {
+    left: 12%;
+    width: 95px;
+}
+
+nav a:nth-child(3):hover~span {
+    left: 18.5%;
+    width: 110px;
+}
+
+nav a:nth-child(4):hover~span {
+    left: 26%;
+    width: 115px;
+}
+
+nav a:nth-child(5):hover~span {
+    left: 36%;
+    width: 110px;
+}
+
+nav a:nth-child(6):hover~span {
+    left: 45.5%;
+    width: 95px;
+}
+nav a:nth-child(7):hover~span {
+    left: 53%;
+    width: 200px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+    background-color: #f0f0f0;
+}
+.mid-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: calc(410vh - 50px);
+    flex: 1;
+    width: fit-content;
+}
+.club-info
+{
+    align-items: center;
+    align-content: center;
+    text-align: center;
+
+}
+.team-logo {
+    width: 100px; /* Adjust width as needed */
+    height: auto;
+}
+.club-name
+{
+    text-shadow: #666;
+    text-size-adjust: 50px;
+}
+.description {
+    margin-bottom: 20px; /* Add space below the team logo and name */
+}
+.coach-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    gap: 20px;
+}
+.coach-title
+{
+    font-size: 18px;
+    font-weight: bold;
+}
+.coach-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.coach-info {
+    text-align: left;
+}
+.coach-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.coach-details {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+.player-title{
+    text-align: center;
+    font-weight: bolder;
+    font-size: large;
+}
+
+.player-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 36px;
+    justify-items: center;
+    padding-top: 20px;
+}
+
+.player-box {
+    width: 200px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.player-box:hover {
+    transform: scale(0.95);
+}
+
+.player-image {
+    width: 100%;
+    height: auto;
+}
+
+.player-info {
+    padding: 10px;
+    background-color: #fff;
+}
+
+.player-name {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.player-position {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
+}
+/* Heading styles */
+.container h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Table styles */
+.container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.container th, .container td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.container th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.container tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .container {
+        margin-bottom: 30px;
+    }
+}
+.stadium-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stadium-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stadium-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.stadium-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stadium-details p {
+    margin: 5px 0;
+}
+.injuries-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.injuries-table th,
+.injuries-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.injuries-table th {
+    background-color: #f2f2f2;
+}
+
+.injuries-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.injuries-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+.social-media {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.social-media-item {
+    margin: 0 10px;
+}
+
+.social-media-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-media-logo:hover {
+    transform: scale(1.2);
+}

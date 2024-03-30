@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/equipes.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="actualite.html">News</a>
+            <a href="/calendrier">Calendrier</a>
+            <a href="/classement">Classement</a>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">Se connecter</a>
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="club-container">
+            <!-- Division Buttons -->
+            <div class="centered-buttons">
+                <div class="btn-group mb-4" role="group" aria-label="Division Buttons">
+                    <button type="button" class="btn btn-primary" id="senior-division-button">Senior Division</button>
+                    <button type="button" class="btn btn-primary" id="junior-19-division-button">Junior
+                        Division-19</button>
+                    <button type="button" class="btn btn-primary" id="junior-17-division-button">Junior
+                        Division-17</button>
+                    <button type="button" class="btn btn-primary" id="junior-15-division-button">Junior
+                        Division-15</button>
+                </div>
+            </div>
+
+            <div class="row" id="senior-division">
+                <% club.forEach(function(club) { %>
+                    <div class="col-md-3">
+                        <div class="card club-card">
+                            <img src="/img/<%= club.logo_eq %>" alt="Club Logo" class="card-img-top club-logo">
+                            <div class="card-body club-details">
+                                <h5 class="card-title">
+                                    <%= club.nom_eq %>
+                                </h5>
+                                <a href="/club/<%= club.id_eq %>" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for toggling visibility of division clubs
+        document.addEventListener('DOMContentLoaded', function () {
+            const seniorDivisionButton = document.getElementById('senior-division-button');
+            const junior19DivisionButton = document.getElementById('junior-19-division-button');
+            const junior17DivisionButton = document.getElementById('junior-17-division-button');
+            const junior15DivisionButton = document.getElementById('junior-15-division-button');
+
+            seniorDivisionButton.addEventListener('click', function () {
+                toggleDivisionVisibility('senior-division');
+            });
+
+            junior19DivisionButton.addEventListener('click', function () {
+                toggleDivisionVisibility('junior-19-division');
+            });
+
+            junior17DivisionButton.addEventListener('click', function () {
+                toggleDivisionVisibility('junior-17-division');
+            });
+
+            junior15DivisionButton.addEventListener('click', function () {
+                toggleDivisionVisibility('junior-15-division');
+            });
+
+            function toggleDivisionVisibility(divisionId) {
+                // Hide all divisions
+                document.querySelectorAll('.club-container > .row').forEach(function (division) {
+                    division.classList.add('d-none');
+                });
+                // Show the clicked division
+                document.getElementById(divisionId).classList.remove('d-none');
+            }
+        });
+    </script>
+</body>
+
+</html>

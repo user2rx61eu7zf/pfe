@@ -6,6 +6,7 @@ const { requireAuth } = require('../config/auth');
 
 
 
+
 router.get('/login', loginController.loginPage); // affiche page login 
 router.post('/compte', loginController.comptePage);
 router.get('/compteGestionnaire/:idgest', requireAuth, loginController.comptegestionnaire);

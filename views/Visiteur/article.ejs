@@ -1,0 +1,103 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/article.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="page_acueil.html">
+                <img src="LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="page_acueil.html">Home</a>
+            <a href="actualite.html">News</a>
+            <a href="calendrier.html">Calendrier</a>
+            <a href="classement.html">Classement</a>
+            <a href="equipe.html">Clubs</a>
+            <a href="createaccount.html">S'inscrire | Se connecter</a>
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="article-container">
+            <h2 class="article-title">PRÉPARATION DU DÉBUT DU CHAMPIONNAT | SAISON 2023/2024</h2>
+            <p class="article-meta">Written by Bouazza Zakaria | Published on March 23, 2024</p>
+            <img src="banner.jpg" alt="Article Image" class="article-img">
+            <p class="article-description">مشاركة عضو مكتب رابطة غليزان لكرة القدم السيد : علي عصمان في قرعة عيد العمال
+                لكرة القدم طبعة 2024
+
+                جرت صبيحة اليوم بمقر المجلس الشعبي الولائي قرعة كأس عيد العمال لكرة القدم خاصة بموظفي الجماعات المحلية
+                2024 الخاصة بموظفي موظفي الجماعات المحلية لولاية غليزان المنظمة من طرف مديرية الإدارة المحلية- مصلحة
+                النشاط الإجتماعي بالتنسيق مع مديرية الشباب و الرياضة، الرابطة الولائية لكرة القدم و النادي الرياضي
+                الهاوي لمستخدمي الجماعات المحلية.
+                نتوجه بالشكر و العرفان لإطارات الشبيبة الرياضة (شايب الدور، مامون، دلال يُوسُف، بصغير) و كذا ممثل
+                الرابطة الولائية لكرة القدم السيد عصمان علي
+                على تعاونهم في تنظيم هذه الكأس
+                بالتوفيق للفرق المشاركة</p>
+
+
+            <!-- Likes and Comments Count -->
+            <div class="likes-comments-count">
+                <span>Likes: 100</span> | <span>Comments: 20</span>
+            </div>
+
+            <!-- Share Buttons -->
+            <div class="share-buttons">
+                <button class="btn btn-primary" onclick="shareFacebook()">Share via Facebook</button>
+                <button class="btn btn-success" onclick="shareWhatsApp()">Share via WhatsApp</button>
+                <button class="btn btn-danger" onclick="shareInstagram()">Share via Instagram</button>
+                <button class="btn btn-info" onclick="shareTwitter()">Share via Twitter</button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comment-section">
+                <form>
+                    <textarea class="form-control comment-input" placeholder="Write your comment here" rows="2"
+                        maxlength="150"></textarea>
+                    <button type="submit" class="btn btn-primary comment-submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        function shareFacebook() {
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), 'facebook-share-dialog', 'width=626,height=436');
+        }
+
+        function shareWhatsApp() {
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(window.location.href), '_blank');
+        }
+
+        function shareInstagram() {
+            window.open('https://www.instagram.com/', '_blank');
+        }
+
+        function shareTwitter() {
+            window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href), '_blank');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Z7ibkEDl9mIX+ctk0oYzIHg9+8bVm1Il+X/xrteX3jBOyK8N+5uad1zV4+5eLU6X"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
