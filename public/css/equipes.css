@@ -168,3 +168,6 @@ nav a:nth-child(7):hover~span {
 .club-details {
     padding: 25px;
 }
+.centered-buttons{
+    margin-left: -100px;
+}

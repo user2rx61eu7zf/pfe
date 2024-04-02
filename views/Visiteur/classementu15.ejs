@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="classement-table" id="seniorTable">
-                <h3>Classement Senior</h3>
+                <h3>Classement junior u15</h3>
                 <table>
                     <thead>
                         <tr>
@@ -125,20 +125,18 @@
             });
             $(document).ready(function () {
 
+                $("#seniorBtn").click(function () {
+
+                    window.location.href = "/classement";
+                });
+            });
+            $(document).ready(function () {
+
                 $("#junior19Btn").click(function () {
 
                     window.location.href = "/classement_u19";
                 });
             });
-            $(document).ready(function () {
-
-                $("#junior15Btn").click(function () {
-
-                    window.location.href = "/classement_u15";
-                });
-            });
         });
     </script>
 </body>
-
-</html>

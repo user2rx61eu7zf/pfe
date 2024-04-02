@@ -21,7 +21,7 @@
             <a href="/calendrier">Calendrier</a>
             <a href="/classement">Classement</a>
             <a href="/clubs">Clubs</a>
-            <a href="/login">S'inscrire | Se connecter </ a>
+            <a href="/login"> Se connecter </ a>
                 <form class="search-form">
                     <input type="text" placeholder="Search">
                     <button type="submit">Search</button>
@@ -29,85 +29,68 @@
                 <div id="search-results"></div>
                 <div class="social-icons">
                     <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
-                        <img src="github.png" alt="Facebook" class="social-icon">
+                        <img src="/img/github.png" alt="Facebook" class="social-icon">
                     </a>
                     <a href="https://mail.google.com" target="_blank" class="social-link">
-                        <img src="gmail.png" alt="Gmail" class="social-icon">
+                        <img src="/img/gmail.png" alt="Gmail" class="social-icon">
                     </a>
                 </div>
-                <span></span>
+
         </nav>
         <div class="container-fluid mt-5">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="container">
-                        <h2>Top Buteurs</h2>
+                        <h2 style="margin-top: 10px;">Meilleurs buteurs</h2>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>G</th>
+                                    <th>Joueur</th>
+                                    <th>N° buts</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Player 1</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>Player 2</td>
-                                    <td>8</td>
-                                </tr>
-                                <tr>
-                                    <td>Player 3</td>
-                                    <td>7</td>
-                                </tr>
-                                <tr>
-                                    <td>Player 4</td>
-                                    <td>7</td>
-                                </tr>
-                                <tr>
-                                    <td>Player 5</td>
-                                    <td>7</td>
-                                </tr>
-                                <!-- Add more rows as needed -->
+                                <% for (var i=0; i < buteurs.length; i++) { %>
+                                    <tr>
+                                        <td>
+
+                                            <%= buteurs.length> 0 ? buteurs[i].nom_jo +" "+ buteurs[i].prenom_jo: 'null'
+                                                %>
+                                        </td>
+                                        <td>
+                                            <%= buteurs.length> 0 ? buteurs[i].nbr_buts_jo : 'null' %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
                             </tbody>
                         </table>
                     </div>
                     <div class="container">
-                        <!-- Placeholder content -->
-                        <h2>Top Assists</h2>
+                        <h2>Meilleur passeurs</h2>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>Assists</th>
+                                    <th>Joueur</th>
+                                    <th>N° assists</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Table rows for best assists -->
-                                <tr>
-                                    <td>Player A</td>
-                                    <td>15</td>
-                                </tr>
-                                <tr>
-                                    <td>Player B</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td>Player C</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td>Player D</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <td>Player E</td>
-                                    <td>12</td>
-                                </tr>
-                                <!-- Add more rows as needed -->
+                                <% for (var i=0; i < passeurs.length; i++) { %>
+                                    <tr>
+                                        <td>
+
+                                            <%= passeurs.length> 0 ? passeurs[i].nom_jo +" "+ passeurs[i].prenom_jo:
+                                                'null'
+                                                %>
+                                        </td>
+                                        <td>
+                                            <%= passeurs.length> 0 ? passeurs[i].nbr_passe_jo : 'null' %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
                             </tbody>
+
                         </table>
 
                     </div>
@@ -128,11 +111,25 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>10</td>
-                                        <td>5</td>
-                                        <td>30</td>
-                                        <td>20</td>
-                                        <td>25</td>
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].m_gagner_eq : 'null' %>
+                                        </td>
+
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].m_perdu_eq : 'null' %>
+                                        </td>
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].nbr_but_p_eq : 'null' %>
+                                        </td>
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].nbr_but_c_eq : 'null' %>
+                                        </td>
+                                        <td>
+                                            <strong>
+                                                <%= classement.length> 0 ? classement[0].points_eq : 'null' %>
+                                            </strong>
+
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,8 +154,8 @@
                             <div class="club-in">
                                 <div class="coach-container">
                                     <p class="coach-title">Entraineur :</p>
-                                    <% if (ent.img_ent) { %>
-                                        <img src="/images/default.jpg" class="coach-image " alt="coach">
+                                    <% if (ent.length>0) { %>
+                                        <img src="/images/<%= ent[0].img_ent %>" class="coach-image " alt="coach">
                                         <% } else { %>
                                             <img src="/images/default.jpg" class=" coach-image " alt="coach">
                                             <% } %>
@@ -170,7 +167,8 @@
 
 
                                                     </h4>
-                                                    <p class=" coach-details">Date de naissance : <% if(ent.length> 0) {
+                                                    <p class=" coach-details">Date de naissance : <% if(ent.length>
+                                                            0) {
 
                                                             var dateOfBirthString = ent[0].date_naiss_ent;
 
@@ -194,7 +192,41 @@
                                 </div>
                                 <p class="player-title">Joueurs</p>
                                 <div class="player-list">
-                                    <% joueur.forEach(function(joueur) { %>
+                                    <% gardien.forEach(function(joueur) { %>
+                                        <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
+                                            <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
+                                                class="coach-image" style="margin-left: 50px;">
+                                            <div class="player-info">
+                                                <h4 class="player-name">
+                                                    <%= joueur.nom_jo %>
+                                                </h4>
+                                                <p class="player-position">
+                                                    <%= joueur.poste_jo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <hr>
+                                <div class="player-list">
+                                    <% millieu.forEach(function(joueur) { %>
+                                        <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
+                                            <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
+                                                class="coach-image" style="margin-left: 50px;">
+                                            <div class="player-info">
+                                                <h4 class="player-name">
+                                                    <%= joueur.nom_jo %>
+                                                </h4>
+                                                <p class="player-position">
+                                                    <%= joueur.poste_jo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <hr>
+                                <div class="player-list">
+                                    <% attaquant.forEach(function(joueur) { %>
                                         <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
                                             <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
                                                 class="coach-image" style="margin-left: 50px;">
@@ -212,9 +244,9 @@
                             </div>
                 </div>
                 <div class="col-lg-3">
-                    <!-- Right container for table of club titles -->
+
                     <div class="container">
-                        <!-- Placeholder content -->
+
                         <h2>Club Honeurs</h2>
                         <table class="table">
                             <thead>
@@ -232,7 +264,7 @@
                                     <td>Cup Title</td>
                                     <td>2020</td>
                                 </tr>
-                                <!-- Add more table rows as needed -->
+
                             </tbody>
                         </table>
                     </div>
@@ -268,47 +300,26 @@
                             </p>
                         </div>
                     </div>
-                    <h2>Injuries and Suspensions</h2>
-                    <div class="injuries-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Player</th>
-                                    <th>Type</th>
-                                    <th>Duration</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Table rows for injuries and suspensions will go here -->
-                                <tr>
-                                    <td>Player A</td>
-                                    <td>Injury</td>
-                                    <td>2 weeks</td>
-                                </tr>
-                                <tr>
-                                    <td>Player B</td>
-                                    <td>Suspension</td>
-                                    <td>1 match</td>
-                                </tr>
-                                <!-- Add more rows as needed -->
-                            </tbody>
-                        </table>
-                    </div>
+
+
                     <h2>Club Social Media</h2>
                     <div class="social-media">
                         <div class="social-media-item">
                             <a href="https://twitter.com/club_twitter" target="_blank">
-                                <img src="twitter.png" alt="Twitter" class="social-media-logo">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8GZpWuNqm9hU06O0Mq2P0GHsR0BoCtLHz49Sn-GYzMw&s"
+                                    alt="Twitter" class="social-media-logo">
                             </a>
                         </div>
                         <div class="social-media-item">
                             <a href="https://www.facebook.com/club_facebook" target="_blank">
-                                <img src="facebook.png" alt="Facebook" class="social-media-logo">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png"
+                                    alt="Facebook" class="social-media-logo">
                             </a>
                         </div>
                         <div class="social-media-item">
                             <a href="https://www.instagram.com/club_instagram" target="_blank">
-                                <img src="gmail.png" alt="Instagram" class="social-media-logo">
+                                <img src="https://as1.ftcdn.net/v2/jpg/03/13/76/04/1000_F_313760421_txS6xrTba0qWshvmassQbCXbSlBpW5lG.jpg"
+                                    alt="Instagram" class="social-media-logo">
                             </a>
                         </div>
                     </div>

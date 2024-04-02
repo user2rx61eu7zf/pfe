@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="LFW-R.png">
@@ -44,6 +45,7 @@
             <div class="centered-buttons">
                 <div class="btn-group mb-4" role="group" aria-label="Division Buttons">
                     <button type="button" class="btn btn-primary" id="senior-division-button">Senior Division</button>
+
                     <button type="button" class="btn btn-primary" id="junior-19-division-button">Junior
                         Division-19</button>
                     <button type="button" class="btn btn-primary" id="junior-17-division-button">Junior
@@ -99,13 +101,41 @@
             });
 
             function toggleDivisionVisibility(divisionId) {
-                // Hide all divisions
+
                 document.querySelectorAll('.club-container > .row').forEach(function (division) {
                     division.classList.add('d-none');
                 });
-                // Show the clicked division
+
                 document.getElementById(divisionId).classList.remove('d-none');
             }
+        });
+        $(document).ready(function () {
+            // Attach click event handler to the button
+            $("#junior-19-division-button").click(function () {
+                // Redirect to "/junior" URL
+                window.location.href = "/club_junior_u19";
+            });
+        });
+        $(document).ready(function () {
+            // Attach click event handler to the button
+            $("#senior-division-button").click(function () {
+                // Redirect to "/junior" URL
+                window.location.href = "/clubs";
+            });
+        });
+        $(document).ready(function () {
+            // Attach click event handler to the button
+            $("#junior-17-division-button").click(function () {
+                // Redirect to "/junior" URL
+                window.location.href = "/club_junior_u17";
+            });
+        });
+        $(document).ready(function () {
+            // Attach click event handler to the button
+            $("#junior-15-division-button").click(function () {
+                // Redirect to "/junior" URL
+                window.location.href = "/club_junior_u15";
+            });
         });
     </script>
 </body>

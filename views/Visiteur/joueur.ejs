@@ -91,7 +91,8 @@
                 </div>
                 <div class="col-lg-6 mid-container">
                     <div class="container">
-                        <% if (joueur[0].photo_jo) { %>
+
+                        <% if (joueur && joueur.length> 0 && joueur[0].photo_jo) { %>
                             <img src="/images/<%= joueur[0].photo_jo %>" class="img-fluid rounded-circle mt-5"
                                 alt="Description of the image"
                                 style="width: 128px; height: 128px; border-radius: 50%; margin-left: 220px">
@@ -99,6 +100,8 @@
                                 <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
                                     style="width: 150px; height: 150px; border-radius: 50%;">
                                 <% } %>
+
+
 
                                     <h2 class="player-name">
                                         <% if (joueur.length> 0) { %>
@@ -151,7 +154,7 @@
                         <div class="player-info-item">
                             <span class="player-info-label">Age :</span>
                             <span class="player-info-value">
-                                <% if (joueur.length> 0) { %>
+                                <% if (joueur && joueur.length> 0 && joueur[0].date_naiss_jo) { %>
                                     <% var dateOfBirthString=joueur[0].date_naiss_jo; %>
                                         <% var dateOfBirth=new Date(dateOfBirthString); %>
                                             <% var today=new Date(); %>
@@ -162,7 +165,7 @@
                                                             <% age--; %>
                                                                 <% } %>
                                                                     <%= age %>
-                                                                        <% } else { available %>
+                                                                        <% } else { %>
                                                                             null
                                                                             <% } %> ans
                             </span>
@@ -210,18 +213,51 @@
                             </span>
                         </div>
                         <div class="player-info-item">
-                            <span class="player-info-label">Clubs History:</span>
+                            <span class="player-info-label">Statistiques :</span>
                             <div class="clubs-history">
-                                <div class="club">
-                                    <img src="/img/ARAM.png" alt="Club Logo" class="club-logo">
-                                    <span class="club-name">Real Madrid</span>
-                                    <span class="club-season">2012-2024</span>
-                                </div>
-                                <div class="club">
-                                    <img src="/img/ARAT.png" alt="Club Logo" class="club-logo">
-                                    <span class="club-name">Tottenham Hotspur</span>
-                                    <span class="club-season">2008-2012</span>
-                                </div>
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">N° Buts</th>
+                                            <th scope="col">N° passe decisive </th>
+                                            <th scope="col">Carton jaune</th>
+                                            <th scope="col">Carton rouge</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <% if (joueur.length> 0) { %>
+                                                    <%= joueur[0].nbr_buts_jo %>
+                                                        <% } else { %>
+                                                            <p>null</p>
+                                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (joueur.length> 0) { %>
+                                                    <%= joueur[0].nbr_passe_jo %>
+                                                        <% } else { %>
+                                                            <p>null</p>
+                                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (joueur.length> 0) { %>
+                                                    <%= joueur[0].nbr_crt_jaune %>
+                                                        <% } else { %>
+                                                            <p>null</p>
+                                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (joueur.length> 0) { %>
+                                                    <%= joueur[0].nbr_crt_rouge %>
+                                                        <% } else { %>
+                                                            <p>null</p>
+                                                            <% } %>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>
@@ -233,17 +269,20 @@
                         <div class="social-media">
                             <div class="social-media-item">
                                 <a href="https://twitter.com/club_twitter" target="_blank">
-                                    <img src="twitter.png" alt="Twitter" class="social-media-logo">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8GZpWuNqm9hU06O0Mq2P0GHsR0BoCtLHz49Sn-GYzMw&s"
+                                        alt="Twitter" class="social-media-logo">
                                 </a>
                             </div>
                             <div class="social-media-item">
                                 <a href="https://www.facebook.com/club_facebook" target="_blank">
-                                    <img src="facebook.png" alt="Facebook" class="social-media-logo">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png"
+                                        alt="Facebook" class="social-media-logo">
                                 </a>
                             </div>
                             <div class="social-media-item">
                                 <a href="https://www.instagram.com/club_instagram" target="_blank">
-                                    <img src="instagram.png" alt="Instagram" class="social-media-logo">
+                                    <img src="https://as1.ftcdn.net/v2/jpg/03/13/76/04/1000_F_313760421_txS6xrTba0qWshvmassQbCXbSlBpW5lG.jpg"
+                                        alt="Instagram" class="social-media-logo">
                                 </a>
                             </div>
                         </div>

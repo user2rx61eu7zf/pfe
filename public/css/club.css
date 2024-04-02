@@ -1,5 +1,7 @@
 
 body {
+ 
+ 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,8 +80,8 @@ nav a {
 nav span {
     position: absolute;
     top: 0;
-    left: 11.5%;
-    width: 95px;
+    left: 13.3%;
+    width: 80px;
     height: 100%;
     background: linear-gradient(45deg, #70e040, #1bffff);
     border-radius: 8px;
@@ -146,6 +148,7 @@ nav a:nth-child(7):hover~span {
     background-color: #f0f0f0;
 }
 .mid-container {
+  
     display: flex;
     flex-direction: column;
     background-color: #f9f9f9;
@@ -155,9 +158,11 @@ nav a:nth-child(7):hover~span {
     height: calc(410vh - 50px);
     flex: 1;
     width: fit-content;
+    height: 100%;
 }
 .club-info
 {
+   
     align-items: center;
     align-content: center;
     text-align: center;
@@ -218,11 +223,11 @@ nav a:nth-child(7):hover~span {
 }
 
 .player-list {
+
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 36px;
     justify-items: center;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .player-box {
@@ -261,6 +266,7 @@ nav a:nth-child(7):hover~span {
 }
 /* Heading styles */
 .container h2 {
+    
     color: #007bff;
     margin-bottom: 20px;
 }
@@ -362,4 +368,9 @@ nav a:nth-child(7):hover~span {
 
 .social-media-logo:hover {
     transform: scale(1.2);
+}
+
+.league-ranking {
+    margin-left: -18px; 
+    
 }

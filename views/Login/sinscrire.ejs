@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LFW-Relizane</title>
+    <link rel="icon" type="image/png" href="/img/LFW-R.png">
+    <link rel="stylesheet" href="/css/sign_up.css" />
+</head>
+
+<body>
+    <div class="form-container">
+        <form action="/addaccount" method="post" class="form">
+            <div class="form-header">
+                <img src="/img/LFW-R.png" alt="icon" class="form-icon" />
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label><br />
+                <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="input-group">
+                <label for="password">Mot de passe:</label><br />
+                <input type="password" id="password" name="password" required />
+            </div>
+
+            <div class="input-group">
+                <label for="nom">Nom:</label><br />
+                <input type="text" id="username" name="username" required />
+            </div>
+            <input type="submit" value="Créer le compte" id="submitBtn" class="submit-btn" />
+        </form>
+    </div>
+</body>
+
+</html>
