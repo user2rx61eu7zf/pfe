@@ -3,74 +3,56 @@ var timerStarted = false;
 var timeoutID;
 
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
+    var timerInterval; // Declare the timerInterval variable outside the start function so it can be accessed in the event handler
+    
     // Define the start function
     function start() {
-        var elapsedTime = 0;
+        var elapsedTime = 0; // Initialize elapsed time to 0
 
-        // Check if there's elapsed time stored in local storage
-        if (localStorage.getItem("elapsedTime")) {
-            elapsedTime = parseInt(localStorage.getItem("elapsedTime"));
-        }
-
-        function formatTime(time) {
-            var hours = Math.floor(time / 3600);
-            var minutes = Math.floor((time % 3600) / 60);
-            var seconds = time % 60;
-            return pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
-        }
-
+        // Function to pad single digit numbers with leading zero
         function pad(val) { return (val < 10 ? "0" : "") + val; }
 
         // Function to update the timer display
         function updateTimerDisplay() {
-            document.getElementById('minutes').textContent = pad(Math.floor((elapsedTime % 3600) / 60));
-            document.getElementById('seconds').textContent = pad(elapsedTime % 60);
+            var hours = Math.floor(elapsedTime / 3600);
+            var minutes = Math.floor((elapsedTime % 3600) / 60);
+            var seconds = elapsedTime % 60;
+            
+            document.getElementById('minutes').textContent = pad(minutes);
+            document.getElementById('seconds').textContent = pad(seconds);
         }
 
         // Start the timer
-        var timerInterval = setInterval(function () {
-            elapsedTime++;
-            updateTimerDisplay();
-
-            // Store elapsed time in local storage
-            localStorage.setItem("elapsedTime", elapsedTime);
-        }, 1000);
+        timerInterval = setInterval(function () {
+            elapsedTime++; // Increment elapsed time by 1 second
+            updateTimerDisplay(); // Update the timer display
+        }, 1000); // Run the interval timer every second
 
         // Update the timer display initially
         updateTimerDisplay();
-
-        // Add event listener for the "Mi-temps" button
-        document.getElementById('mitempsBtn').addEventListener('click', function () {
-            console.log("Mi-temps button clicked"); // Debugging statement to confirm button click
-            clearInterval(timerInterval); // Stop the timer
-            console.log("Timer stopped"); // Debugging statement to confirm timer stopped
-            document.getElementById("minutes").textContent = "Mi-temps";
-            document.getElementById("seconds").textContent = "";
-            document.getElementById("separator").textContent = "";
-
-            // Clear elapsed time from local storage
-            localStorage.removeItem("elapsedTime");
-            localStorage.removeItem("timerStarted"); // Remove the flag indicating the timer was started
-        });
-    }
-
-    // Check if the timer was already started
-    if (localStorage.getItem("timerStarted")) {
-        start(); // If the timer was started before, start the timer automatically
     }
 
     // Add event listener for the "Start" button
     document.getElementById('startBtn').addEventListener('click', function () {
         console.log("Start button clicked"); // Debugging statement to confirm button click
         start(); // Start the timer when the "Start" button is clicked
-        localStorage.setItem("timerStarted", "true"); // Mark the timer as started in local storage
+    });
+
+    // Add event listener for the "Mi-temps" button
+    document.getElementById('mitempsBtn').addEventListener('click', function () {
+        console.log("Mi-temps button clicked"); // Debugging statement to confirm button click
+        clearInterval(timerInterval); // Stop the timer
+        console.log("Timer stopped"); // Debugging statement to confirm timer stopped
+        document.getElementById("minutes").textContent = "Mi-temps";
+        document.getElementById("seconds").textContent = "";
+        document.getElementById("separator").textContent = "";
+
+        // Clear elapsed time from local storage
+        localStorage.removeItem("elapsedTime");
+        localStorage.removeItem("timerStarted"); // Remove the flag indicating the timer was started
     });
 });
-
-
 document.addEventListener('DOMContentLoaded', function () {
     // Define the start function
     function start2() {

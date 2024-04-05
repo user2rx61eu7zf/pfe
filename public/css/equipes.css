@@ -22,7 +22,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
-    z-index: 1;
+    
 }
 .logo {
     height:150px;
@@ -78,7 +78,7 @@ nav a {
 nav span {
     position: absolute;
     top: 0;
-    left: 14.3%;
+    left: 47%;
     width: 80px;
     height: 100%;
     background: linear-gradient(45deg, #70e040, #1bffff);
@@ -96,17 +96,17 @@ nav a:nth-child(2):hover~span {
 }
 
 nav a:nth-child(3):hover~span {
-    left: 21.2%;
+    left: 19.8%;
     width: 80px;
 }
 
 nav a:nth-child(4):hover~span {
-    left: 27.9%;
+    left: 26%;
     width: 115px;
 }
 
 nav a:nth-child(5):hover~span {
-    left: 37.7%;
+    left: 36%;
     width: 110px;
 }
 
@@ -115,7 +115,7 @@ nav a:nth-child(6):hover~span {
     width: 80px;
 }
 nav a:nth-child(7):hover~span {
-    left: 54.5%;
+    left: 53%;
     width: 120px;
 }
 .club-container {

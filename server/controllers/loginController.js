@@ -49,42 +49,63 @@ exports.comptePage = async (req, res) => {
         password: req.body.password
     });
 
-    
     db.query('SELECT * FROM compte WHERE email_co = ?', [newuser.email], async (err, results) => {
         if (err) {
             console.error("Error getting user data during login: ", err);
             return res.status(500).send("Error getting user data during login");
         }
 
-        if (!results[0] || newuser.password != results[0].mot_de_passe) {
+        if (!results[0] || newuser.password !== results[0].mot_de_passe) {
             await req.flash('info', "Email or password is incorrect!");
             return res.redirect('/login');
         } else {
             const idType = results[0].id_type;
             const userId = results[0].id_co;
-            const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+            const userName = results[0].nom_utilisatuer;
+
+            // Common options for JWT token
+            const jwtOptions = {
                 expiresIn: process.env.JWT_EXPIRES,
-            });
+            };
 
-            // Set JWT token as a cookie
-            res.cookie('jwt', token, {
-                expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
-                httpOnly: true
-            });
+            // Create JWT token based on idType
+           // Create JWT token based on idType
+let token;
+switch (idType) {
+    case 1:
+        token = jwt.sign({ id: userId }, process.env.JWT_SECRET, jwtOptions);
+        res.cookie('jwt', token, {
+            expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+            httpOnly: true
+        });
+        res.redirect(`/compteAdmin/${userId}`);
+        break;
+    case 6:
+        token = jwt.sign({ id: userId }, process.env.JWT_SECRET, jwtOptions);
+        res.cookie('jwt', token, {
+            expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+            httpOnly: true
+        });
+        res.redirect(`/compteGestionnaire/${userId}`);
+        break;
+    case 5:
+        const userName = results[0].nom_utilisateur; 
+        token = jwt.sign({ id: userName }, process.env.JWT_SECRET, jwtOptions); // Use userId instead of username
+        res.cookie('jwt', token, {
+            expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+            httpOnly: true
+        });
+        res.redirect(`/`);
+        break;
+    default:
+        res.redirect('/');
+        break;
+}
 
-            // Render specific page based on id_type
-            switch (idType) {
-                case 1:
-                    res.redirect(`/compteAdmin/${userId}`);
-                    break;
-                case 6:
-                    res.redirect(`/compteGestionnaire/${userId}`);
-                    break;
-                // Add more cases for different id_type values if needed
-            }
         }
     });
 };
+
 
 
 
@@ -123,17 +144,25 @@ exports.creer = (req, res) => {
             return res.status(500).send("Erreur SQL");
         }
 
-        // Create a JWT token
         const token = jwt.sign({ id: req.body.username }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRES,
         });
 
-        // Set JWT token as a cookie
         res.cookie('jwt', token, {
             expires: new Date(Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
             httpOnly: true
         });
 
-        
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+            if (err) { 
+                console.log(err.message);
+                res.locals.user = null;
+            } else {
+                res.locals.user = decodedToken.id; // En supposant que decodedToken contient l'identifiant de l'utilisateur
+            }
+            console.log(res.locals.user);
+            res.redirect(`/?user=${encodeURIComponent(user)}`);
+
+        });
     });
 };

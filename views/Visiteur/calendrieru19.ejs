@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="LFW-R.png">
@@ -66,7 +67,7 @@
         <div class="calendrier-container" id="calendrierContainer">
 
             <div class="division-buttons">
-                <button class="btn btn-primary">Senior</button>
+                <button class="btn btn-primary" id="senior">Senior</button>
                 <button class="btn btn-primary" id="u19">Under 19</button>
                 <button class="btn btn-primary" id="u17">Under 17</button>
                 <button class="btn btn-primary" id="u15">Under 15</button>
@@ -85,9 +86,7 @@
                             </p>
                         </div>
                         <div class="score-area">
-                            <p class="score card-text">
-                                <%= match[0].score_eq1 %>-<%= match[0].score_eq2 %>
-                            </p>
+                            <p class="score card-text">3-2</p>
                         </div>
                         <div class="d-flex align-items-center">
                             <img src="/img/<%= match[0].logo_eq_2 %>" alt="Team Logo" class="team-logo-right">
@@ -131,9 +130,9 @@
         });
         $(document).ready(function () {
 
-            $("#u19").click(function () {
+            $("#senior").click(function () {
 
-                window.location.href = "/calendrier_u19";
+                window.location.href = "/calendrier";
             });
         });
         $(document).ready(function () {

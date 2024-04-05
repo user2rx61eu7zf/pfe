@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/classement.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <a href="/calendrier">Calendrier</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">
+                <% if (user) { %>
+
+                    <a href="/profil">
+                        <img src="/images/default.jpg" alt="" width="32" height="32" style="border-radius: 50%;">
+                    </a>
+
+
+                    <% } else { %>
+                        <!-- If the user is not logged in, display the link to login -->
+                        <a href="/login">Se connecter</a>
+                        <% } %>
+            </a>
+            <form class="search-form">
+                <input type="text" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="classement-container">
+            <div class="classement-buttons">
+                <h1>Passeur decisifs</h1>
+
+                <button id="butBtn"> Buteurs</button>
+                <button id="AssistBtn"> Assists</button>
+            </div>
+
+            <div class="classement-table" id="butTable">
+                <h3>Senior</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Joueur</th>
+                            <th>B</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% if (senior.length <=0) { %>
+
+                            <td> <strong>Classemnt non initialisé</strong></td>
+
+                            <% } else { %>
+                                <% senior.forEach(function(player, index) { %>
+                                    <tr>
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= player.nomm_jo %>
+                                                <%= player.prenom_jo %>
+                                        </td>
+                                        <td>
+                                            <%= player.nbr_passe_jo %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+
+                    </tbody>
+                </table>
+                <br>
+                <h3>Junior-19</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Joueur</th>
+                            <th>B</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% if (u19.length <=0) { %>
+
+                            <td> <strong>Classemnt non initialisé</strong></td>
+
+                            <% } else { %>
+                                <% u19.forEach(function(player, index) { %>
+                                    <tr>
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= player.nom_jo %>
+                                                <%= player.prenom_jo %>
+                                        </td>
+                                        <td>
+                                            <%= player.nbr_passe_jo %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+
+                    </tbody>
+                </table>
+                <br>
+
+                <h3>Junior-17</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Joueur</th>
+                            <th>B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (u17.length <=0) { %>
+
+                            <td> <strong>Classemnt non initialisé</strong></td>
+
+                            <% } else { %>
+                                <% u17.forEach(function(player, index) { %>
+                                    <tr>
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= player.nom_jo %>
+                                                <%= player.prenom_jo %>
+                                        </td>
+                                        <td>
+                                            <%= player.nbr_passe_jo %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+                    </tbody>
+
+                </table>
+                <br>
+                <h3>Junior-15</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Joueur</th>
+                            <th>B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (u15.length <=0) { %>
+
+                            <td> <strong>Classemnt non initialisé</strong></td>
+
+                            <% } else { %>
+                                <% u15.forEach(function(player, index) { %>
+                                    <tr>
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= player.nom_jo %>
+                                                <%= player.prenom_jo %>
+                                        </td>
+                                        <td>
+                                            <%= player.nbr_passe_jo %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                        <% } %>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+
+
+        <script>
+            window.addEventListener('load', function () {
+                document.getElementById('butTable').style.display = 'block';
+                $(document).ready(function () {
+
+                    $("#butBtn").click(function () {
+
+                        window.location.href = "/stats";
+                    });
+                });
+
+
+            });
+
+        </script>
+</body>
+
+</html>

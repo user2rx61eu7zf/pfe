@@ -20,14 +20,37 @@
                 <img src="/img/LFW-R.png" alt="Logo" class="logo">
             </a>
             <a href="/">Home</a>
-            <a href="actualite.html">News</a>
+            <a href="/actualite">News</a>
             <a href="/calendrier">Calendrier</a>
-            <a href="/classement">Classement</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
             <a href="/clubs">Clubs</a>
-            <a href="/login">Se connecter</a>
-            <form class="search-form">
-                <input type="text" placeholder="Search">
-                <button type="submit">Search</button>
+            <a href="/login">
+                <% if (user) { %>
+
+                    <a href="/profil">
+                        <img src="/images/default.jpg" alt="" width="32" height="32" style="border-radius: 50%;">
+                    </a>
+
+
+                    <% } else { %>
+                        <!-- If the user is not logged in, display the link to login -->
+                        <a href="/login">Se connecter</a>
+                        <% } %>
+            </a>
+            <form class="search-form" action="/chercher " method="POST">
+                <input type="text" name="recherche" placeholder=" Search">
+                <button id="searchBtn" type="submit">Search</button>
             </form>
             <div id="search-results"></div>
             <div class="social-icons">

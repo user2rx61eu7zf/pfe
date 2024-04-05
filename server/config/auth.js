@@ -3,6 +3,7 @@ require('dotenv').config();
 
 
 
+
 const requireAuth = (req, res, next) => {
 
     const token = req.cookies.jwt;
@@ -20,5 +21,11 @@ const requireAuth = (req, res, next) => {
     }
 
 }
+
+
+
+
+
+
 
 module.exports = { requireAuth };

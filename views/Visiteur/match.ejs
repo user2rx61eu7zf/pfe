@@ -18,11 +18,34 @@
                 <img src="/img/LFW-R.png" alt="Logo" class="logo">
             </a>
             <a href="/">Home</a>
-            <a href="actualite.html">News</a>
+            <a href="/actualite">News</a>
             <a href="/calendrier">Calendrier</a>
-            <a href="/classement">Classement</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
             <a href="/clubs">Clubs</a>
-            <a href="/login">S'inscrire | Se connecter</a>
+            <a href="/login">
+                <% if (user) { %>
+
+                    <a href="/profil">
+                        <img src="/images/default.jpg" alt="" width="32" height="32" style="border-radius: 50%;">
+                    </a>
+
+
+                    <% } else { %>
+                        <!-- If the user is not logged in, display the link to login -->
+                        <a href="/login">Se connecter</a>
+                        <% } %>
+            </a>
             <form class="search-form">
                 <input type="text" placeholder="Search">
                 <button type="submit">Search</button>
@@ -40,90 +63,59 @@
         </nav>
         <div class="club-container">
             <div class="club">
-                <img src="/img/ARAM.png" alt="Club 1 Logo" class="club-logo">
-                <span>ARAM</span>
+                <img src="/img/<%= match[0].logo_eq_2 %>" alt="Club 1 Logo" class="club-logo">
+                <span>
+                    <%= match[0].equipe_2 %>
+                </span>
             </div>
             <div>
                 <div class="match-status-box">
-                    <p class="status">45'</p> <!-- Match status here -->
-                </div> <!-- Match status here -->
-                <div class="score">2 - 1</div>
+                    <p class="status">45'</p>
+                </div>
+                <div class="score">
+                    <%= match[0].score_eq2 %> - <%= match[0].score_eq1 %>
+                </div>
             </div>
             <div class="club">
-                <img src="/img/AR.AIN-TARIk.png" alt="Club 2 Logo" class="club-logo">
-                <span>AR.AIN TARIK</span>
+                <img src="/img/<%= match[0].logo_eq_1 %>" alt="Club 2 Logo" class="club-logo">
+                <span>
+                    <%= match[0].equipe_2 %>
+                </span>
             </div>
-            <!-- Moved here -->
+
         </div>
 
 
-        <!-- Match Statistics -->
+
         <div class="statistics-container">
-            <p><strong>Posession:</strong></p>
-            <div class="progress">
-                <div id="possession-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                    role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                    <span class="team1-percentage">0%</span> - <span class="team2-percentage">0%</span>
-                </div>
-            </div>
-            <div class="statistics" style="float: left; width: 50%;">
+
+            <div class="statistics">
                 <div class="statistic-item">
-                    <div class="statistic-category yellow-cards">
-                        <p><strong>Yellow Cards:</strong></p>
-                        <p><span>(Player A - 40', Player B - 60')</span></p>
-                        <p><span>(Player C - 55')</span></p>
+                    <div class="card">
+                        <div class="card-body ">
+                            Carton jaune : Daka omari
+                        </div>
                     </div>
-                    <div class="statistic-category red-cards">
-                        <p><strong>Red Cards:</strong></p>
-                        <p><span>(Player D - 75')</span></p>
+                    <div class="card">
+                        <div class="card-body ">
+                            But : RC.KALAA 67'
+                        </div>
                     </div>
-                    <div class="statistic-category substitutions">
-                        <p><strong>Substitutions:</strong></p>
-                        <p><span>Player Out - Player F, Time: 70'</span></p>
-                        <p><span>Player Out - Player G, Time: 75'</span></p>
+                    <div class="card">
+                        <div class="card-body ">
+                            This is some text within a card body.
+                        </div>
                     </div>
-                    <div class="statistic-category corners">
-                        <p><strong>Corners:</strong></p>
-                        <p><span>3</span></p>
-                    </div>
-                    <div class="statistic-category goals">
-                        <p><strong>Goals:</strong></p>
-                        <p><span>Player X - Assisted by Player Y</span></p>
-                    </div>
+
+
                 </div>
             </div>
-            <div class="statistics" style="float: right; width: 50%;">
-                <div class="statistic-item">
-                    <div class="statistic-category yellow-cards">
-                        <p><strong>Yellow Cards:</strong></p>
-                        <p><span>(Player A - 40', Player B - 60')</span></p>
-                        <p><span>(Player C - 55')</span></p>
-                    </div>
-                    <div class="statistic-category red-cards">
-                        <p><strong>Red Cards:</strong></p>
-                        <p><span>(Player D - 75')</span></p>
-                    </div>
-                    <div class="statistic-category substitutions">
-                        <p><strong>Substitutions:</strong></p>
-                        <p><span> Player Out - Player F, Time: 70'</span></p>
-                        <p><span>Player Out - Player G, Time: 75'</span></p>
-                    </div>
-                    <div class="statistic-category corners">
-                        <p><strong>Corners:</strong></p>
-                        <p><span>5</span></p>
-                    </div>
-                    <div class="statistic-category goals">
-                        <p><strong>Goals:</strong></p>
-                        <p><span>Player Z - Assisted by Player W</span></p>
-                    </div>
-                </div>
-            </div>
-            <div style="clear: both;"></div>
+
+            <hr style="border-color: red;">
             <div class="motm-container">
                 <h3 class="motm">Man of the Match</h3>
-                <p>Player: Player X</p>
-                <p>Club: Club 1</p>
-                <p>Performance: Outstanding performance throughout the match.</p>
+                <p>Daka Omari</p>
+
             </div>
         </div>
 

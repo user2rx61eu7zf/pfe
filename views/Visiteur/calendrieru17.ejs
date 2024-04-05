@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="LFW-R.png">
@@ -66,7 +67,7 @@
         <div class="calendrier-container" id="calendrierContainer">
 
             <div class="division-buttons">
-                <button class="btn btn-primary">Senior</button>
+                <button class="btn btn-primary" id="senior">Senior</button>
                 <button class="btn btn-primary" id="u19">Under 19</button>
                 <button class="btn btn-primary" id="u17">Under 17</button>
                 <button class="btn btn-primary" id="u15">Under 15</button>
@@ -74,44 +75,41 @@
 
             <div id="seniorDivision">
                 <div class="match-box">
-
                     <div class="match-details">
-
-                        <div class="d-flex align-items-center">
-
-                            <img src="/img/<%= match[0].logo_eq_1 %> " alt="Team Logo" class="team-logo-left">
-                            <p class="team-name-left card-text">
-                                <%= match[0].equipe_1 %>
+                        <% if(match.length> 0) { %>
+                            <div class="d-flex align-items-center">
+                                <img src="/img/<%= match[0].logo_eq_1 %>" alt="Team Logo" class="team-logo-left">
+                                <p class="team-name-left card-text">
+                                    <%= match[0].equipe_1 %>
+                                </p>
+                            </div>
+                            <div class="score-area">
+                                <p class="score card-text">3-2</p> <!-- Placeholder score -->
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <img src="/img/<%= match[0].logo_eq_2 %>" alt="Team Logo" class="team-logo-right">
+                                <p class="team-name-right card-text">
+                                    <%= match[0].equipe_2 %>
+                                </p>
+                            </div>
+                            <p class="card-text">Journee: <%= match[0].journee_ma %>
                             </p>
-                        </div>
-                        <div class="score-area">
-                            <p class="score card-text">
-                                <%= match[0].score_eq1 %>-<%= match[0].score_eq2 %>
+                            <p class="card-text">Date:
+                                <% var dateOfBirthString=match[0].date_ma; var dateOfBirth=new Date(dateOfBirthString);
+                                    var formattedDateOfBirth=("0" + dateOfBirth.getDate()).slice(-2) + "/" + ("0" +
+                                    (dateOfBirth.getMonth() + 1)).slice(-2) + "/" + dateOfBirth.getFullYear(); %>
+                                    <%= formattedDateOfBirth %>
                             </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <img src="/img/<%= match[0].logo_eq_2 %>" alt="Team Logo" class="team-logo-right">
-                            <p class="team-name-right card-text">
-                                <%= match[0].equipe_2 %>
+                            <p class="card-text">Time: <%= match[0].horaire_ma.split(':').slice(0, 2).join(':') %>
                             </p>
-                        </div>
-                        <p class="card-text">Journee: <%= match[0].journee_ma %>
-                        </p>
-                        <p class="card-text">Date:<% if(match.length> 0) {
-                                var dateOfBirthString = match[0].date_ma;
-                                var dateOfBirth = new Date(dateOfBirthString);
-                                var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
-                                + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
-                                + dateOfBirth.getFullYear();
-                                %> <%= formattedDateOfBirth %>
-                                    <% } else { e %> null <% } %>
-                        </p>
-                        <p class="card-text">Time: <%= match[0].horaire_ma.split(':').slice(0, 2).join(':') %>
-                        </p>
-                        <p class="card-text">Location: <%= match[0].nom_std %>
-                        </p>
-                        <a href="/match/<%= match[0].id_ma %>" class="btn btn-primary">View Details</a>
+                            <p class="card-text">Location: <%= match[0].nom_std %>
+                            </p>
+                            <a href="/match/<%= match[0].id_ma %>" class="btn btn-primary">View Details</a>
+                            <% } else { %>
+                                <p class="card-text">Aucun match a afficher</p>
+                                <% } %>
                     </div>
+
 
                 </div>
 
@@ -138,9 +136,9 @@
         });
         $(document).ready(function () {
 
-            $("#u17").click(function () {
+            $("#senior").click(function () {
 
-                window.location.href = "/calendrier_u17";
+                window.location.href = "/calendrier";
             });
         });
         $(document).ready(function () {
