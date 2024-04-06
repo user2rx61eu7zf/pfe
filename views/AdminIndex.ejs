@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Accueil Admin</h1>
+  <h1 class="h2">Accueil Gestionnaire</h1>
   <div class="btn-toolbar mb-2 mb-md 0">
     <div class="btn-group me-2">
       <a href="/ajouter_gestionnaire" class="btn btn-outline-primary">+ Ajouter un Gestionnaire
@@ -14,56 +14,49 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <% }) %>
-    <% messages2.forEach(element=> { %>
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <%= element %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <% }) %>
 
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prenom</th>
-                <th scope="col" class="text-end">Gerer</th>
-              </tr>
-            </thead>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col" class="text-end">Gerer</th>
+          </tr>
+        </thead>
 
-            <tbody>
-              <% result.forEach(element=> { %>
-                <tr class="align-middle">
-                  <td>
-                    <%= element.id_ge%>
-                  </td>
-                  <td>
-                    <%= element.nom%>
-                  </td>
-                  <td>
-                    <%= element.prenom%>
-                  </td>
-                  <td class="text-end">
-                    <div class="d-flex flex-row justify-content-end gap-2">
-                      <a href="/detailGestio/<%= element.id_ge %>" type="button" class="btn btn-primary btn-small">
-                        <i class="bi bi-eye"></i>
-                      </a>
+        <tbody>
+          <% result.forEach(element=> { %>
+            <tr class="align-middle">
+              <td>
+                <%= element.id_ge%>
+              </td>
+              <td>
+                <%= element.nom%>
+              </td>
+              <td>
+                <%= element.prenom%>
+              </td>
+              <td class="text-end">
+                <div class="d-flex flex-row justify-content-end gap-2">
+                  <a href="/detailGestio/<%= element.id_ge %>" type="button" class="btn btn-primary btn-small">
+                    <i class="bi bi-eye"></i>
+                  </a>
 
-                      <a href="/edit/<%= element.id_ge%>" type="button" class="btn btn-warning btn-small">
-                        <i class="bi bi-pencil"></i>
-                      </a>
+                  <a href="/edit/<%= element.id_ge%>" type="button" class="btn btn-warning btn-small">
+                    <i class="bi bi-pencil"></i>
+                  </a>
 
-                      <form action="/supprimer/<%= element.id_ge %>?_method=DELETE" method="POST"
-                        class="position-relative">
-                        <button type="submit" class="btn btn-danger btn-small">
-                          <i class="bi bi-person-x"></i>
-                        </button>
-                      </form>
-                    </div>
-                  </td>
-                </tr>
-                <% }) %>
-            </tbody>
-          </table>
-        </div>
+                  <form action="/supprimer/<%= element.id_ge %>?_method=DELETE" method="POST" class="position-relative">
+                    <button type="submit" class="btn btn-danger btn-small">
+                      <i class="bi bi-person-x"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>

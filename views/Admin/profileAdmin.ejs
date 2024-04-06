@@ -1,0 +1,56 @@
+<div class="col py-1">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/compteAdmin/<%= userId %>">Acceuil</a>
+                    </li>
+                    <li class="breadcrumb-item active">Mon profile</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="profile-card">
+    <div class="text-center">
+        <% message_err.forEach(element=> { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= element %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% }) %>
+                <% message_scc.forEach(element=> { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= element %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% }) %>
+                        <img src="https://avatars.githubusercontent.com/u/102063123?s=96&v=4"
+                            class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="width: 150px" />
+                        <h3>
+                            <%= result[0].nom_utilisateur %>
+                        </h3>
+                        <p>
+                            <%= result[0].email_co %>
+                        </p>
+    </div>
+    <hr />
+    <h4>Changer le mot de passe</h4>
+    <form action="/monprofile/<%= userId %>?_method=PUT" method="POST">
+        <div class="form-group">
+            <input type="password" class="form-control" name="mdpactuel" placeholder="Mot de passe actuel" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="password" class="form-control" name="nvmdp" placeholder="Nouveau mot de passe" />
+        </div>
+
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px">
+                Changer le mot de passe
+            </button>
+        </div>
+    </form>
+</div>

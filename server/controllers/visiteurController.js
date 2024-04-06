@@ -17,13 +17,20 @@ const db = require('../config/db');
 
             
     console.log(res.locals.user);
+db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+    if(err){
+        console.log('erreur avoir pfp page acceuil ');
+    }
+    res.render('../views/Visiteur/page_accueil', {
+        user: res.locals.user, // Pass the logged-in user to the view
+        article,
+        pp,
+        locals,
+        layout: "./layouts/mainVisiteur.ejs"
+    });
+})
 
-                res.render('../views/Visiteur/page_accueil', {
-                    user: res.locals.user, // Pass the logged-in user to the view
-                    article,
-                    locals,
-                    layout: "./layouts/mainVisiteur.ejs"
-                });
+              
         
         });
     };
@@ -108,7 +115,7 @@ exports.club = async (req, res) => {
                                              console.error("Erreur SQL : " + err);
                                             return res.status(500).send("Erreur SQL");
                                         }
-                                        console.log(placesenior);
+                                       
                                         
                                         
                                         
@@ -197,13 +204,23 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        console.log(match);
+        
+        
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+          
+            
+            res.render('../views/Visiteur/calendrier', { pp,match, user: res.locals.user, locals, layout: "./layouts/mainVisiteur.ejs" });
+        
         
         
      
        
-        res.render('../views/Visiteur/calendrier', { match, user: res.locals.user, locals, layout: "./layouts/mainVisiteur.ejs" });
+       
     });
+     })
  };
  exports.match = async (req, res) => {
     
@@ -215,7 +232,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        console.log(match);
+        
         
         
      
@@ -394,7 +411,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
             }
-            console.log(senior);
+    
             
             db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[2],(err,u19)=>{
                 if (err)
@@ -478,7 +495,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        console.log(match);
+    
         
         
      
@@ -496,7 +513,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        console.log(match);
+
         
         
      
@@ -516,7 +533,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        console.log(match);
+       
         
         
      

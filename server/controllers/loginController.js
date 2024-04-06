@@ -138,7 +138,7 @@ exports.compteadmin = async (req, res) => {
 
 
 exports.creer = (req, res) => {
-    db.query("INSERT INTO compte (id_type, nom_utilisateur, mot_de_passe, email_co) VALUES (?,?,?,?)", [5, req.body.username, req.body.password, req.body.email], (err, result) => {
+    db.query("INSERT INTO compte (id_type, nom_utilisateur, mot_de_passe, email_co, photo_profil) VALUES (?,?,?,?,?)", [5, req.body.username, req.body.password, req.body.email,req.file.filename], (err, result) => {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");

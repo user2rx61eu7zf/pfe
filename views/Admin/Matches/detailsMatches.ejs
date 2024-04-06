@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <%= result[0].equipe_1 + " vs " + result[0].equipe_2%>
+    </h1>
+</div>
+
+<div class="col py-3">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                    <li class="breadcrumb-item active">
+                        <%= result[0].equipe_1 + " vs " + result[0].equipe_2 %>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Equipe 1:</b></div>
+            <div class="col">
+                <%= result[0].equipe_1 %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b> Score Equipe 1:</b></div>
+            <div class="col">
+                <%= result[0].score_eq1 %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Equipe 2:</b></div>
+            <div class="col">
+                <%= result[0].equipe_2 %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b> Score Equipe 2:</b></div>
+            <div class="col">
+                <%= result[0].score_eq2 %>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Carton jaune:</b></div>
+            <div class="col">
+                <%= result[0].carton_j_ma %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Carton rouge:</b></div>
+            <div class="col">
+                <%= result[0].carton_r_ma %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Homme du match:</b></div>
+            <div class="col">
+                <%= result[0].homme_ma %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px">
+                <b>ID gestionnaire du match:</b>
+            </div>
+            <div class="col">
+                <%= result[0].id_ge_ma %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>ID stade du match:</b></div>
+            <div class="col">
+                <%= result[0].id_std_ma %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px">
+                <b>ID journée du match:</b>
+            </div>
+            <div class="col">
+                <%= result[0].id_journee_ma %>
+            </div>
+        </div>
+    </li>
+</ul>

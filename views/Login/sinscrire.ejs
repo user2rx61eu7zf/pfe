@@ -11,7 +11,7 @@
 
 <body>
     <div class="form-container">
-        <form action="/addaccount" method="post" class="form">
+        <form action="/addaccount" method="post" class="form" enctype="multipart/form-data">
             <div class="form-header">
                 <img src="/img/LFW-R.png" alt="icon" class="form-icon" />
             </div>
@@ -26,8 +26,13 @@
             </div>
 
             <div class="input-group">
-                <label for="nom">Nom:</label><br />
+                <label for="nom">Nom d'utilisateur:</label><br />
                 <input type="text" id="username" name="username" required />
+            </div>
+            <div class="input-group">
+                <label for="photo">Photo:</label><br />
+                <input type="file" id="photo" name="photovisiteur" class="file-input" />
+                <button type="button" class="custom-button">Choose File</button>
             </div>
             <input type="submit" value="Créer le compte" id="submitBtn" class="submit-btn" />
         </form>

@@ -1,5 +1,4 @@
-<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #16659e;">
-
+<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #16659e">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/admin">Admin</a>
 
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
@@ -9,51 +8,38 @@
 
   <form class="col-8 col-md-5 col-lg-4 d-flex justify-content-center mb-2 mb-md-0" role="search" method="POST"
     action="/search">
-
     <div class="search-container">
       <input type="search" name="searchTerm" class="form-control form-control-dark border-0"
-        placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px;">
-      <i class="bi bi-search search-icon" style="color: rgb(10, 37, 212);"></i>
+        placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px" />
+      <i class="bi bi-search search-icon" style="color: rgb(10, 37, 212)"></i>
     </div>
   </form>
 
-  <div class="dropdown text-end" style="margin-right: 20px;">
+  <div class="dropdown text-end" style="margin-right: 20px">
     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
       data-bs-toggle="dropdown" aria-expanded="false">
       <img src="https://avatars.githubusercontent.com/u/102063123?s=96&v=4" alt="mdo" width="32" height="32"
-        class="rounded-circle">
+        class="rounded-circle" />
     </a>
     <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
-      <li><a class="dropdown-item" href="#"> <i class="bi bi-person"></i> Mon profile </a></li>
-      <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Paramètres </a></li>
       <li>
-        <hr class="dropdown-divider">
+        <a class="dropdown-item" href="#">
+          <i class="bi bi-person"></i> Mon profile
+        </a>
       </li>
-      <li><a class="dropdown-item" href="#"> <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800;"></i> Se
-          déconnecter </a></li>
+      <li>
+        <a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Paramètres
+        </a>
+      </li>
+      <li>
+        <hr class="dropdown-divider" />
+      </li>
+      <li>
+        <a class="dropdown-item" href="#">
+          <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800"></i> Se
+          déconnecter
+        </a>
+      </li>
     </ul>
   </div>
-
 </header>
-
-<script>
-  function toggleDarkMode() {
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-    // Save user preference to local storage
-    const isDarkMode = body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDarkMode);
-  }
-
-  // Check if dark mode preference is saved in local storage
-  document.addEventListener('DOMContentLoaded', function () {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      document.getElementById('darkModeToggle').checked = true; // Check the toggle switch
-    }
-  });
-
-  // Event listener for dark mode toggle button
-  document.getElementById('darkModeToggle').addEventListener('change', toggleDarkMode);
-</script>
