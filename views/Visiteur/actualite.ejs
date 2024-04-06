@@ -22,7 +22,18 @@
             </a>
             <a href="/">Home</a>
             <a href="/actualite">News</a>
-            <a href="/calendrier">Calendrier</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
@@ -40,7 +51,12 @@
                 <% if (user) { %>
 
                     <a href="/profil">
-                        <img src="/images/default.jpg" alt="" width="32" height="32" style="border-radius: 50%;">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
                     </a>
 
 
@@ -69,61 +85,27 @@
                 <h2 class="news-title">Actualités de la ligue</h2>
             </div>
             <% article.forEach(function(articleItem) { %>
-                <div class="news-article">
-                    <img src="/img/<%= articleItem.image_art %>" alt="Article Image" class="news-image">
-                    <div class="article-content">
-                        <h3 class="article-title">
-                            <%= articleItem.titre_art %>
-                        </h3>
-                        <p>
-                            <% if(articleItem.date_art) { var dateOfBirthString=articleItem.date_art; var
-                                dateOfBirth=new Date(dateOfBirthString); var formattedDateOfBirth=("0" +
-                                dateOfBirth.getDate()).slice(-2) + "/" + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2)
-                                + "/" + dateOfBirth.getFullYear(); %>
-                                <%= formattedDateOfBirth %>
-                                    <% } else { %>
-                                        null
-                                        <% } %>
-                        </p>
+                <a href="/article/<%= articleItem.id_art %>">
+                    <div class="news-article">
+                        <img src="/img/<%= articleItem.image_art %>" alt="Article Image" class="news-image">
+                        <div class="article-content">
+                            <h3 class="article-title">
+                                <%= articleItem.titre_art %>
+                            </h3>
+                            <p>
+                                <% if(articleItem.date_art) { var dateOfBirthString=articleItem.date_art; var
+                                    dateOfBirth=new Date(dateOfBirthString); var formattedDateOfBirth=("0" +
+                                    dateOfBirth.getDate()).slice(-2) + "/" + ("0" + (dateOfBirth.getMonth() +
+                                    1)).slice(-2) + "/" + dateOfBirth.getFullYear(); %>
+                                    <%= formattedDateOfBirth %>
+                                        <% } else { %>
+                                            null
+                                            <% } %>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <% }); %>
-
-                    <div class="news-article">
-                        <img src="blog1.jpg" alt="Article 1" class="news-image">
-                        <div class="article-content">
-                            <h3 class="article-title">Article Title 1</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                    <div class="news-article">
-                        <img src="blog1.jpg" alt="Article 1" class="news-image">
-                        <div class="article-content">
-                            <h3 class="article-title">Article Title 1</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                    <div class="news-article">
-                        <img src="blog1.jpg" alt="Article 1" class="news-image">
-                        <div class="article-content">
-                            <h3 class="article-title">Article Title 1</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                    <div class="news-article">
-                        <img src="blog1.jpg" alt="Article 1" class="news-image">
-                        <div class="article-content">
-                            <h3 class="article-title">Article Title 1</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
 
                     <div class="pagination">
                         <a href="#">◄</a>
@@ -136,20 +118,7 @@
 
     </div>
 
-    <script>
-        // Get all the news articles
-        const newsArticles = document.querySelectorAll('.news-article');
 
-        // Loop through each news article to add click event listener
-        newsArticles.forEach(article => {
-            article.addEventListener('click', () => {
-                // Get the article ID
-                const articleId = article.dataset.articleId;
-                // Redirect to news_details.html with the article ID as a query parameter
-                window.location.href = "/article"
-            });
-        });
-    </script>
 
 </body>
 

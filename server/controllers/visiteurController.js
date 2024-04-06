@@ -47,9 +47,23 @@ exports.equipes = async (req, res) => {
            console.error("Erreur SQL : " + err);
            return res.status(500).send("Erreur SQL");
        }
+       db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        if(err){
+            console.log('erreur avoir pfp page acceuil ');
+        }
+       
+        
+        res.render('../views/Visiteur/equipes', {
+            user: res.locals.user, // Pass the logged-in user to the view
+            club,
+            pp,
+            locals,
+            layout: "./layouts/mainVisiteur.ejs"
+        });
+       })
       
        
-       res.render('../views/Visiteur/equipes', {  user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
+       
    });
 };
 
@@ -70,31 +84,26 @@ exports.club = async (req, res) => {
                 console.error("Erreur SQL : " + err);
                 return res.status(500).send("Erreur SQL");
             }
-
             db.query("SELECT * FROM stade WHERE id_eq_std=?", [idequipe], (err, std) => {
                 if (err) {
                     console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
                 }
-
                 db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe,"gardien"],(err, gardien) => {
                     if(err) {
                         console.error("Erreur SQL : " + err);
                         return res.status(500).send("Erreur SQL");
                     }
-
                     db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe,"milieu de terrain"],(err, millieu) => {
                         if(err) {
                             console.error("Erreur SQL : " + err);
                             return res.status(500).send("Erreur SQL");
                         }
-
                         db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe,"attaquant"],(err, attaquant) => {
                             if(err) {
                                 console.error("Erreur SQL : " + err);
                                 return res.status(500).send("Erreur SQL");
                             }
-
                             db.query("SELECT nom_jo, prenom_jo, nbr_buts_jo FROM joueur WHERE id_eq_jo = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC ", [idequipe], (err, buteurs) => {
                                 if(err) {
                                     console.error("Erreur SQL : " + err);
@@ -105,29 +114,25 @@ exports.club = async (req, res) => {
                                      console.error("Erreur SQL : " + err);
                                     return res.status(500).send("Erreur SQL");
                                 }
-                                db.query("SELECT * FROM equipe WHERE id_eq=?",[idequipe],(err,classement)=>{
+                                db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
                                     if(err){
-                                        console.error("Erreur SQL : " + err);
-                                        return res.status(500).send("Erreur SQL");
+                                        console.log("erreur pp"+err)
                                     }
-                                    db.query("SELECT classement.rank AS position FROM (SELECT id_eq, points_eq, ROW_NUMBER() OVER (ORDER BY points_eq DESC) AS rank FROM equipe WHERE id_dev_eq = ?) AS classement WHERE id_eq = ?;",[1,req.params.id],(err,placesenior)=>{
+                                    db.query("SELECT * FROM equipe WHERE id_eq=?",[idequipe],(err,classement)=>{
                                         if(err){
-                                             console.error("Erreur SQL : " + err);
+                                            console.error("Erreur SQL : " + err);
                                             return res.status(500).send("Erreur SQL");
                                         }
-                                       
-                                        
-                                        
-                                        
-                                        res.render('../views/Visiteur/club', { user: res.locals.user, placesenior,club, ent, std, locals, classement,gardien, buteurs, passeurs,millieu, attaquant, layout: "./layouts/mainVisiteur.ejs" });
-                                    })
-
-                                  
-                                } )
-                                
-                              })
-
-                                
+                                        db.query("SELECT classement.rank AS position FROM (SELECT id_eq, points_eq, ROW_NUMBER() OVER (ORDER BY points_eq DESC) AS rank FROM equipe WHERE id_dev_eq = ?) AS classement WHERE id_eq = ?;",[1,req.params.id],(err,placesenior)=>{
+                                            if(err){
+                                                 console.error("Erreur SQL : " + err);
+                                                return res.status(500).send("Erreur SQL");
+                                            }
+                                            res.render('../views/Visiteur/club', { pp,user: res.locals.user, placesenior,club, ent, std, locals, classement,gardien, buteurs, passeurs,millieu, attaquant, layout: "./layouts/mainVisiteur.ejs" });
+                                            });  
+                                        });
+                                     });
+                                });
                             });
                         });
                     });
@@ -150,7 +155,13 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        res.render('../views/Visiteur/classement', { classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=> {
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            res.render('../views/Visiteur/classement', {pp, user:res.locals.user,classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+        
     });
  };
  
@@ -164,7 +175,14 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        res.render('../views/Visiteur/classementu19', {  user: res.locals.user,classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            res.render('../views/Visiteur/classementu19', {  pp,user: res.locals.user,classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+        
+       
     });
  };
  exports.classementu17 = async (req, res) => {
@@ -177,7 +195,13 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        res.render('../views/Visiteur/classementu17', {  user: res.locals.user,classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+if (err) {
+    console.error("Erreur SQL : " + err);
+         }
+         res.render('../views/Visiteur/classementu17', { pp, user: res.locals.user,classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+      
     });
  };
  exports.classementu15 = async (req, res) => {
@@ -190,7 +214,13 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        res.render('../views/Visiteur/classementu15', { user: res.locals.user, classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            res.render('../views/Visiteur/classementu15', { pp,user: res.locals.user, classement , locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+      
     });
  };
  
@@ -231,13 +261,18 @@ exports.classement = async (req, res) => {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
-        }
-        
+        } db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+                if(err) {
+                        console.log("erreur pfp"+err);
+                        
+                    }
+                    res.render('../views/Visiteur/match', { pp, user: res.locals.user, match,locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
         
         
      
        
-        res.render('../views/Visiteur/match', {  user: res.locals.user, match,locals, layout: "./layouts/mainVisiteur.ejs" });
+      
     });
  };
  
@@ -251,12 +286,18 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            res.render('../views/Visiteur/actualite', { pp, article,user: res.locals.user, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
         
         
      
        
        
-        res.render('../views/Visiteur/actualite', {  article,user: res.locals.user, locals, layout: "./layouts/mainVisiteur.ejs" });
+       
     });
  };
  
@@ -270,11 +311,17 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            res.render('../views/Visiteur/article', {   pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
         
         
      
        
-        res.render('../views/Visiteur/article', {   user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+       
     });
  };
  
@@ -289,12 +336,21 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            res.render('../views/Visiteur/joueur', {  pp,user: res.locals.user,joueur, locals, layout: "./layouts/mainVisiteur.ejs" });
+            
+        })
+        
+        
      
         
         
      
        
-        res.render('../views/Visiteur/joueur', {  user: res.locals.user,joueur, locals, layout: "./layouts/mainVisiteur.ejs" });
+       
     });
  };
  exports.u19 = async (req, res) => {
@@ -309,8 +365,14 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            
+        res.render('../views/Visiteur/equipes', {  pp,user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
         
-        res.render('../views/Visiteur/equipes', {  user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
     });
 
         
@@ -327,9 +389,15 @@ exports.classement = async (req, res) => {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
-        }
+        } db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            
+        res.render('../views/Visiteur/equipes', {  pp,user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
         
-        res.render('../views/Visiteur/equipes', {  user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
+        
     });
 
         
@@ -347,8 +415,15 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+            
+        res.render('../views/Visiteur/equipes', {  pp,user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
         
-        res.render('../views/Visiteur/equipes', {  user: res.locals.user,club, locals, layout: "./layouts/mainVisiteur.ejs" });
+        
     });
 
         
@@ -361,29 +436,37 @@ exports.classement = async (req, res) => {
         title: "Statistiques",
     };
     
-        db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[1],(err,senior)=>{
+        db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo ,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[1],(err,senior)=>{
         if(err){
             console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
             }
-            db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[2],(err,u19)=>{
+            db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[2],(err,u19)=>{
                 if (err)
                 {
                     console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
                 }
-                db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[3],(err,u17)=>
+                db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[3],(err,u17)=>
                 { 
                     if(err){
                         console.error("Erreur SQL : " + err);
                         return res.status(500).send("Erreur SQL");
                     }
-                    db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[4],(err,u15)=>{
+                    db.query("SELECT joueur.nbr_buts_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC",[4],(err,u15)=>{
                         if(err){
                             console.error("Erreur SQL : " + err);
                             return res.status(500).send("Erreur SQL");
                         }
-                        res.render("../views/Visiteur/stats",{ user: res.locals.user,u19,u17,u15,locals,senior, layout: "./layouts/mainVisiteur.ejs" })
+                        db.query("SELECT  photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+                            if(err)
+                            {
+                                console.error("Erreur SQL : " + err);
+                                return res.status(500).send("Erreur SQL");
+                            }
+                            res.render("../views/Visiteur/stats",{ pp,user: res.locals.user,u19,u17,u15,locals,senior, layout: "./layouts/mainVisiteur.ejs" })
+                        })
+                     
                     })
                     
                 })
@@ -406,31 +489,39 @@ exports.classement = async (req, res) => {
         title: "Statistiques",
     };
     
-        db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[1],(err,senior)=>{
+        db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[1],(err,senior)=>{
         if(err){
             console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
             }
     
             
-            db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[2],(err,u19)=>{
+            db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[2],(err,u19)=>{
                 if (err)
                 {
                     console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
                 }
-                db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[3],(err,u17)=>
+                db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[3],(err,u17)=>
                 { 
                     if(err){
                         console.error("Erreur SQL : " + err);
                         return res.status(500).send("Erreur SQL");
                     }
-                    db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[4],(err,u15)=>{
+                    db.query("SELECT joueur.nbr_passe_jo ,joueur.nom_jo,joueur.prenom_jo,logo_eq FROM joueur JOIN equipe ON equipe.id_eq = joueur.id_eq_jo WHERE equipe.id_dev_eq = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC",[4],(err,u15)=>{
                         if(err){
                             console.error("Erreur SQL : " + err);
                             return res.status(500).send("Erreur SQL");
                         }
-                        res.render("../views/Visiteur/assists",{ user: res.locals.user,u19,u17,u15,locals,senior, layout: "./layouts/mainVisiteur.ejs" })
+                        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+                            if(err)
+                            {
+                                console.error("Erreur SQL : " + err);
+                                return res.status(500).send("Erreur SQL");
+                            }
+                            res.render("../views/Visiteur/assists",{ pp,user: res.locals.user,u19,u17,u15,locals,senior, layout: "./layouts/mainVisiteur.ejs" })
+                        })
+                       
                     })
                     
                 })
@@ -495,12 +586,21 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            console.log(pp);
+            
+            res.render('../views/Visiteur/calendrieru19', { pp,user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
     
         
         
      
        
-        res.render('../views/Visiteur/calendrieru19', {  user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+       
     });
  };
  exports.calendrieru17 = async (req, res) => {
@@ -513,12 +613,19 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            res.render('../views/Visiteur/calendrieru17', { pp, user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
 
         
         
      
        
-        res.render('../views/Visiteur/calendrieru17', {  user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+      
     });
  };
 
@@ -533,12 +640,31 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err)
+            {
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            res.render('../views/Visiteur/calendrieru15', { pp,user: res.locals.user, match, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
        
         
         
      
        
-        res.render('../views/Visiteur/calendrieru15', { user: res.locals.user, match, locals, layout: "./layouts/mainVisiteur.ejs" });
+       
     });
  };
  
+
+ exports.profil = async (req, res) => {
+    const locals = {
+        title: "Mon profile",
+    };
+ 
+    
+        
+        res.render('../views/Visiteur/profil', {  locals, layout: "./layouts/mainVisiteur.ejs" });
+    
+ };

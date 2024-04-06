@@ -20,34 +20,43 @@
     <div class="container-fluid">
         <nav>
             <a href="/">
-                <img src="/img/LFW-R.png" alt="Loogo" class="logo">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
             </a>
             <a href="/">Home</a>
             <a href="/actualite">News</a>
-            <a href="/calendrier">Calendrier</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
                     Classement
                 </button>
-
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/classement">Classement</a></li>
                     <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
-
                 </ul>
             </div>
-
             <a href="/clubs">Clubs</a>
             <a href="/login">
                 <% if (user) { %>
-
                     <a href="/profil">
-                        <img src="/images/<%= pp[0].photo_profil %>" alt="<%= pp[0].nom_utilisateur %>" width="32"
-                            height="32" style="border-radius: 50%;">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
                     </a>
-
-
                     <% } else { %>
                         <!-- If the user is not logged in, display the link to login -->
                         <a href="/login">Se connecter</a>
@@ -63,7 +72,7 @@
                     <img src="/img/github.png" alt="Facebook" class="social-icon">
                 </a>
                 <a href="https://mail.google.com" target="_blank" class="social-link">
-                    <img src="img/gmail.png" alt="Gmail" class="social-icon">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
                 </a>
             </div>
             <span></span>

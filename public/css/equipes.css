@@ -78,7 +78,7 @@ nav a {
 nav span {
     position: absolute;
     top: 0;
-    left: 47%;
+    left: 48.4%;
     width: 80px;
     height: 100%;
     background: linear-gradient(45deg, #70e040, #1bffff);
@@ -96,12 +96,12 @@ nav a:nth-child(2):hover~span {
 }
 
 nav a:nth-child(3):hover~span {
-    left: 19.8%;
+    left: 20.5%;
     width: 80px;
 }
 
 nav a:nth-child(4):hover~span {
-    left: 26%;
+    left: 27%;
     width: 115px;
 }
 
@@ -111,7 +111,7 @@ nav a:nth-child(5):hover~span {
 }
 
 nav a:nth-child(6):hover~span {
-    left: 47%;
+    left: 48.4%;
     width: 80px;
 }
 nav a:nth-child(7):hover~span {
@@ -170,4 +170,10 @@ nav a:nth-child(7):hover~span {
 }
 .centered-buttons{
     margin-left: -100px;
+}
+
+.dropdown {
+ 
+
+   z-index: 9999;
 }

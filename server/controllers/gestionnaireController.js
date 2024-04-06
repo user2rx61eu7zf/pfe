@@ -163,6 +163,41 @@ exports.viewPlayer = async (req, res) => {
 
     });
 };
+exports.article = async (req, res) => {
+
+    const gestId = req.params.idgest;  
+
+    const messages = await req.flash('article');
+   
+    const locals = {
+        title: 'Article'
+    };
+    db.query('SELECT photo_profil FROM compte WHERE id_co=?', [gestId], (err, results) => {
+        if (err) {
+            console.log('err avoir pfp' + err);
+        }
+        res.render('../views/Gestionnaire/article', {results, gestId,messages }); 
+     })
+    
+    
+};
+exports.articlepost = async (req, res) => {
+
+    const gestId = req.params.idgest;  
+   console.log(req.body);
+   
+    photo=req.file.filename;
+    
+   db.query("INSERT INTO article (date_art,titre_art,description_art,image_art,auteur_art)VALUES(?,?,?,?,?)",[req.body.date,req.body.titre,req.body.description,photo,req.body.auteur],(err,result)=>{
+    if(err){
+        console.log("erreur ajouter article"+err);
+    }
+  
+   })
+   await req.flash('article', 'Article ajouté !!');
+   res.redirect(`/ecrire_article/${gestId}`,);
+    
+};
 // voir entraineur
 exports.voirEntraineur = async (req, res) => {
 

@@ -23,7 +23,18 @@
             </a>
             <a href="/">Home</a>
             <a href="/actualite">News</a>
-            <a href="/calendrier">Calendrier</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
@@ -41,7 +52,13 @@
                 <% if (user) { %>
 
                     <a href="/profil">
-                        <img src="/images/default.jpg" alt="" width="32" height="32" style="border-radius: 50%;">
+
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
                     </a>
 
 

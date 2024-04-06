@@ -37,7 +37,13 @@
                 <% if (user) { %>
 
                     <a href="/profil">
-                        <img src="/images/default.jpg" alt="" width="32" height="32" style="border-radius: 50%;">
+
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
                     </a>
 
 

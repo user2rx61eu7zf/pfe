@@ -75,8 +75,8 @@ nav a {
 nav span {
     position: absolute;
     top: 0;
-    left: 27.9%;
-    width: 110px;
+    left: 14.3%;
+    width: 80px;
     height: 100%;
     background: linear-gradient(45deg, #70e040, #1bffff);
     border-radius: 8px;
@@ -99,7 +99,7 @@ nav a:nth-child(3):hover~span {
 
 nav a:nth-child(4):hover~span {
     left: 27.9%;
-    width: 115px;
+    width: 110px;
 }
 
 nav a:nth-child(5):hover~span {
@@ -108,13 +108,10 @@ nav a:nth-child(5):hover~span {
 }
 
 nav a:nth-child(6):hover~span {
-    left: 47%;
+    left: 48.9%;
     width: 80px;
 }
-nav a:nth-child(7):hover~span {
-    left: 54.5%;
-    width: 120px;
-}
+
 .calendrier-container {
     width: 100%;
     margin: 0 auto;

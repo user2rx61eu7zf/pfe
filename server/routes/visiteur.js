@@ -31,9 +31,9 @@ router.get('/', checkLoggedIn,visiteurController.page_accueil);
 router.get('/clubs', checkLoggedIn,visiteurController.equipes); 
 router.get('/club/:id', checkLoggedIn,visiteurController.club); 
 router.get('/classement', checkLoggedIn,visiteurController.classement); 
-router.get('/classement_u19', visiteurController.classementu19); 
-router.get('/classement_u17', visiteurController.classementu17);
-router.get('/classement_u15', visiteurController.classementu15);
+router.get('/classement_u19', checkLoggedIn, visiteurController.classementu19); 
+router.get('/classement_u17',checkLoggedIn, visiteurController.classementu17);
+router.get('/classement_u15',checkLoggedIn, visiteurController.classementu15);
 router.get('/calendrier',checkLoggedIn,visiteurController.calendrier); 
 router.get('/calendrier_u19',checkLoggedIn, visiteurController.calendrieru19);
 router.get('/calendrier_u17', checkLoggedIn,visiteurController.calendrieru17); 
@@ -45,9 +45,10 @@ router.get('/joueur/:id', checkLoggedIn,visiteurController.joueur);
 router.get('/club_junior_u19', checkLoggedIn,visiteurController.u19)
 router.get('/club_junior_u17', checkLoggedIn,visiteurController.u17)
 router.get('/club_junior_u15',checkLoggedIn, visiteurController.u15)
-router.get('/stats', visiteurController.stats)
+router.get('/stats', checkLoggedIn,visiteurController.stats)
 router.get('/stats/assists', checkLoggedIn,visiteurController.assists)
 router.post('/chercher',checkLoggedIn, visiteurController.recherche)
+router.get('/profil',checkLoggedIn,visiteurController.profil)
 
 
 
