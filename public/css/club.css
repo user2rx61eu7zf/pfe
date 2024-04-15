@@ -24,6 +24,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
+    z-index: 99999;
     
 }
 .logo {
@@ -231,12 +232,14 @@ nav a:nth-child(7):hover~span {
 }
 
 .player-box {
+    padding-top: 15px;
     width: 200px;
     margin-bottom: 10px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    z-index: 0;
 }
 
 .player-box:hover {

@@ -19,6 +19,7 @@ const upload = multer({ storage: storage })
 
 
 router.get('/login', loginController.loginPage);
+router.get('/logout', loginController.logout);
 router.get("/s'inscrire", loginController.sinscrire); 
 router.post('/compte', loginController.comptePage);
 router.post('/addaccount', upload.single('photovisiteur'),loginController.creer);

@@ -615,7 +615,7 @@ exports.monprofilepost = async (req, res) => {
         title: 'Mon profile'
     };
 
-    // Store the response object outside the MySQL query callback
+
     const response = res;
 
     db.query('SELECT mot_de_passe, photo_profil FROM compte WHERE id_co=?', [userId], (err, result) => {

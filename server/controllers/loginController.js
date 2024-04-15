@@ -27,6 +27,18 @@ exports.loginPage = async (req, res) => {
 
 
 }
+
+exports.logout = async (req, res) => {
+
+
+   
+  
+    res.cookie('jwt', '', { maxAge: 1 }) // pour la deconexxion
+
+    res.redirect(`/`)
+
+
+}
 exports.sinscrire = async (req, res) => {
 
 
@@ -143,6 +155,19 @@ exports.creer = (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
+        db.query("SELECT id_co FROM compte WHERE email_co = ?",[req.body.email], (err, result)=> {
+            if (err) {
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            db.query("INSERT INTO visiteur (id_compte_vis) VALUES (?) " ,[result[0].id_co],(err,results)=> {
+                if(err){
+                    console.error("Erreur SQL : " + err);
+                    return res.status(500).send("Erreur SQL");
+                }
+            })
+        })
+        
 
         const token = jwt.sign({ id: req.body.username }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_EXPIRES,

@@ -8,7 +8,7 @@ const db = require('../config/db');
         const locals = {
             title: "Accueil",
         };
-
+        
         db.query("SELECT * FROM article", (err, article) => {
             if (err) {
                 console.error("Erreur SQL : " + err);
@@ -229,7 +229,9 @@ if (err) {
     const locals = {
        title: "Calendrier",
    };
-    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ?; ",[1], (err, match) => {
+   const currentDate = new Date();
+   const formattedDate = currentDate.toISOString().split('T')[0];
+    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ? AND date_ma > ?; ",[1,formattedDate], (err, match) => {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
@@ -243,6 +245,38 @@ if (err) {
           
             
             res.render('../views/Visiteur/calendrier', { pp,match, user: res.locals.user, locals, layout: "./layouts/mainVisiteur.ejs" });
+        
+        
+        
+     
+       
+       
+    });
+     })
+ };
+
+
+ exports.calendrier_precedent = async (req, res) => {
+    
+    const locals = {
+       title: "Calendrier",
+   };
+   const currentDate = new Date();
+   const formattedDate = currentDate.toISOString().split('T')[0];
+    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ? AND date_ma < ?; ",[1,formattedDate], (err, match) => {
+        if (err) {
+            console.error("Erreur SQL : " + err);
+            return res.status(500).send("Erreur SQL");
+        }
+        
+        
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.log('erreur avoir pfp page acceuil ');
+            }
+          
+            
+            res.render('../views/Visiteur/calendrier_precedent', { pp,match, user: res.locals.user, locals, layout: "./layouts/mainVisiteur.ejs" });
         
         
         
@@ -302,7 +336,7 @@ if (err) {
  };
  
  exports.article = async (req, res) => {
-    
+    idArticle = req.params.id;
     const locals = {
        title: "article",
    };
@@ -315,7 +349,7 @@ if (err) {
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
-            res.render('../views/Visiteur/article', {   pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+            res.render('../views/Visiteur/article', {   idArticle,pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
         })
         
         
@@ -581,7 +615,9 @@ if (err) {
     const locals = {
        title: "Calendrier",
    };
-    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ?; ",[2], (err, match) => {
+   const currentDate = new Date();
+   const formattedDate = currentDate.toISOString().split('T')[0];
+    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ? AND date_ma > ?; ",[2,formattedDate], (err, match) => {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
@@ -594,6 +630,94 @@ if (err) {
             console.log(pp);
             
             res.render('../views/Visiteur/calendrieru19', { pp,user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+    
+        
+        
+     
+       
+       
+    });
+ };
+
+ exports.calendrier_precedent_u19 = async (req, res) => {
+    
+    const locals = {
+       title: "Calendrier",
+   };
+   const currentDate = new Date();
+   const formattedDate = currentDate.toISOString().split('T')[0];
+    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ? AND date_ma < ?; ",[2,formattedDate], (err, match) => {
+        if (err) {
+            console.error("Erreur SQL : " + err);
+            return res.status(500).send("Erreur SQL");
+        }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            console.log(pp);
+            
+            res.render('../views/Visiteur/calendrier_precedent_u19', { pp,user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+    
+        
+        
+     
+       
+       
+    });
+ };
+ exports.calendrier_precedent_u17 = async (req, res) => {
+    
+    const locals = {
+       title: "Calendrier",
+   };
+   const currentDate = new Date();
+   const formattedDate = currentDate.toISOString().split('T')[0];
+    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ? AND date_ma < ?; ",[3,formattedDate], (err, match) => {
+        if (err) {
+            console.error("Erreur SQL : " + err);
+            return res.status(500).send("Erreur SQL");
+        }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            console.log(pp);
+            
+            res.render('../views/Visiteur/calendrier_precedent_u17', { pp,user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
+        })
+    
+        
+        
+     
+       
+       
+    });
+ };
+ exports.calendrier_precedent_u15 = async (req, res) => {
+    
+    const locals = {
+       title: "Calendrier",
+   };
+   const currentDate = new Date();
+   const formattedDate = currentDate.toISOString().split('T')[0];
+    db.query("SELECT `match`.*, equipe1.logo_eq AS logo_eq_1, equipe2.logo_eq AS logo_eq_2, stade.nom_std FROM `match` JOIN equipe AS equipe1 ON equipe1.nom_eq = `match`.equipe_1 JOIN equipe AS equipe2 ON equipe2.nom_eq = `match`.equipe_2 JOIN stade ON stade.id_std = `match`.id_std_ma WHERE `match`.id_div_ma = ? AND date_ma < ?; ",[4,formattedDate], (err, match) => {
+        if (err) {
+            console.error("Erreur SQL : " + err);
+            return res.status(500).send("Erreur SQL");
+        }
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+            if(err){
+                console.error("Erreur SQL : " + err);
+                return res.status(500).send("Erreur SQL");
+            }
+            console.log(pp);
+            
+            res.render('../views/Visiteur/calendrier_precedent_u15', { pp,user: res.locals.user,match, locals, layout: "./layouts/mainVisiteur.ejs" });
         })
     
         
@@ -659,12 +783,115 @@ if (err) {
  
 
  exports.profil = async (req, res) => {
+    const message_err = await req.flash('info');
+    const message_scc = await req.flash('info1');
     const locals = {
         title: "Mon profile",
     };
- 
+    db.query("SELECT * FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        if(err){
+            console.log('erreur avoir pfp page acceuil ');
+        }
+        
+        
+        res.render('../views/Visiteur/profil', {
+            user: res.locals.user, // Pass the logged-in user to the view
+            pp,
+            locals,
+            layout: "./layouts/mainVisiteur.ejs",
+            message_err,
+            message_scc
+        });
+    })
     
         
-        res.render('../views/Visiteur/profil', {  locals, layout: "./layouts/mainVisiteur.ejs" });
+      
     
  };
+ exports.profilpost = async (req, res) => {
+    
+    const mdpactuel = req.body.mdpactuel;
+    const nvmdp = req.body.nvmdp;
+
+
+    const locals = {
+        title: 'Mon profile'
+    };
+
+
+    const response = res;
+
+    db.query('SELECT mot_de_passe, photo_profil FROM compte WHERE nom_utilisateur=?', [res.locals.user], (err, result) => {
+        if (err) {
+            console.error('erreur sql avoir mdp   ' + err);
+            return response.status(500).send('erreur sql avoir mdp ');
+        }
+
+        
+        if (mdpactuel === result[0].mot_de_passe && !req.file) {
+            
+            photo_gest = result[0].photo_profil;
+           
+            db.query('UPDATE compte SET mot_de_passe=?,photo_profil=? WHERE nom_utilisateur=?', [nvmdp, photo_gest, res.locals.user], (err, results) => {
+                if (err) {
+                    console.error('erreur sql changer mdp   ' + err);
+                    return response.status(500).send('erreur sql changer mdp ');
+                } else {
+
+                    req.flash('info1', 'Mot de passe changé avec succès');
+                    return response.redirect(`/profil`);
+                }
+            });
+        } else if (!req.body.mdpactuel && !req.file) {
+           
+
+            return response.redirect(`/profil`);
+        } else if (!req.body.mdpactuel && req.file) {
+            
+            photo_gest = req.file.filename;
+            db.query('UPDATE compte SET photo_profil=? WHERE nom_utilisateur=? ', [photo_gest, res.locals.user], (err, res) => {
+                if (err) {
+                    console.error('erreur sql changer pfp   ' + err);
+                    return response.status(500).send('erreur sql changer pfp ');
+                }
+                return response.redirect(`/profil`);
+            });
+        } else {
+         
+            req.flash('info', 'Mot de passe actuel est faux');
+            return response.redirect(`/profil`);
+        }
+    });
+
+};
+
+exports.commentaire = async (req, res) => {
+
+    const currentDate = new Date();
+   db.query("SELECT id_co FROM compte WHERE nom_utilisateur = ?",[res.locals.user],(err, result)=>{
+    if(err){
+        console.error('erreur sql  ' + err);
+        return res.status(500).send('erreur sql  ');
+    }
+    db.query("SELECT id_vis FROM visiteur WHERE id_compte_vis=?",[result[0].id_co],(err, results)=>{
+        if(err){
+            console.error('erreur sql  ' + err);
+            return res.status(500).send('erreur sql  ');
+        }
+        db.query("INSERT INTO commentaire (id_art_com,id_vis_com,description_com,date_com) VALUES(?,?,?,?) ",[req.params.id,results[0].id_vis,req.body.commentaire,currentDate],(err,com)=>{
+            if(err){
+                console.error('erreur sql  ' + err);
+                return res.status(500).send('erreur sql  ');
+            }
+        })
+        
+        console.log(results);
+        res.send(req.body.commentaire)
+    })
+   
+    
+    
+   })
+    
+    
+}
