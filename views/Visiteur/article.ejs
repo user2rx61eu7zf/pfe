@@ -19,18 +19,7 @@
             </a>
             <a href="/">Home</a>
             <a href="/actualite">News</a>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
-                    Calendrier
-                </button>
-
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
-                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
-
-                </ul>
-            </div>
+            <a href="/calendrier">Calendrier</a>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
@@ -106,9 +95,28 @@
             </p>
 
             <div class="likes-comments-count">
-                <span>Commentaire: 20</span>
-            </div>
+                <span id="comment-count">Commentaire: <%= nbrarticle[0]['COUNT (id_art_com)'] %> </span>
 
+            </div>
+            <div class="comment-section">
+                <h3>Comments</h3>
+                <ul class="comment-list">
+                    <li class="comment">
+                        <p class="comment-author">John Doe</p>
+                        <p class="comment-text">Bruh this article so boring man</p>
+                    </li>
+                    <li class="comment">
+                        <p class="comment-author">dumb boy</p>
+                        <p class="comment-text">Tahya shamiaaaaaaa</p>
+                    </li>
+
+                </ul>
+                <form id="comment-form" action="/commentaire/<%= idArticle %>" method="post">
+                    <textarea class="form-control comment-input" id="comment-input"
+                        placeholder="Write your comment here" rows="2" maxlength="150" name="commentaire"></textarea>
+                    <button type="submit" class="btn btn-primary comment-submit">Submit</button>
+                </form>
+            </div>
             <!-- Share Buttons -->
             <div class="share-buttons">
                 <button class="btn btn-primary" onclick="shareFacebook()">Partager via Facebook</button>
@@ -117,13 +125,6 @@
                 <button class="btn btn-info" onclick="shareTwitter()">Partager via Twitter</button>
             </div>
 
-            <div class="comment-section">
-                <form action="/commentaire/<%= idArticle %>" method="POST">
-                    <textarea class="form-control comment-input" placeholder="Write your comment here" rows="2"
-                        maxlength="150" name="commentaire"></textarea>
-                    <button type="submit" class="btn btn-primary comment-submit">Submit</button>
-                </form>
-            </div>
         </div>
     </div>
     </div>

@@ -349,7 +349,14 @@ if (err) {
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
-            res.render('../views/Visiteur/article', {   idArticle,pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+            db.query("SELECT COUNT (id_art_com) FROM  commentaire WHERE id_art_com=?",[req.params.id],(err,nbrarticle)=>{
+                if(err){
+                    console.log('erreur sql avoir nombre de commentaire '+err);
+                }
+                console.log(nbrarticle);
+                res.render('../views/Visiteur/article', {   nbrarticle,idArticle,pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+            })
+           
         })
         
         
@@ -886,7 +893,7 @@ exports.commentaire = async (req, res) => {
         })
         
         console.log(results);
-        res.send(req.body.commentaire)
+        res.redirect(`/article/${req.params.id}`)
     })
    
     
