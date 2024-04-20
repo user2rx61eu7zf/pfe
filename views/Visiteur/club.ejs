@@ -153,7 +153,8 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <%= placesenior[0].position %>
+                                            <%= placesenior.length> 0 ? placesenior[0].position : '' %>
+
                                         </td>
                                         <td>
                                             <%= classement.length> 0 ? classement[0].m_gagner_eq : 'null' %>
@@ -291,7 +292,7 @@
 
                     <div class="container">
 
-                        <h2>Club Honeurs</h2>
+                        <h2>Matchs a suivre </h2>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -301,12 +302,32 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>League Title</td>
-                                    <td>2021</td>
-                                </tr>
-                                <tr>
-                                    <td>Cup Title</td>
-                                    <td>2020</td>
+
+                                    <% logo.forEach(function(logoArray) { %>
+                                        <td>
+                                            <% logoArray.forEach(function(logoItem) { %>
+                                                <img src="/img/<%= logoItem.logo_eq %>" alt="Logo" width="32"
+                                                    height="32">
+                                                <% }); %>
+                                        </td>
+                                        <% }); %>
+
+                                            <% prochmatch.forEach(function(item) { %>
+                                                <td>
+                                                    <% if(item.date_ma) { %>
+                                                        <% var dateOfBirth=new Date(item.date_ma); %>
+                                                            <% var formattedDateOfBirth=("0" +
+                                                                dateOfBirth.getDate()).slice(-2) + "/" + ("0" +
+                                                                (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                                                dateOfBirth.getFullYear(); %>
+                                                                <%= formattedDateOfBirth %>
+                                                                    <% } else { %>
+                                                                        null
+                                                                        <% } %>
+                                                </td>
+                                                <% }); %>
+
+
                                 </tr>
 
                             </tbody>
@@ -314,7 +335,7 @@
                     </div>
                     <h2>Stade du club </h2>
                     <div class="stadium-info">
-                        <!-- Stadium Name and Logo -->
+
                         <div class="stadium-header">
                             <img src="/img/stade.jpg" alt="Stadium Logo" class="stadium-logo">
                             <h3 class="stadium-name">

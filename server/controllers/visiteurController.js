@@ -17,10 +17,14 @@ const db = require('../config/db');
 
             
     console.log(res.locals.user);
-db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+    
+    
+db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
     if(err){
         console.log('erreur avoir pfp page acceuil ');
     }
+     console.log(pp);
+    
     res.render('../views/Visiteur/page_accueil', {
         user: res.locals.user, // Pass the logged-in user to the view
         article,
@@ -47,7 +51,7 @@ exports.equipes = async (req, res) => {
            console.error("Erreur SQL : " + err);
            return res.status(500).send("Erreur SQL");
        }
-       db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+       db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
         if(err){
             console.log('erreur avoir pfp page acceuil ');
         }
@@ -72,6 +76,8 @@ exports.club = async (req, res) => {
     const locals = {
         title: "equipe",
     };
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0];
 
     db.query("SELECT * FROM equipe WHERE id_eq=?", [idequipe], (err, club) => {
         if (err) {
@@ -89,49 +95,91 @@ exports.club = async (req, res) => {
                     console.error("Erreur SQL : " + err);
                     return res.status(500).send("Erreur SQL");
                 }
-                db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe,"gardien"],(err, gardien) => {
-                    if(err) {
+                db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe, "gardien"], (err, gardien) => {
+                    if (err) {
                         console.error("Erreur SQL : " + err);
                         return res.status(500).send("Erreur SQL");
                     }
-                    db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe,"milieu de terrain"],(err, millieu) => {
-                        if(err) {
+                    db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe, "milieu de terrain"], (err, millieu) => {
+                        if (err) {
                             console.error("Erreur SQL : " + err);
                             return res.status(500).send("Erreur SQL");
                         }
-                        db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe,"attaquant"],(err, attaquant) => {
-                            if(err) {
+                        db.query("SELECT * FROM joueur WHERE id_eq_jo=? AND poste_jo=?", [idequipe, "attaquant"], (err, attaquant) => {
+                            if (err) {
                                 console.error("Erreur SQL : " + err);
                                 return res.status(500).send("Erreur SQL");
                             }
                             db.query("SELECT nom_jo, prenom_jo, nbr_buts_jo FROM joueur WHERE id_eq_jo = ? AND nbr_buts_jo IS NOT NULL ORDER BY nbr_buts_jo DESC ", [idequipe], (err, buteurs) => {
-                                if(err) {
+                                if (err) {
                                     console.error("Erreur SQL : " + err);
                                     return res.status(500).send("Erreur SQL");
                                 }
-                              db.query("SELECT nom_jo, prenom_jo, nbr_passe_jo FROM joueur WHERE id_eq_jo = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC" ,[idequipe],(err,passeurs)=>{
-                                if(err){
-                                     console.error("Erreur SQL : " + err);
-                                    return res.status(500).send("Erreur SQL");
-                                }
-                                db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
-                                    if(err){
-                                        console.log("erreur pp"+err)
+                                db.query("SELECT nom_jo, prenom_jo, nbr_passe_jo FROM joueur WHERE id_eq_jo = ? AND nbr_passe_jo IS NOT NULL ORDER BY nbr_passe_jo DESC", [idequipe], (err, passeurs) => {
+                                    if (err) {
+                                        console.error("Erreur SQL : " + err);
+                                        return res.status(500).send("Erreur SQL");
                                     }
-                                    db.query("SELECT * FROM equipe WHERE id_eq=?",[idequipe],(err,classement)=>{
-                                        if(err){
-                                            console.error("Erreur SQL : " + err);
-                                            return res.status(500).send("Erreur SQL");
+                                    db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user], (err, pp) => {
+                                        if (err) {
+                                            console.log("erreur pp" + err)
                                         }
-                                        db.query("SELECT classement.rank AS position FROM (SELECT id_eq, points_eq, ROW_NUMBER() OVER (ORDER BY points_eq DESC) AS rank FROM equipe WHERE id_dev_eq = ?) AS classement WHERE id_eq = ?;",[1,req.params.id],(err,placesenior)=>{
-                                            if(err){
-                                                 console.error("Erreur SQL : " + err);
+                                        db.query("SELECT * FROM equipe WHERE id_eq=?", [idequipe], (err, classement) => {
+                                            if (err) {
+                                                console.error("Erreur SQL : " + err);
                                                 return res.status(500).send("Erreur SQL");
                                             }
-                                            res.render('../views/Visiteur/club', { pp,user: res.locals.user, placesenior,club, ent, std, locals, classement,gardien, buteurs, passeurs,millieu, attaquant, layout: "./layouts/mainVisiteur.ejs" });
-                                            });  
+                                            db.query("SELECT classement.rank AS position FROM (SELECT id_eq, points_eq, ROW_NUMBER() OVER (ORDER BY points_eq DESC) AS rank FROM equipe WHERE id_dev_eq = ?) AS classement WHERE id_eq = ?;", [1, req.params.id], (err, placesenior) => {
+                                                if (err) {
+                                                    console.error("Erreur SQL : " + err);
+                                                    return res.status(500).send("Erreur SQL");
+                                                }
+                                                db.query("SELECT date_ma,horaire_ma ,equipe_1,equipe_2 FROM `match` WHERE equipe_1=?OR equipe_2=? AND date_ma >? ", [club[0].nom_eq, club[0].nom_eq, formattedDate], (err, prochmatch) => {
+                                                    if (err) {
+                                                        console.error("Erreur SQL : " + err);
+                                                        return res.status(500).send("Erreur SQL");
+                                                    }
+                                                    console.log(prochmatch.length);
+                                                    let matchData = [];
+                                                    let logoData = [];
+                                                    for (let index = 0; index < prochmatch.length; index++) {
+                                                        db.query("SELECT logo_eq FROM equipe WHERE nom_eq IN (?,?) ", [prochmatch[index].equipe_1, prochmatch[index].equipe_2], (err, logo) => {
+                                                            if (err) {
+                                                                console.error("Erreur SQL : " + err);
+                                                                return res.status(500).send("Erreur SQL");
+                                                            }
+                                                            logoData.push(logo);
+                                                            matchData.push(prochmatch[index]);
+                                                            console.log(prochmatch);
+                                                            
+                                                            
+                                                            
+                                                            if (index === prochmatch.length - 1) {
+                                                                res.render('../views/Visiteur/club', {
+                                                                    logo: logoData,
+                                                                    prochmatch: matchData,
+                                                                    pp,
+                                                                    user: res.locals.user,
+                                                                    placesenior,
+                                                                    club,
+                                                                    ent,
+                                                                    std,
+                                                                    locals,
+                                                                    classement,
+                                                                    gardien,
+                                                                    buteurs,
+                                                                    passeurs,
+                                                                    millieu,
+                                                                    attaquant,
+                                                                    layout: "./layouts/mainVisiteur.ejs"
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            });
                                         });
-                                     });
+                                    });
                                 });
                             });
                         });
@@ -141,6 +189,7 @@ exports.club = async (req, res) => {
         });
     });
 };
+
 
 
 
@@ -155,7 +204,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=> {
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=> {
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -175,7 +224,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -195,7 +244,7 @@ exports.classement = async (req, res) => {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
 if (err) {
     console.error("Erreur SQL : " + err);
          }
@@ -214,7 +263,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -238,7 +287,7 @@ if (err) {
         }
         
         
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -270,7 +319,7 @@ if (err) {
         }
         
         
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -295,7 +344,7 @@ if (err) {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
-        } db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        } db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
                 if(err) {
                         console.log("erreur pfp"+err);
                         
@@ -320,7 +369,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -336,6 +385,7 @@ if (err) {
  };
  
  exports.article = async (req, res) => {
+    const connexion = await req.flash('cnx');
     idArticle = req.params.id;
     const locals = {
        title: "article",
@@ -345,7 +395,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -353,8 +403,14 @@ if (err) {
                 if(err){
                     console.log('erreur sql avoir nombre de commentaire '+err);
                 }
-                console.log(nbrarticle);
-                res.render('../views/Visiteur/article', {   nbrarticle,idArticle,pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+                db.query("SELECT commentaire.description_com,date_com, commentaire.id_vis_com, compte.nom_utilisateur,compte.photo_profil FROM commentaire JOIN visiteur ON commentaire.id_vis_com = visiteur.id_vis  JOIN compte ON visiteur.id_compte_vis = compte.id_co WHERE commentaire.id_art_com = ?;  ",[req.params.id],(err,description)=>{
+                    if(err){
+                        console.log('erreur sql avoir description de commentaire '+err);
+                    } 
+                    console.log(description);
+                    res.render('../views/Visiteur/article', {  connexion, description,nbrarticle,idArticle,pp,user: res.locals.user,article,locals, layout: "./layouts/mainVisiteur.ejs" });
+                })
+               
             })
            
         })
@@ -377,7 +433,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -406,7 +462,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -430,7 +486,7 @@ if (err) {
         if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
-        } db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        } db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -456,7 +512,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.log('erreur avoir pfp page acceuil ');
             }
@@ -499,7 +555,7 @@ if (err) {
                             console.error("Erreur SQL : " + err);
                             return res.status(500).send("Erreur SQL");
                         }
-                        db.query("SELECT  photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+                        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
                             if(err)
                             {
                                 console.error("Erreur SQL : " + err);
@@ -554,7 +610,7 @@ if (err) {
                             console.error("Erreur SQL : " + err);
                             return res.status(500).send("Erreur SQL");
                         }
-                        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+                        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
                             if(err)
                             {
                                 console.error("Erreur SQL : " + err);
@@ -629,7 +685,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.error("Erreur SQL : " + err);
                 return res.status(500).send("Erreur SQL");
@@ -659,7 +715,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.error("Erreur SQL : " + err);
                 return res.status(500).send("Erreur SQL");
@@ -688,7 +744,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.error("Erreur SQL : " + err);
                 return res.status(500).send("Erreur SQL");
@@ -717,7 +773,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.error("Erreur SQL : " + err);
                 return res.status(500).send("Erreur SQL");
@@ -744,7 +800,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
                 console.error("Erreur SQL : " + err);
                 return res.status(500).send("Erreur SQL");
@@ -771,7 +827,7 @@ if (err) {
             console.error("Erreur SQL : " + err);
             return res.status(500).send("Erreur SQL");
         }
-        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+        db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err)
             {
                 console.error("Erreur SQL : " + err);
@@ -795,7 +851,7 @@ if (err) {
     const locals = {
         title: "Mon profile",
     };
-    db.query("SELECT * FROM compte WHERE nom_utilisateur=?",[res.locals.user],(err,pp)=>{
+    db.query("SELECT * FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
         if(err){
             console.log('erreur avoir pfp page acceuil ');
         }
@@ -880,21 +936,28 @@ exports.commentaire = async (req, res) => {
         console.error('erreur sql  ' + err);
         return res.status(500).send('erreur sql  ');
     }
-    db.query("SELECT id_vis FROM visiteur WHERE id_compte_vis=?",[result[0].id_co],(err, results)=>{
-        if(err){
-            console.error('erreur sql  ' + err);
-            return res.status(500).send('erreur sql  ');
-        }
-        db.query("INSERT INTO commentaire (id_art_com,id_vis_com,description_com,date_com) VALUES(?,?,?,?) ",[req.params.id,results[0].id_vis,req.body.commentaire,currentDate],(err,com)=>{
+    if(result.length > 0){
+        db.query("SELECT id_vis FROM visiteur WHERE id_compte_vis=?",[result[0].id_co],(err, results)=>{
             if(err){
                 console.error('erreur sql  ' + err);
                 return res.status(500).send('erreur sql  ');
             }
+            db.query("INSERT INTO commentaire (id_art_com,id_vis_com,description_com,date_com) VALUES(?,?,?,?) ",[req.params.id,results[0].id_vis,req.body.commentaire,currentDate],(err,com)=>{
+                if(err){
+                    console.error('erreur sql  ' + err);
+                    return res.status(500).send('erreur sql  ');
+                }
+            })
+            
+            console.log(results);
+            res.redirect(`/article/${req.params.id}`)
         })
-        
-        console.log(results);
-        res.redirect(`/article/${req.params.id}`)
-    })
+    }else{
+        req.flash('cnx', 'Veuillez vous connectez pour ecrire un commentaire');
+                    return res.redirect(`/article/${req.params.id}`);
+    }
+
+    
    
     
     

@@ -68,62 +68,81 @@
             <span></span>
         </nav>
         <div class="article-container">
-            <h2 class="article-title">
-                <%= article.length> 0 ? article[0].titre_art : 'null' %>
-            </h2>
-            <p class="article-meta">Ecrit par : <%= article.length> 0 ? article[0].auteur_art : 'null' %> | Date:
-                    <% if(article.length> 0) {
+            <% connexion.forEach(element=> { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= element %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% }) %>
+                    <h2 class="article-title">
+                        <%= article.length> 0 ? article[0].titre_art : 'null' %>
+                    </h2>
+                    <p class="article-meta">Ecrit par : <%= article.length> 0 ? article[0].auteur_art : 'null' %> |
+                            Date:
+                            <% if(article.length> 0) {
 
-                        var dateOfBirthString = article[0].date_art;
+                                var dateOfBirthString = article[0].date_art;
 
 
-                        var dateOfBirth = new Date(dateOfBirthString);
+                                var dateOfBirth = new Date(dateOfBirthString);
 
-                        var formattedDateOfBirth = (" 0" +
-                        dateOfBirth.getDate()).slice(-2)
-                        + "/" +
-                        ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
-                        dateOfBirth.getFullYear(); %>
-                        <%= formattedDateOfBirth %>
-                            <% } else { // Output 'null' if no result is available %> null
-                                <% } %>
-            </p>
-            <img src="/img/<%= article[0].image_art %>" alt="Article Image" class="article-img">
-            <p class="article-description mt-3">
+                                var formattedDateOfBirth = (" 0" +
+                                dateOfBirth.getDate()).slice(-2)
+                                + "/" +
+                                ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                dateOfBirth.getFullYear(); %>
+                                <%= formattedDateOfBirth %>
+                                    <% } else { // Output 'null' if no result is available %> null
+                                        <% } %>
+                    </p>
+                    <img src="/img/<%= article[0].image_art %>" alt="Article Image" class="article-img">
+                    <p class="article-description mt-3">
 
-                <%= article.length> 0 ? article[0].description_art : 'null' %>
-            </p>
+                        <%= article.length> 0 ? article[0].description_art : 'null' %>
+                    </p>
 
-            <div class="likes-comments-count">
-                <span id="comment-count">Commentaire: <%= nbrarticle[0]['COUNT (id_art_com)'] %> </span>
+                    <div class="likes-comments-count">
+                        <span id="comment-count">Commentaire: <%= nbrarticle[0]['COUNT (id_art_com)'] %> </span>
 
-            </div>
-            <div class="comment-section">
-                <h3>Comments</h3>
-                <ul class="comment-list">
-                    <li class="comment">
-                        <p class="comment-author">John Doe</p>
-                        <p class="comment-text">Bruh this article so boring man</p>
-                    </li>
-                    <li class="comment">
-                        <p class="comment-author">dumb boy</p>
-                        <p class="comment-text">Tahya shamiaaaaaaa</p>
-                    </li>
+                    </div>
+                    <div class="comment-section">
+                        <h3>Comments</h3>
+                        <ul class="comment-list">
+                            <% description.forEach(comment=> { %>
+                                <li class="comment">
+                                    <p class="comment-author">
+                                        <%= comment.nom_utilisateur %>
+                                            <span>
+                                                <% const dateString=comment.date_com; const date=new Date(dateString);
+                                                    const formattedDate=`${date.getDate()}/${date.getMonth() +
+                                                    1}/${date.getFullYear()}
+                                                    ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`; %>
+                                                    <%= formattedDate %>
+                                            </span>
+                                    </p>
+                                    <p class="comment-text">
+                                        <%= comment.description_com %>
+                                    </p>
+                                </li>
+                                <% }); %>
 
-                </ul>
-                <form id="comment-form" action="/commentaire/<%= idArticle %>" method="post">
-                    <textarea class="form-control comment-input" id="comment-input"
-                        placeholder="Write your comment here" rows="2" maxlength="150" name="commentaire"></textarea>
-                    <button type="submit" class="btn btn-primary comment-submit">Submit</button>
-                </form>
-            </div>
-            <!-- Share Buttons -->
-            <div class="share-buttons">
-                <button class="btn btn-primary" onclick="shareFacebook()">Partager via Facebook</button>
-                <button class="btn btn-success" onclick="shareWhatsApp()">Partager via WhatsApp</button>
-                <button class="btn btn-danger" onclick="shareInstagram()">Partager via Instagram</button>
-                <button class="btn btn-info" onclick="shareTwitter()">Partager via Twitter</button>
-            </div>
+
+
+                        </ul>
+                        <form id="comment-form" action="/commentaire/<%= idArticle %>" method="post">
+                            <textarea class="form-control comment-input" id="comment-input"
+                                placeholder="Write your comment here" rows="2" maxlength="150"
+                                name="commentaire"></textarea>
+                            <button type="submit" class="btn btn-primary comment-submit">Submit</button>
+                        </form>
+                    </div>
+                    <!-- Share Buttons -->
+                    <div class="share-buttons">
+                        <button class="btn btn-primary" onclick="shareFacebook()">Partager via Facebook</button>
+                        <button class="btn btn-success" onclick="shareWhatsApp()">Partager via WhatsApp</button>
+                        <button class="btn btn-danger" onclick="shareInstagram()">Partager via Instagram</button>
+                        <button class="btn btn-info" onclick="shareTwitter()">Partager via Twitter</button>
+                    </div>
 
         </div>
     </div>
