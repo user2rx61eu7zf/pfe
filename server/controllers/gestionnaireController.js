@@ -1,7 +1,14 @@
 const mysql = require('mysql');
 const db = require('../config/db');
+const http = require('http');
 const { use } = require('../routes/admin');
 // const { dbQuery } = require('../config/db');
+const app = require('../../app'); 
+const { io } = require('../../app.js');
+
+
+
+
 
 
 
@@ -908,6 +915,7 @@ exports.but = async (req, res) => {
 
         req.flash('but', 'But Ajouté  ! ');
         res.redirect(`/match/${gestId}/${matchId}`);
+        io.emit('but',  "but");
 
 
     } catch (error) {
@@ -934,9 +942,9 @@ exports.rouge = async (req, res) => {
         const joueur_rouge = dbQuery('UPDATE joueur SET nbr_crt_rouge = nbr_crt_rouge + 1 WHERE num_mai_jo=? AND id_eq_jo=? ', [maillot_joueur_rouge, idequipe[0].id_eq]);
         text = req.body.joueurrouge;
         nom_joueur_rouge = text.match(/[a-zA-Z]+ [a-zA-Z]+/)[0];
-
         req.flash('rouge', `Carton ROUGE attribué  a ${nom_joueur_rouge} ! `);
         res.redirect(`/match/${gestId}/${matchId}`);
+        io.emit('carton_rouge', { joueur: nom_joueur_rouge });
 
 
 
@@ -964,10 +972,13 @@ exports.jaune = async (req, res) => {
         text = req.body.joueurjaune;
         nom_joueur_jaune = text.match(/[a-zA-Z]+ [a-zA-Z]+/)[0]; 
 
-
+     
+        
+        
         req.flash('jaune', `Carton JAUNE attribué  a ${nom_joueur_jaune} ! `);
         res.redirect(`/match/${gestId}/${matchId}`);
-
+        io.emit('carton_jaune', { joueur: nom_joueur_jaune });
+        
 
 
 

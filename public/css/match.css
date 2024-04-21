@@ -164,7 +164,6 @@ nav a:nth-child(6):hover~span {
 .statistics-container {
     background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 100%);
     border: 2px solid #ccc;
-    border-radius: 20px;
     margin-top: 25px;
     margin-bottom: 0; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);

@@ -108,9 +108,9 @@
 
             <div class="statistics">
                 <div class="statistic-item">
-                    <div class="card">
-                        <div class="card-body " id="messageCartonJaune">
-                            Carton jaune : Daka omari
+                    <div class="card" style="border: none;">
+                        <div class="card-body " id="messageCartonJaune" style="border: none;">
+
                         </div>
                     </div>
 
@@ -120,32 +120,29 @@
                 </div>
             </div>
 
-            <hr style="border-color: red;">
+
             <div class="motm-container">
-                <h3 class="motm">Man of the Match</h3>
-                <p>Daka Omari</p>
+                <div>
+                    <ul id="messages"></ul>
+
+                </div>
 
             </div>
         </div>
 
     </div>
     </div>
-    <script>
-        function updatePossessionProgressBar(team1Possession, team2Possession) {
-            var totalPossession = team1Possession + team2Possession;
-            var team1Percentage = (team1Possession / totalPossession) * 100;
-            var team2Percentage = (team2Possession / totalPossession) * 100;
 
-            var progressBar = document.getElementById('possession-bar');
-            progressBar.style.width = team1Percentage + '%';
-            progressBar.innerHTML = '<span class="progress-text">' + team1Percentage.toFixed(1) + '% - ' + team2Percentage.toFixed(1) + '%' + '</span>';
-        }
 
-        // Example usage: Update the possession progress bar with possession percentages of both teams
-        var team1Possession = 80; // Example possession percentage of team 1
-        var team2Possession = 20; // Example possession percentage of team 2
-        updatePossessionProgressBar(team1Possession, team2Possession);    
-    </script>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/config/match.js"></script>
+
+
+
+
 </body>
 
 </html>
