@@ -20,8 +20,17 @@ module.exports.io = io;
 
 io.on('connection', socket => {
     console.log("nv mec connecte");
-    socket.emit("message",'welcome');
+    socket.on('mi-temps', () => {
+        console.log("Mi-temps event emitted");
+        socket.broadcast.emit('mi-temps');
+    });
+    socket.on('start', () => {
+        console.log("debut de match");
+        socket.broadcast.emit('start');
+    });
+   
 });
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

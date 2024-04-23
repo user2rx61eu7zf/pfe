@@ -44,7 +44,24 @@ socket.on('but', function(data) {
     // Enregistrez le message dans le stockage local
     localStorage.setItem('but', messageParagraph.textContent);
 });
+socket.on('mi-temps', () => {
+    const messageDiv = document.getElementById('messageCartonJaune');
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = `Mitepms `;
+    messageDiv.appendChild(messageParagraph);
 
+    // Enregistrez le message dans le stockage local
+    localStorage.setItem('but', messageParagraph.textContent);
+});
+socket.on('start', () => {
+    const messageDiv = document.getElementById('messageCartonJaune');
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = `Debut de match `;
+    messageDiv.appendChild(messageParagraph);
+
+    // Enregistrez le message dans le stockage local
+    localStorage.setItem('but', messageParagraph.textContent);
+});
 window.onload = function() {
     const savedMessage = localStorage.getItem('cartonJauneMessage');
     if (savedMessage) {

@@ -1,6 +1,8 @@
-var timerInterval;
-var timerStarted = false;
-var timeoutID;
+const socket=io();
+    var timerInterval;
+    var timerStarted = false;
+    var timeoutID;
+
 
 document.addEventListener('DOMContentLoaded', function () {
     var timerInterval; // Declare the timerInterval variable outside the start function so it can be accessed in the event handler
@@ -44,13 +46,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add event listener for the "Start" button
     document.getElementById('startBtn').addEventListener('click', function () {
-        console.log("Start button clicked"); // Debugging statement to confirm button click
+        console.log("Start button clicked"); 
+        socket.emit('start');// Debugging statement to confirm button click
         start(); // Start the timer when the "Start" button is clicked
     });
 
     // Add event listener for the "Mi-temps" button
     document.getElementById('mitempsBtn').addEventListener('click', function () {
-        console.log("Mi-temps button clicked"); // Debugging statement to confirm button click
+        console.log("Mi-temps button clicked");
+        socket.emit('mi-temps'); // Debugging statement to confirm button click
         if (timerStarted) {
             localStorage.clear();
             clearInterval(timerInterval); // Stop the timer if it was started
