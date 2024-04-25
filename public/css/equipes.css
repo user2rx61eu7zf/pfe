@@ -78,7 +78,7 @@ nav a {
 nav span {
     position: absolute;
     top: 0;
-    left: 48.4%;
+    left: 50%;
     width: 80px;
     height: 100%;
     background: linear-gradient(45deg, #70e040, #1bffff);

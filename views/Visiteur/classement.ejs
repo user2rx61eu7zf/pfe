@@ -49,10 +49,8 @@
             </div>
             <a href="/clubs">Clubs</a>
             <a href="/login">
-                <% if (user) { %>
-
-                    <a href="/profil">
-
+                <% if (user===7 ||user===120 ) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
                         <% if (pp[0].photo_profil) { %>
                             <img src="/images/<%= pp[0].photo_profil %>"
                                 style="width: 32px; height: 32px; border-radius: 50%;">
@@ -60,12 +58,16 @@
                                 <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
                                 <% } %>
                     </a>
-
-
                     <% } else { %>
-                        <!-- If the user is not logged in, display the link to login -->
-                        <a href="/login">Se connecter</a>
-                        <% } %>
+                        <% if (user) { %>
+                            <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                    style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                            <% } else { %>
+                                <!-- If the user is not logged in, display the link to login -->
+                                <a href="/login">Se connecter</a>
+                                <% } %>
+                                    <% } %>
+
             </a>
             <form class="search-form" action="/chercher " method="POST">
                 <input type="text" name="recherche" placeholder=" Search">
@@ -124,7 +126,7 @@
                                     <%= classement[i].nom_eq %>
                                 </td>
                                 <td>
-                                    <%= classement[i].m_gagner_eq + classement[i].m_perdu_eq %>
+                                    <%= classement[i].m_gagner_eq + classement[i].m_perdu_eq + classement[i].m_nul_eq %>
                                 </td>
                                 <td>
                                     <%= classement[i].m_gagner_eq %>

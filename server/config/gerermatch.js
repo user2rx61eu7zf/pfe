@@ -3,87 +3,97 @@ const socket=io();
     var timerStarted = false;
     var timeoutID;
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    var timerInterval; // Declare the timerInterval variable outside the start function so it can be accessed in the event handler
-    var elapsedTime = 0; // Initialize elapsed time to 0
-    var timerStarted = false; // Initialize timerStarted flag to false
-
-    // Function to pad single digit numbers with leading zero
-    function pad(val) { return (val < 10 ? "0" : "") + val; }
-
-    // Function to update the timer display
-    function updateTimerDisplay() {
-        var hours = Math.floor(elapsedTime / 3600);
-        var minutes = Math.floor((elapsedTime % 3600) / 60);
-        var seconds = elapsedTime % 60;
-        
-        document.getElementById('minutes').textContent = pad(minutes);
-        document.getElementById('seconds').textContent = pad(seconds);
-    }
-
-    // Define the start function
-    function start() {
-        // Start the timer
-        timerInterval = setInterval(function () {
-            elapsedTime++; // Increment elapsed time by 1 second
-            updateTimerDisplay(); // Update the timer display
-
-            // Store the elapsed time in local storage
-            localStorage.setItem('elapsedTime', elapsedTime.toString());
-        }, 1000); // Run the interval timer every second
-
-        timerStarted = true; // Set timerStarted flag to true
-        // Update the timer display initially
-        updateTimerDisplay();
-    }
-
-    // Check if there is a saved elapsed time in local storage
-    if (localStorage.getItem('elapsedTime')) {
-        elapsedTime = parseInt(localStorage.getItem('elapsedTime'));
-        start(); // Start the timer with the elapsed time
-    }
-
-    // Add event listener for the "Start" button
-    document.getElementById('startBtn').addEventListener('click', function () {
-        console.log("Start button clicked"); 
-        socket.emit('start');// Debugging statement to confirm button click
-        start(); // Start the timer when the "Start" button is clicked
-    });
-
-    // Add event listener for the "Mi-temps" button
-    document.getElementById('mitempsBtn').addEventListener('click', function () {
-        console.log("Mi-temps button clicked");
-        socket.emit('mi-temps'); // Debugging statement to confirm button click
-        if (timerStarted) {
-            localStorage.clear();
-            clearInterval(timerInterval); // Stop the timer if it was started
-            console.log("Timer stopped"); // Debugging statement to confirm timer stopped
-            timerStarted = false; // Reset timerStarted flag
-            document.getElementById("minutes").textContent = "Mi-temps";
-            document.getElementById("seconds").textContent = "";
-            document.getElementById("separator").textContent = "";
-
-            // Clear elapsed time from local storage
-            localStorage.removeItem("elapsedTime");
+    document.addEventListener('DOMContentLoaded', function () {
+        var timerInterval; // Declare the timerInterval variable outside the start function so it can be accessed in the event handler
+        var elapsedTime = 0; // Initialize elapsed time to 0
+        var timerStarted = false; // Initialize timerStarted flag to false
+        var socket = io(); // Assuming you have socket.io library included
+    
+        // Function to pad single digit numbers with leading zero
+        function pad(val) { return (val < 10 ? "0" : "") + val; }
+    
+        // Function to update the timer display
+        function updateTimerDisplay() {
+            var hours = Math.floor(elapsedTime / 3600);
+            var minutes = Math.floor((elapsedTime % 3600) / 60);
+            var seconds = elapsedTime % 60;
+    
+            document.getElementById('minutes').textContent = pad(minutes);
+            document.getElementById('seconds').textContent = pad(seconds);
         }
+    
+        // Define the start function
+        function start() {
+            // Start the timer
+            timerInterval = setInterval(function () {
+                elapsedTime++; // Increment elapsed time by 1 second
+                updateTimerDisplay(); // Update the timer display
+    
+                // Store the elapsed time in local storage
+                localStorage.setItem('elapsedTime', elapsedTime.toString());
+            }, 1000); // Run the interval timer every second
+    
+            timerStarted = true; // Set timerStarted flag to true
+            // Update the timer display initially
+            updateTimerDisplay();
+        }
+    
+        // Check if there is a saved elapsed time in local storage
+        if (localStorage.getItem('elapsedTime')) {
+            elapsedTime = parseInt(localStorage.getItem('elapsedTime'));
+            start(); // Start the timer with the elapsed time
+        }
+    
+        // Add event listener for the "Start" button
+        document.getElementById('startBtn').addEventListener('click', function () {
+            console.log("Start button clicked");
+           
+            start(); // Start the timer when the "Start" button is clicked
+            socket.emit('start')
+        });
+    
+        // Add event listener for the "Mi-temps" button
+        document.getElementById('mitempsBtn').addEventListener('click', function () {
+            console.log("Mi-temps button clicked");
+            socket.emit('mi-temps')
+            if (timerStarted) {
+                localStorage.clear();
+                clearInterval(timerInterval); // Stop the timer if it was started
+                console.log("Timer stopped"); // Debugging statement to confirm timer stopped
+                timerStarted = false; // Reset timerStarted flag
+                document.getElementById("minutes").textContent = "Mi-temps";
+                document.getElementById("seconds").textContent = "";
+                document.getElementById("separator").textContent = "";
+    
+                // Clear elapsed time from local storage
+                localStorage.removeItem("elapsedTime");
+            }
+        });
+    
+        // Add event listener for the "But" button
+        document.getElementById('butBtn').addEventListener('click', function () {
+            if (timerStarted) {
+
+                var clickedTime = pad(Math.floor(elapsedTime / 3600)) + ":" + pad(Math.floor((elapsedTime % 3600) / 60)) + ":" + pad(elapsedTime % 60);
+                console.log("Clicked time: ", clickedTime);
+                console.log(clickedTime);
+                
+                socket.emit('butBtnClicked', { time: clickedTime });
+            }
+        });
+    
+        // Handle page refresh
+        window.addEventListener('beforeunload', function () {
+            // Store information about whether the timer was running before refresh
+            localStorage.setItem('timerStarted', timerStarted ? 'true' : 'false');
+        });
+    
+        // If timer was running before refreshing the page, start it again
+        // if (localStorage.getItem('timerStarted') === 'true') {
+        //     start();
+        // }
     });
-
-    // Handle page refresh
-    window.addEventListener('beforeunload', function () {
-        // Store information about whether the timer was running before refresh
-        localStorage.setItem('timerStarted', timerStarted ? 'true' : 'false');
-    });
-
-    // If timer was running before refreshing the page, start it again
-    // if (localStorage.getItem('timerStarted') === 'true') {
-    //     start();
-    // }
-});
-
-
-
-
+    
 
 // document.addEventListener('DOMContentLoaded', function () {
 //     let timeoutID; // Declare timeoutID in the outer scope

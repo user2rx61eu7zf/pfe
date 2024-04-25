@@ -19,7 +19,7 @@ const io=socketio(server)
 module.exports.io = io;
 
 io.on('connection', socket => {
-    console.log("nv mec connecte");
+    // console.log("nv mec connecte");
     socket.on('mi-temps', () => {
         console.log("Mi-temps event emitted");
         socket.broadcast.emit('mi-temps');
@@ -27,6 +27,10 @@ io.on('connection', socket => {
     socket.on('start', () => {
         console.log("debut de match");
         socket.broadcast.emit('start');
+    });
+    socket.on('butBtnClicked', (data) => {
+         console.log('But button clicked at:', data.time);
+        socket.broadcast.emit('butBtnClicked', { time: data.time });
     });
    
 });

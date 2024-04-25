@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 body {
+    font-family: "Inter", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,8 +130,9 @@ nav a:nth-child(6):hover~span {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 60px;
-    margin-bottom: 0; /* Removed padding */
+ 
+  
+    
 }
 .club {
     margin: auto;
@@ -153,6 +156,7 @@ nav a:nth-child(6):hover~span {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.223);
     align-items: center;
     height: 40px;
+    width: 60px;
 }
 .score {
     font-size: 24px;
@@ -218,4 +222,44 @@ nav a:nth-child(6):hover~span {
 .dropdown {
     position: relative;
     z-index: 9999; /* Ensure dropdown appears above other elements */
+}
+
+.match-date {
+    font-size: 14px;
+    color: #8A8F98;
+    margin-top: 10px;
+    margin-left: 580px;
+    
+
+}
+.match-score {
+    margin-top: 12px;
+    display: flex;
+    align-items: center
+
+}
+.match-score-number {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+
+    &--leading {
+        color: var(--color-theme-primary);
+    }
+}
+
+.team-name {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.match-score-divider{
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+
+    &--leading {
+        color: var(--color-theme-primary);
+    }
 }

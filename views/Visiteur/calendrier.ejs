@@ -47,18 +47,25 @@
             </div>
             <a href="/clubs">Clubs</a>
             <a href="/login">
-                <% if (user) { %>
-
-                    <a href="/profil">
-                        <img src="/images/<%= pp[0].photo_profil %>" alt="" width="32" height="32"
-                            style="border-radius: 50%;">
+                <% if (user===7 ||user===120 ) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
                     </a>
-
-
                     <% } else { %>
-                        <!-- If the user is not logged in, display the link to login -->
-                        <a href="/login">Se connecter</a>
-                        <% } %>
+                        <% if (user) { %>
+                            <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                    style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                            <% } else { %>
+                                <!-- If the user is not logged in, display the link to login -->
+                                <a href="/login">Se connecter</a>
+                                <% } %>
+                                    <% } %>
+
             </a>
             <form class="search-form" action="/chercher " method="POST">
                 <input type="text" name="recherche" placeholder=" Search">
@@ -85,47 +92,45 @@
             </div>
 
             <div id="seniorDivision">
-                <div class="match-box">
+                <% match.forEach(function(matchItem) { %>
+                    <div class="match-box">
 
-                    <div class="match-details">
+                        <div class="match-details">
 
-                        <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center">
 
-                            <img src="/img/<%= match[0].logo_eq_1 %> " alt="Team Logo" class="team-logo-left">
-                            <p class="team-name-left card-text">
-                                <%= match[0].equipe_1 %>
+                                <img src="/img/<%= matchItem.logo_eq_1 %> " alt="Team Logo" class="team-logo-left">
+                                <p class="team-name-left card-text">
+                                    <%= matchItem.equipe_1 %>
+                                </p>
+                            </div>
+                            <div class="score-area">
+                                <p class="score card-text">
+                                    <%= matchItem.score_eq1 %>-<%= matchItem.score_eq2 %>
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <img src="/img/<%= matchItem.logo_eq_2 %>" alt="Team Logo" class="team-logo-right">
+                                <p class="team-name-right card-text">
+                                    <%= matchItem.equipe_2 %>
+                                </p>
+                            </div>
+                            <p class="card-text">Journee: <%= matchItem.journee_ma %>
                             </p>
-                        </div>
-                        <div class="score-area">
-                            <p class="score card-text">
-                                <%= match[0].score_eq1 %>-<%= match[0].score_eq2 %>
+                            <p class="card-text">
+                                Date: <%= matchItem.date_ma.toLocaleDateString() %>
                             </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <img src="/img/<%= match[0].logo_eq_2 %>" alt="Team Logo" class="team-logo-right">
-                            <p class="team-name-right card-text">
-                                <%= match[0].equipe_2 %>
+
+                            <p class="card-text">Heure: <%= matchItem.horaire_ma.split(':').slice(0, 2).join(':') %>
                             </p>
+                            <p class="card-text">Stade: <%= matchItem.nom_std %>
+                            </p>
+                            <a href="/match/<%= matchItem.id_ma %>" class="btn btn-primary">Voir</a>
                         </div>
-                        <p class="card-text">Journee: <%= match[0].journee_ma %>
-                        </p>
-                        <p class="card-text">Date:<% if(match.length> 0) {
-                                var dateOfBirthString = match[0].date_ma;
-                                var dateOfBirth = new Date(dateOfBirthString);
-                                var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
-                                + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
-                                + dateOfBirth.getFullYear();
-                                %> <%= formattedDateOfBirth %>
-                                    <% } else { e %> null <% } %>
-                        </p>
-                        <p class="card-text">Time: <%= match[0].horaire_ma.split(':').slice(0, 2).join(':') %>
-                        </p>
-                        <p class="card-text">Location: <%= match[0].nom_std %>
-                        </p>
-                        <a href="/match/<%= match[0].id_ma %>" class="btn btn-primary">View Details</a>
+
                     </div>
+                    <% }); %>
 
-                </div>
 
 
 

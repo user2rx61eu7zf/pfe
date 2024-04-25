@@ -286,6 +286,7 @@ if (err) {
             return res.status(500).send("Erreur SQL");
         }
         
+        // console.log(match);
         
         db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
             if(err){
@@ -349,7 +350,15 @@ if (err) {
                         console.log("erreur pfp"+err);
                         
                     }
-                    res.render('../views/Visiteur/match', { pp, user: res.locals.user, match,locals, layout: "./layouts/mainVisiteur.ejs" });
+                    db.query("select date_ma,horaire_ma FROM `match` WHERE id_ma=?",[req.params.id],(err,result)=>{
+                        if(err){
+                            console.log(err);
+                        }
+                       
+                        res.render('../views/Visiteur/match', { result,pp, user: res.locals.user, match,locals, layout: "./layouts/mainVisiteur.ejs" });
+                        
+                    })
+                    
         })
         
         

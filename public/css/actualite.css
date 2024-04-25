@@ -18,6 +18,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-decoration: none;
     padding: 0 10px;
     z-index: 999; /* Ensure the navigation bar stays above other elements */
 }
@@ -90,7 +91,7 @@ nav span {
 nav a:nth-child(2):hover~span {
     left: 14.3%;
     width: 80px;
-    
+    text-decoration: none;
     
    
 }
@@ -98,6 +99,7 @@ nav a:nth-child(2):hover~span {
 nav a:nth-child(3):hover~span {
     left: 20.3%;
     width: 80px;
+    text-decoration: none;
 }
 
 nav a:nth-child(4):hover~span {
@@ -141,6 +143,8 @@ nav a:nth-child(7):hover~span {
 .news-title-container {
     text-align: center;
     z-index: 0;
+
+    margin-right: 100px;
   
 }
 .news-title {
@@ -155,6 +159,7 @@ nav a:nth-child(7):hover~span {
     z-index: 0;
 }
 .news-article {
+  
     border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
@@ -201,9 +206,5 @@ nav a:nth-child(7):hover~span {
     color: #fff;
 }
 
-.dropdown {
-    position: relative;
-    z-index: 9999; 
-}
 
 

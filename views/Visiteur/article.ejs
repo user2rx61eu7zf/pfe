@@ -34,10 +34,8 @@
             </div>
             <a href="/clubs">Clubs</a>
             <a href="/login">
-                <% if (user) { %>
-
-                    <a href="/profil">
-
+                <% if (user===7 ||user===120 ) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
                         <% if (pp[0].photo_profil) { %>
                             <img src="/images/<%= pp[0].photo_profil %>"
                                 style="width: 32px; height: 32px; border-radius: 50%;">
@@ -45,12 +43,16 @@
                                 <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
                                 <% } %>
                     </a>
-
-
                     <% } else { %>
-                        <!-- If the user is not logged in, display the link to login -->
-                        <a href="/login">Se connecter</a>
-                        <% } %>
+                        <% if (user) { %>
+                            <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                    style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                            <% } else { %>
+                                <!-- If the user is not logged in, display the link to login -->
+                                <a href="/login">Se connecter</a>
+                                <% } %>
+                                    <% } %>
+
             </a>
             <form class="search-form" action="/chercher " method="POST">
                 <input type="text" name="recherche" placeholder=" Search">
@@ -95,7 +97,7 @@
                                     <% } else { // Output 'null' if no result is available %> null
                                         <% } %>
                     </p>
-                    <img src="/img/<%= article[0].image_art %>" alt="Article Image" class="article-img">
+                    <img src="/images/<%= article[0].image_art %>" alt="Article Image" class="article-img">
                     <p class="article-description mt-3">
 
                         <%= article.length> 0 ? article[0].description_art : 'null' %>

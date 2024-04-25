@@ -915,7 +915,7 @@ exports.but = async (req, res) => {
 
         req.flash('but', 'But Ajouté  ! ');
         res.redirect(`/match/${gestId}/${matchId}`);
-        io.emit('but',  "but");
+  
 
 
     } catch (error) {
@@ -932,7 +932,7 @@ exports.rouge = async (req, res) => {
 
     gestId = req.params.idgest;
     matchId = req.params.idmatch;
-    console.log(req.body.joueurrouge);
+ 
 
     try {
         const rouge = dbQuery('UPDATE `match` SET carton_r_ma = carton_r_ma + 1 WHERE id_ma = ?', [matchId]);
@@ -961,7 +961,7 @@ exports.jaune = async (req, res) => {
 
     gestId = req.params.idgest;
     matchId = req.params.idmatch;
-    console.log(req.body);
+    
 
     try {
         const jaune = dbQuery('UPDATE `match` SET carton_j_ma = carton_j_ma + 1 WHERE id_ma = ?', [matchId]);

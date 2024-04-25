@@ -45,10 +45,8 @@
             </div>
             <a href="/clubs">Clubs</a>
             <a href="/login">
-                <% if (user) { %>
-
-                    <a href="/profil">
-
+                <% if (user===7 ||user===120 ) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
                         <% if (pp[0].photo_profil) { %>
                             <img src="/images/<%= pp[0].photo_profil %>"
                                 style="width: 32px; height: 32px; border-radius: 50%;">
@@ -56,12 +54,16 @@
                                 <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
                                 <% } %>
                     </a>
-
-
                     <% } else { %>
-                        <!-- If the user is not logged in, display the link to login -->
-                        <a href="/login">Se connecter</a>
-                        <% } %>
+                        <% if (user) { %>
+                            <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                    style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                            <% } else { %>
+                                <!-- If the user is not logged in, display the link to login -->
+                                <a href="/login">Se connecter</a>
+                                <% } %>
+                                    <% } %>
+
             </a>
             <form class="search-form">
                 <input type="text" placeholder="Search">
@@ -78,26 +80,51 @@
             </div>
             <span></span>
         </nav>
+        <div class="match-tournament text-center" style="margin-top: 50px; color: black; font-weight: 600;">
+            <img src="" />
+            Ligue de football RELIZANE
+        </div>
+        <div class="match-date">
+            <% if(result.length> 0) {
+                var dateOfBirthString = result[0].date_ma;
+                var dateOfBirth = new Date(dateOfBirthString);
+                var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
+                + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
+                + dateOfBirth.getFullYear();
+                %> <%= formattedDateOfBirth %>
+                    <% } else { e %> null <% } %>
+                            <br>
+                            <strong style="margin-left: 22px;">
+                                <%= result[0].horaire_ma.split(':').slice(0, 2).join(':') %>
+
+                            </strong>
+        </div>
         <div class="club-container">
             <div class="club">
                 <img src="/img/<%= match[0].logo_eq_2 %>" alt="Club 1 Logo" class="club-logo">
-                <span>
+                <h2 class="team-name">
                     <%= match[0].equipe_2 %>
-                </span>
+                </h2>
             </div>
             <div>
                 <div class="match-status-box">
                     <p class="status">45'</p>
                 </div>
-                <div class="score">
-                    <%= match[0].score_eq2 %> - <%= match[0].score_eq1 %>
+                <div class="match-score">
+                    <span class="match-score-number match-score-number--leading"">
+                        <%= match[0].score_eq1 %>
+                    </span>
+                    <span class=" match-score-divider" style="padding-left: 50px; padding-right: 50px;">:</span>
+                    <span class="match-score-number">
+                        <%= match[0].score_eq2 %>
+                    </span>
                 </div>
             </div>
             <div class="club">
                 <img src="/img/<%= match[0].logo_eq_1 %>" alt="Club 2 Logo" class="club-logo">
-                <span>
-                    <%= match[0].equipe_2 %>
-                </span>
+                <h2 class="team-name">
+                    <%= match[0].equipe_1 %>
+                </h2>
             </div>
 
         </div>
