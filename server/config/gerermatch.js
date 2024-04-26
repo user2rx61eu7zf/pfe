@@ -67,6 +67,30 @@ const socket=io();
                 localStorage.removeItem("elapsedTime");
             }
         });
+
+
+
+
+        document.getElementById('stopBtn').addEventListener('click', function () {
+            console.log("stop button clicked");
+            if (timerStarted) {
+                localStorage.clear();
+                clearInterval(timerInterval);
+                 
+                console.log("Timer stopped"); 
+                timerStarted = false; 
+                document.getElementById("minutes").textContent = "Fin";
+                document.getElementById("seconds").textContent = "";
+                document.getElementById("separator").textContent = "";
+    
+           
+                localStorage.removeItem("elapsedTime");
+            }
+            socket.emit('fin')
+         
+          
+        });
+
     
        
         document.getElementById('butBtn').addEventListener('click', function () {
@@ -270,15 +294,21 @@ function updateSelectedValues() {
     var selectedjoueurjaune = $('#dropdownjoueurjaune').text().trim();
     var selectedequipejaune = $('#dropdownjaune').text().trim();
     var penalty = $('#dropdownequipepeno').text().trim();
+    var selectedEquipeChange = $('#dropdownequipeChange').text().trim();
+    var selectedJoueurIN = $('#dropdownjoueurChangeIN').text().trim();
+    var selectedJoueurOUT= $('#dropdownjoueurChangeOUT').text().trim();
+    
 
-
+    
 
    
     $('#selectedEquipe').val(selectedEquipe);
     $('#selectedJoueur').val(selectedJoueur);
     $('#selectedpasseur').val(selectedpasseur);
     $('#penalty').val(penalty);
-
+    $('#selectedEquipeChange').val(selectedEquipeChange);
+    $('#selectedJoueurIN').val(selectedJoueurIN);
+    $('#selectedJoueurOUT').val(selectedJoueurOUT);
     $('#selectedjoueurrouge').val(selectedjoueurrouge)
     $('#selectedequiperouge').val(selectedequiperouge)
     $('#selectedjoueurjaune').val(selectedjoueurjaune)
@@ -354,8 +384,17 @@ $(document).ready(function () {
 function updateDropdownTextbut(text) {
     document.getElementById("dropdownequipe").textContent = text;
 }
-function updateDropdownTextjo(text) {
+function updateDropdownTextchange(text) {
+    document.getElementById("dropdownequipeChange").textContent = text;
+}
+function updateDropdownTextjo(text) {   
     document.getElementById("dropdownjoueur").textContent = text;
+}
+function updateDropdownTextjoChange(text) {   
+    document.getElementById("dropdownjoueurChangeIN").textContent = text;
+}
+function updateDropdownTextjoChangeOUT(text) {   
+    document.getElementById("dropdownjoueurChangeOUT").textContent = text;
 }
 function updateDropdownTextjop(text) {
     document.getElementById("dropdownpasseur").textContent = text;

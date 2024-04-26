@@ -46,6 +46,8 @@ router.post('/but/:idgest/:idmatch', requireAuth, gestionnaireController.but);
 router.post('/rouge/:idgest/:idmatch', requireAuth, gestionnaireController.rouge);
 router.post('/jaune/:idgest/:idmatch', requireAuth, gestionnaireController.jaune);
 router.post('/penalty/:idgest/:idmatch', requireAuth, gestionnaireController.penalty);
+router.post('/fin/:idgest/:idmatch', requireAuth, gestionnaireController.fin);
+router.post('/changement/:idgest/:idmatch', requireAuth, gestionnaireController.changement);
 router.get('/ecrire_article/:idgest/', requireAuth, gestionnaireController.article);
 router.post('/ecrire_articlepost/:idgest/',upload.single('image'), requireAuth, gestionnaireController.articlepost);
 

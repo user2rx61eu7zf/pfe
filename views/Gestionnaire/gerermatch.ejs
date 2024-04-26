@@ -50,6 +50,14 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <% }) %>
+                                            <% changement.forEach(element=> { %>
+                                                <div class="alert alert-success alert-dismissible fade show"
+                                                    role="alert">
+                                                    <%= element %>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <% }) %>
 
 
 
@@ -196,15 +204,20 @@
                         <h5 class="modal-title" id="debutModalLabel">Fin de match</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
                         <p>Vous confirmez que le match est terminé ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <form action="/fin/<%= gestId %>/<%= matchId %>" method="POST">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
 
-                        <button type="submit" id="stopBtn" class="btn btn-success" data-bs-dismiss="modal">Oui</button>
+                                <button type="submit" id="stopBtn" class="btn btn-success"
+                                    data-bs-dismiss="modal">Oui</button>
 
+                            </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -258,8 +271,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 
-                        <button type="submit" id="mitempsBtn" class="btn btn-success"
-                            data-bs-dismiss="modal">Confirmer</button>
+                        <button type="submit" id="mitempsBtn" class="btn btn-success" data-bs-dismiss="modal">Confirmer
+                        </button>
 
                     </div>
                 </div>
@@ -788,33 +801,173 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <form action="/changement/<%= gestId%>/<%= matchId %>" method="POST">
+                                        <p>Equipe:</p>
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                id="dropdownequipeChange" data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                                style="background-color: white;color: black; position: relative;">
+                                                Equipe <span class="caret"></span>
 
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected disabled value="">Equipe</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                    </select>
-                                    <br>
-                                    <p>Joueur entrant :</p>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected disabled value="">Joueur IN</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                    </select>
-                                    <p>Joueur sortant :</p>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected disabled value="">Joueur OUT</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                    </select>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownequipeChange"
+                                                id="dropdownEquipeChangeMenu">
+
+                                                <li>
+                                                    <a class="dropdown-item" href="#"
+                                                        onclick="updateDropdownTextchange('<%= reseq[1].nom_eq %>')">
+                                                        <%= reseq[1].nom_eq %>
+                                                            <img src="/images/<%= reseq[1].logo_eq %>" alt=""
+                                                                width=" 32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                    </a>
+
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#"
+                                                        onclick="updateDropdownTextchange('<%= reseq[0].nom_eq %>')">
+                                                        <%= reseq[0].nom_eq %>
+                                                            <img src="/images/<%= reseq[0].logo_eq %>" alt=""
+                                                                width=" 32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <input type="hidden" name="equipeChange" id="selectedEquipeChange">
+                                        </div>
+                                        <br>
+                                        <p>Joueur IN:</p>
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                id="dropdownjoueurChangeIN" data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                                style="background-color: white;color: black; position: relative;">
+
+                                                Joueur <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownjoueurChangeIN"
+                                                id="dropdownJoueurBMenu">
+
+
+                                                <p style="padding-left: 10px;">
+                                                    <img src="/images/<%= reseq[1].logo_eq %> " alt="" width="32"
+                                                        height="32" class="rounded-circle profile-picture">
+                                                    <%=reseq[1].nom_eq %>
+                                                </p>
+                                                <% resjoeq1.forEach(function(jo) { %>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextjoChange('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                            <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                    <%= jo.prenom_jo %>
+                                                                        <img src="/images/<%= jo.photo_jo %>" alt=""
+                                                                            width="32" height="32"
+                                                                            class="rounded-circle profile-picture">
+                                                        </a>
+                                                    </li>
+                                                    <% }); %>
+
+                                                        <div class="dropdown-divider"></div>
+
+                                                        <p style="padding-left: 10px;">
+                                                            <img src="/images/<%= reseq[0].logo_eq %> " alt=""
+                                                                width="32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                            <%= reseq[0].nom_eq %>
+                                                        </p>
+
+
+
+                                                        <% resjoeq2.forEach(function(jo) { %>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#"
+                                                                    onclick="updateDropdownTextjoChange('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                    <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                            <%= jo.prenom_jo %>
+                                                                                <img src="/images/<%= jo.photo_jo %>"
+                                                                                    alt="" width="32" height="32"
+                                                                                    class="rounded-circle profile-picture">
+                                                                </a>
+                                                            </li>
+                                                            <% }); %>
+
+                                            </ul>
+                                            <input type="hidden" name="joueurIN" id="selectedJoueurIN">
+
+
+                                        </div>
+                                        <p>Joueur OUT:</p>
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                id="dropdownjoueurChangeOUT" data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                                style="background-color: white;color: black; position: relative;">
+
+                                                Joueur <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownjoueurChangeOUT"
+                                                id="dropdownJoueurBMenu">
+
+
+                                                <p style="padding-left: 10px;">
+                                                    <img src="/images/<%= reseq[1].logo_eq %> " alt="" width="32"
+                                                        height="32" class="rounded-circle profile-picture">
+                                                    <%=reseq[1].nom_eq %>
+                                                </p>
+                                                <% resjoeq1.forEach(function(jo) { %>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            onclick="updateDropdownTextjoChangeOUT('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                            <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                    <%= jo.prenom_jo %>
+                                                                        <img src="/images/<%= jo.photo_jo %>" alt=""
+                                                                            width="32" height="32"
+                                                                            class="rounded-circle profile-picture">
+                                                        </a>
+                                                    </li>
+                                                    <% }); %>
+
+                                                        <div class="dropdown-divider"></div>
+
+                                                        <p style="padding-left: 10px;">
+                                                            <img src="/images/<%= reseq[0].logo_eq %> " alt=""
+                                                                width="32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                            <%= reseq[0].nom_eq %>
+                                                        </p>
+
+
+
+                                                        <% resjoeq2.forEach(function(jo) { %>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#"
+                                                                    onclick="updateDropdownTextjoChangeOUT('<%= jo.num_mai_jo %> . <%= jo.nom_jo %> <%= jo.prenom_jo %>')">
+                                                                    <%= jo.num_mai_jo %> . <%= jo.nom_jo %>
+                                                                            <%= jo.prenom_jo %>
+                                                                                <img src="/images/<%= jo.photo_jo %>"
+                                                                                    alt="" width="32" height="32"
+                                                                                    class="rounded-circle profile-picture">
+                                                                </a>
+                                                            </li>
+                                                            <% }); %>
+
+                                            </ul>
+                                            <input type="hidden" name="joueurOUT" id="selectedJoueurOUT">
+
+
+                                        </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Annuler</button>
-                                    <form action="/changement" method="POST" class="position-relative">
-                                        <button type="submit" class="btn btn-success">Confirmer</button>
-                                    </form>
+
+                                    <button type="submit" class="btn btn-success">Confirmer</button>
+
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -70,6 +70,19 @@ socket.on('mi-temps', () => {
     document.getElementById("separator").textContent = "";
     localStorage.removeItem("elapsedTime");
 });
+socket.on('stop', () => {
+    const messageDiv = document.getElementById('messageCartonJaune');
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = `Fin de match `;
+    messageDiv.appendChild(messageParagraph);
+    clearInterval(timerInterval);
+
+    console.log("Timer stopped"); 
+    document.getElementById("minutes").textContent = "45'";
+    document.getElementById("seconds").textContent = "";
+    document.getElementById("separator").textContent = "";
+    localStorage.removeItem("elapsedTime");
+});
 
 socket.on('start', () => {
     const messageDiv = document.getElementById('messageCartonJaune');
@@ -96,6 +109,30 @@ socket.on('penalty', function(data) {
     messageDiv.appendChild(messageParagraph);
 
 });
+socket.on('changement', function(data) {
+    var clickedTime = pad(Math.floor(elapsedTime / 3600)) + ":" + pad(Math.floor((elapsedTime % 3600) / 60)) + ":" + pad(elapsedTime % 60);
+     console.log("Clicked time: ", clickedTime);
+    const messageDiv = document.getElementById('messageCartonJaune');
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = `changement : ${data.equipe} IN  ${data.joueurIN} OUT${data.joueurOUT} `
+    messageDiv.appendChild(messageParagraph);
+
+});
+socket.on('fin', function(data) {
+    clearInterval(timerInterval);
+    const messageDiv = document.getElementById('messageCartonJaune');
+    const messageParagraph = document.createElement('p');
+    messageParagraph.textContent = `Fin de match !!  `
+    messageDiv.appendChild(messageParagraph);
+    
+    console.log("Timer stopped fin match "); 
+    document.getElementById("minutes").textContent = "90'";
+    document.getElementById("seconds").textContent = "";
+    document.getElementById("separator").textContent = "";
+    localStorage.removeItem("elapsedTime");
+
+});
+
 
 
 
@@ -122,6 +159,7 @@ function updateTimerDisplay() {
 }
 
 function startTimer() {
+    localStorage.clear() 
     console.log('Timer started');
     timerInterval = setInterval(function () {
         elapsedTime++;

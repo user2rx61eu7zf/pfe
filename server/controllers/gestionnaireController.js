@@ -870,6 +870,7 @@ exports.match = async (req, res) => {
         const message_carton_rouge = await req.flash('rouge');
         const message_carton_jaune = await req.flash('jaune');
         const penalty = await req.flash('penalty');
+        const changement = await req.flash('changement');
         const message_but = await req.flash('but');
 
         const gestId = req.params.id;
@@ -886,7 +887,7 @@ exports.match = async (req, res) => {
             title: 'Gestion de match'
         };
 
-        res.render('../views/Gestionnaire/gerermatch', { penalty,locals, gestId, results, result, reseq, resjoeq1, resjoeq2, matchId, message_carton_rouge, message_carton_jaune, message_but });
+        res.render('../views/Gestionnaire/gerermatch', { changement,penalty,locals, gestId, results, result, reseq, resjoeq1, resjoeq2, matchId, message_carton_rouge, message_carton_jaune, message_but });
     } catch (error) {
         console.error('Error in match route:', error);
         res.status(500).send('Internal Server Error');
@@ -1038,6 +1039,61 @@ exports.penalty = async (req, res) => {
     res.redirect(`/match/${gestId}/${matchId}`);
 };
 
+exports.fin = async (req, res) => {
+     gestId = req.params.idgest;
+     matchId = req.params.idmatch;
+
+db.query("SELECT equipe_1 , equipe_2, score_eq1, score_eq2 FROM `match` WHERE id_ma=?",[matchId],(err,equipes) => {
+    if(err){
+        console.log('erreur avoir les donnes des equipes' + err);
+    }
+//    console.log(equipes);
+   if(equipes[0].score_eq2>=equipes[0].score_eq1){
+    db.query("UPDATE equipe SET m_gagner_eq=m_gagner_eq+1 WHERE nom_eq=?",[equipes[0].equipe_2],(err,result) => {
+        if(err){
+            console.log('erreur sql ajouter match gagné');
+            
+        }
+        db.query("UPDATE equipe SET m_perdu_eq=m_perdu_eq+1 WHERE nom_eq=?",[equipes[0].equipe_1],(err,perdu)=>{
+            if(err){
+                console.log('erreur sql ajouter match perdu');
+                
+            }
+        })
+    })
+   }if(equipes[0].score_eq1>=equipes[0].score_eq2){
+    db.query("UPDATE equipe SET m_gagner_eq=m_gagner_eq+1 WHERE nom_eq=?",[equipes[0].equipe_1],(err,result) => {
+        if(err){
+            console.log('erreur sql ajouter match gagné');   
+        }
+        db.query("UPDATE equipe SET m_perdu_eq=m_perdu_eq+1 WHERE nom_eq=?",[equipes[0].equipe_2],(err,perdu)=>{
+            if(err){
+                console.log('erreur sql ajouter match perdu');
+                
+            }
+        })
+    })
+   } 
+})
+
+
+
+     io.emit('fin');
+     res.status(200); 
+ 
+};
+
+
+exports.changement = async (req, res) => {
+    gestId = req.params.idgest;
+    matchId = req.params.idmatch;
+
+    io.emit('changement', { equipe: req.body.equipeChange,joueurIN:req.body.joueurIN,joueurOUT:req.body.joueurOUT});
+    req.flash('Changement', `Changment pour ${req.body.equipeChange} !  `);
+    res.redirect(`/match/${gestId}/${matchId}`);
+  
+    
+};
 
 
 
