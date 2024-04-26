@@ -254,9 +254,7 @@ exports.viewArbitres = async (req, res) => {
         return res.status(500).send("erreur sql id arbitre");
       }
       //console.log("Query result:", result); // Log the query result
-      if (result.length === 0) {
-        return res.status(404).send("Aucun arbitre trouvé avec cet ID");
-      }
+      
       const id = result[0].id_ar;
       res.render("../views/Admin/Arbitres/detailsArbitres", {
         locals,
@@ -282,11 +280,7 @@ exports.gererArbitres = async (req, res) => {
 
       //console.log("Query result:", result);
 
-      if (!result || result.length === 0) {
-        return res
-          .status(404)
-          .send("Aucun arbitre trouvé dans la base de données");
-      }
+    
 
       res.render("ArbitresIndex", {
         locals,

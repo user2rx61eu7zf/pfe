@@ -16,14 +16,14 @@ const db = require('../config/db');
             }
 
             
-    console.log(res.locals.user);
+    // console.log(res.locals.user);
     
     
 db.query("SELECT photo_profil FROM compte WHERE nom_utilisateur=? OR id_co=?",[res.locals.user,res.locals.user],(err,pp)=>{
     if(err){
         console.log('erreur avoir pfp page acceuil ');
     }
-     console.log(pp);
+    //  console.log(pp);
     
     res.render('../views/Visiteur/page_accueil', {
         user: res.locals.user, // Pass the logged-in user to the view
@@ -938,6 +938,7 @@ if (err) {
 };
 
 exports.commentaire = async (req, res) => {
+console.log(res.locals.user);
 
     const currentDate = new Date();
    db.query("SELECT id_co FROM compte WHERE nom_utilisateur = ?",[res.locals.user],(err, result)=>{
@@ -945,6 +946,8 @@ exports.commentaire = async (req, res) => {
         console.error('erreur sql  ' + err);
         return res.status(500).send('erreur sql  ');
     }
+    
+    
     if(result.length > 0){
         db.query("SELECT id_vis FROM visiteur WHERE id_compte_vis=?",[result[0].id_co],(err, results)=>{
             if(err){

@@ -19,7 +19,7 @@ const io=socketio(server)
 module.exports.io = io;
 
 io.on('connection', socket => {
-    // console.log("nv mec connecte");
+    //  console.log("nv mec connecte");
     socket.on('mi-temps', () => {
         console.log("Mi-temps event emitted");
         socket.broadcast.emit('mi-temps');
@@ -29,11 +29,19 @@ io.on('connection', socket => {
         socket.broadcast.emit('start');
     });
     socket.on('butBtnClicked', (data) => {
-         console.log('But button clicked at:', data.time);
-        socket.broadcast.emit('butBtnClicked', { time: data.time });
+        console.log('But button clicked at:', data.time);
+        console.log('equipe:', data.equipe);
+        console.log('Buteur:', data.buteur);
+    
+        
+        socket.broadcast.emit('butBtnClicked', { time: data.time, equipe: data.equipe,buteur:data.buteur});
+        
+        
     });
-   
-});
+    
+    
+  
+}); 
 
 
 app.use(express.urlencoded({ extended: true }));

@@ -14,7 +14,10 @@
 <body>
     <div class="container-fluid">
         <nav>
-            <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+
             <a href="/">Home</a>
             <a href="/actualite">News</a>
             <div class="dropdown">
@@ -63,9 +66,9 @@
                                     <% } %>
 
             </a>
-            <form class="search-form">
-                <input type="text" placeholder="Search">
-                <button type="submit">Search</button>
+            <form class="search-form" action="/chercher " method="POST">
+                <input type="text" name="recherche" placeholder=" Search">
+                <button id="searchBtn" type="submit">Search</button>
             </form>
             <div id="search-results"></div>
             <div class="social-icons">

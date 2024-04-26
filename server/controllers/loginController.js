@@ -41,17 +41,10 @@ exports.logout = async (req, res) => {
 }
 exports.sinscrire = async (req, res) => {
 
-
-  
     const locals = {
         title: "Se connecter "
     }
-
-
     res.render('../views/Login/sinscrire', { locals, layout: './layouts/login.ejs' })
-
-
-
 }
 
 
@@ -142,7 +135,6 @@ exports.comptegestionnaire = (req, res) => {
 };
 exports.compteadmin = async (req, res) => {
     const userId = req.params.id;
-    // Render the compte page with the user's ID
     res.render('../views/Admin/homepageAdmin', { userId, layout: './layouts/mainAdmin.ejs' })
 }
 
@@ -183,7 +175,7 @@ exports.creer = (req, res) => {
                 console.log(err.message);
                 res.locals.user = null;
             } else {
-                res.locals.user = decodedToken.id; // En supposant que decodedToken contient l'identifiant de l'utilisateur
+                res.locals.user = decodedToken.id; 
             }
             console.log(res.locals.user);
             res.redirect(`/?user=${encodeURIComponent(user)}`);

@@ -83,7 +83,7 @@ nav a {
 nav span {
     position: absolute;
     top: 0;
-    left: 13.7%;
+    left: 13%;
     width: 80px;
     height: 100%;
     background-image: linear-gradient( 112.2deg,  rgba(86,223,223,1) 4.7%, rgba(2,28,186,1) 110.1% );
@@ -141,22 +141,23 @@ nav a:nth-child(6):hover~span {
     align-items: center;
 }
 .club-logo {
-    width: 120px; /* Adjust as needed */
+    width: 120px; 
     height: auto;
     z-index: 0;
 }
 .match-status-box {
-    background-color: #ed3232; /* Green background color */
-    color: white; /* White text color */
-    padding: 10px 15px; /* Padding inside the box */
-    border-radius: 5px; /* Rounded corners */ /* Adjust width to fit content */
-    margin: 0 auto; /* Center the box horizontally */
-    text-align: center; /* Center the text */
-    font-weight: bold; /* Bold text */
+    background-color: #ed3232; 
+    color: white; 
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    margin-left: 40px;
+    text-align: center;
+    font-weight: 600; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.223);
     align-items: center;
     height: 40px;
-    width: 60px;
+    width: 100px;
+
 }
 .score {
     font-size: 24px;
@@ -184,11 +185,7 @@ nav a:nth-child(6):hover~span {
     margin-top: 0;
     margin-bottom: 20px;
 }
-.statistic-item {
-    margin-bottom: 20px; 
-    text-align: center;
-    margin-left: 00px;
-}
+
 .statistic-category {
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -198,31 +195,6 @@ nav a:nth-child(6):hover~span {
     margin: 5px 0; 
 }
 
-.statistic-category p strong {
-    color: #333; 
-}
-
-
-
-
-
-
-
-
-.motm-container {
-   
-    text-align: center;
-}
-.motm {
-    font-weight: bold;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-.dropdown {
-    position: relative;
-    z-index: 9999; /* Ensure dropdown appears above other elements */
-}
 
 .match-date {
     font-size: 14px;
@@ -230,22 +202,18 @@ nav a:nth-child(6):hover~span {
     margin-top: 10px;
     margin-left: 580px;
     
-
 }
 .match-score {
-    margin-top: 12px;
+    margin-top: 21px;
     display: flex;
     align-items: center
-
 }
 .match-score-number {
     font-size: 48px;
     font-weight: 600;
     line-height: 1;
 
-    &--leading {
-        color: var(--color-theme-primary);
-    }
+   
 }
 
 .team-name {
@@ -259,7 +227,4 @@ nav a:nth-child(6):hover~span {
     font-weight: 600;
     line-height: 1;
 
-    &--leading {
-        color: var(--color-theme-primary);
-    }
 }

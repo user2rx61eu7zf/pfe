@@ -5,6 +5,7 @@ const { use } = require('../routes/admin');
 // const { dbQuery } = require('../config/db');
 const app = require('../../app'); 
 const { io } = require('../../app.js');
+const { equipes } = require('./visiteurController.js');
 
 
 
@@ -438,7 +439,7 @@ exports.editpostEntraineur = async (req, res) => {
                     return res.status(500).send('erreur sql avoir id compte du joueur');
                 }
 
-                if (req.file) { // Check if file is uploaded
+                if (req.file) { 
                     const photo = req.file.filename;
                     db.query('UPDATE entraineur JOIN equipe ON equipe.id_eq = entraineur.id_eq_ent SET nom_ent = ?, prenom_ent = ?, img_ent=?,nationalite_ent = ?,date_naiss_ent = ? WHERE id_co_ge_eq = ?', [newentraineur.nom, newentraineur.prenom, photo, newentraineur.nationalite, newentraineur.date, userId], (err, result) => {
                         if (err) {
@@ -446,9 +447,9 @@ exports.editpostEntraineur = async (req, res) => {
                             return res.status(500).send('erreur sql modifier entraineur');
                         }
 
-                        // Handle success
+                        
                     });
-                } else { // No file uploaded
+                } else { 
                     db.query('UPDATE entraineur JOIN equipe ON equipe.id_eq = entraineur.id_eq_ent SET nom_ent = ?, prenom_ent = ?, nationalite_ent = ?, date_naiss_ent = ? WHERE id_co_ge_eq = ?', [newentraineur.nom, newentraineur.prenom, newentraineur.nationalite, newentraineur.date, userId], (err, result) => {
                         if (err) {
                             console.error('erreur modifier entraineur' + err);
@@ -868,6 +869,7 @@ exports.match = async (req, res) => {
     try {
         const message_carton_rouge = await req.flash('rouge');
         const message_carton_jaune = await req.flash('jaune');
+        const penalty = await req.flash('penalty');
         const message_but = await req.flash('but');
 
         const gestId = req.params.id;
@@ -884,7 +886,7 @@ exports.match = async (req, res) => {
             title: 'Gestion de match'
         };
 
-        res.render('../views/Gestionnaire/gerermatch', { locals, gestId, results, result, reseq, resjoeq1, resjoeq2, matchId, message_carton_rouge, message_carton_jaune, message_but });
+        res.render('../views/Gestionnaire/gerermatch', { penalty,locals, gestId, results, result, reseq, resjoeq1, resjoeq2, matchId, message_carton_rouge, message_carton_jaune, message_but });
     } catch (error) {
         console.error('Error in match route:', error);
         res.status(500).send('Internal Server Error');
@@ -898,25 +900,35 @@ exports.but = async (req, res) => {
     matchId = req.params.idmatch;
     // console.log(req.body.joueur);
 
+    
+
     try {
 
         const score = await dbQuery('UPDATE `match` SET score_eq1 = CASE WHEN equipe_1 = ? THEN score_eq1 + 1 ELSE score_eq1 END,  score_eq2 = CASE WHEN equipe_2 = ? THEN score_eq2 + 1 ELSE score_eq2 END  WHERE equipe_1 = ? OR equipe_2 = ?', [req.body.equipe, req.body.equipe, req.body.equipe, req.body.equipe]);
         const idequipe = await dbQuery('SELECT id_eq FROM equipe WHERE nom_eq=?', [req.body.equipe]);
         var maillotbuteur = parseInt(req.body.joueur[0].split('.')[0].trim());
         var maillotpasseur = parseInt(req.body.joueur[1].split('.')[0].trim());
-
-
         const buteur = await dbQuery('UPDATE `joueur` SET nbr_buts_jo = nbr_buts_jo + 1 WHERE num_mai_jo=? AND id_eq_jo=?', [maillotbuteur, idequipe[0].id_eq]);
         if (maillotpasseur) {
             const passeur = await dbQuery('UPDATE `joueur` SET nbr_passe_jo = nbr_passe_jo + 1 WHERE num_mai_jo=? AND id_eq_jo=?', [maillotpasseur, idequipe[0].id_eq]);
         }
+        const new_score=await dbQuery('SELECT score_eq1,score_eq2 FROM `match` WHERE id_ma=? ',[matchId]) 
+const clubs=await dbQuery("SELECT equipe_1,equipe_2 FROM `match` WHERE id_ma=? ",[matchId])
+
+var equipe1=clubs[0].equipe_1
+var equipe2=clubs[0].equipe_2
+var equipes={equipe1,equipe2}
+//  console.log(equipes);
+const equipe_encaisse = req.body.equipe === equipes.equipe1 ? equipes.equipe2 : equipes.equipe1;
+// console.log(equipe_encaisse);
 
 
-
+         const but_p= await dbQuery('UPDATE equipe SET nbr_but_p_eq= nbr_but_p_eq+1 WHERE nom_eq=?',[req.body.equipe])
+         const but_c= await dbQuery('UPDATE equipe SET nbr_but_c_eq= nbr_but_c_eq+1 WHERE nom_eq=?',[equipe_encaisse])
+        
         req.flash('but', 'But Ajouté  ! ');
         res.redirect(`/match/${gestId}/${matchId}`);
-  
-
+        io.emit('score', { score1: new_score[0].score_eq1, score2: new_score[0].score_eq2 });
 
     } catch (error) {
         console.error('Error in match route:', error);
@@ -944,7 +956,7 @@ exports.rouge = async (req, res) => {
         nom_joueur_rouge = text.match(/[a-zA-Z]+ [a-zA-Z]+/)[0];
         req.flash('rouge', `Carton ROUGE attribué  a ${nom_joueur_rouge} ! `);
         res.redirect(`/match/${gestId}/${matchId}`);
-        io.emit('carton_rouge', { joueur: nom_joueur_rouge });
+        io.emit('carton_rouge', { joueur: nom_joueur_rouge ,equipe:req.body.equiperouge});
 
 
 
@@ -967,21 +979,15 @@ exports.jaune = async (req, res) => {
         const jaune = dbQuery('UPDATE `match` SET carton_j_ma = carton_j_ma + 1 WHERE id_ma = ?', [matchId]);
         const idequipe = await dbQuery('SELECT id_eq FROM equipe WHERE nom_eq=?', [req.body.equipejaune]);
         var maillot_joueur_jaune = parseInt(req.body.joueurjaune.split('.')[0].trim());
-        console.log(maillot_joueur_jaune);
+        // console.log(maillot_joueur_jaune);
         const joueur_jaune = dbQuery('UPDATE joueur SET nbr_crt_jaune = nbr_crt_jaune + 1 WHERE num_mai_jo=? AND id_eq_jo=? ', [maillot_joueur_jaune, idequipe[0].id_eq]);
         text = req.body.joueurjaune;
-        nom_joueur_jaune = text.match(/[a-zA-Z]+ [a-zA-Z]+/)[0]; 
+        var nom_joueur_jaune = text.match(/[a-zA-Z]+ [a-zA-Z]+/)[0]; 
 
-     
-        
-        
         req.flash('jaune', `Carton JAUNE attribué  a ${nom_joueur_jaune} ! `);
         res.redirect(`/match/${gestId}/${matchId}`);
-        io.emit('carton_jaune', { joueur: nom_joueur_jaune });
+        io.emit('carton_jaune', { joueur: nom_joueur_jaune , equipe:req.body.equipejaune});
         
-
-
-
     } catch (error) {
         console.error('Error in match route:', error);
         res.status(500).send('Internal Server Error');
@@ -1024,7 +1030,13 @@ exports.voirAffectation = async (req, res) => {
 
 
 
-
+exports.penalty = async (req, res) => {
+    gestId = req.params.idgest;
+    matchId = req.params.idmatch;
+    io.emit('penalty', { penalty: req.body.penalty});
+    req.flash('penalty', `Penalty pour ${req.body.penalty} ! `);
+    res.redirect(`/match/${gestId}/${matchId}`);
+};
 
 
 

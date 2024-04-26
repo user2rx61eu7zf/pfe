@@ -43,6 +43,13 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <% }) %>
+                                    <% penalty.forEach(element=> { %>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <%= element %>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <% }) %>
 
 
 
@@ -336,7 +343,8 @@
 
                                                     Joueur <span class="caret"></span>
                                                 </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownjoueur">
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownjoueur"
+                                                    id="dropdownJoueurBMenu">
 
 
                                                     <p style="padding-left: 10px;">
@@ -601,45 +609,51 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
+                                    <form action="/penalty/<%= gestId%>/<%= matchId %>" method="POST">
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle col-12" type="button"
+                                                id="dropdownequipepeno" data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="background-color: white;color: black; position: relative;">
+                                                Equipe <span class="caret"></span>
 
-                                    <div class="dropdown">
-                                        <button class="btn btn-success dropdown-toggle col-12" type="button"
-                                            id="dropdownequipepeno" data-bs-toggle="dropdown" aria-expanded="false"
-                                            style="background-color: white;color: black; position: relative;">
-                                            Equipe <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownequipepeno">
 
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownequipe">
+                                                <li>
+                                                    <a class="dropdown-item" href="#"
+                                                        onclick="updateDropdownText('<%= reseq[1].nom_eq %>')">
+                                                        <%= reseq[1].nom_eq %>
+                                                            <img src="/images/<%= reseq[1].logo_eq %>" alt=""
+                                                                width=" 32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                    </a>
 
-                                            <li>
-                                                <a class="dropdown-item" href="#"
-                                                    onclick="updateDropdownText('<%= reseq[1].nom_eq %>')">
-                                                    <%= reseq[1].nom_eq %>
-                                                        <img src="/images/<%= reseq[1].logo_eq %>" alt="" width=" 32"
-                                                            height="32" class="rounded-circle profile-picture">
-                                                </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#"
+                                                        onclick="updateDropdownText('<%= reseq[0].nom_eq %>')">
+                                                        <%= reseq[0].nom_eq %>
+                                                            <img src="/images/<%= reseq[0].logo_eq %>" alt=""
+                                                                width=" 32" height="32"
+                                                                class="rounded-circle profile-picture">
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <input type="hidden" name="penalty" id="penalty">
 
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#"
-                                                    onclick="updateDropdownText('<%= reseq[0].nom_eq %>')">
-                                                    <%= reseq[0].nom_eq %>
-                                                        <img src="/images/<%= reseq[0].logo_eq %>" alt="" width=" 32"
-                                                            height="32" class="rounded-circle profile-picture">
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                    </div>
+                                        </div>
 
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Annuler</button>
-                                    <form action="/penlaty" method="POST" class="position-relative">
-                                        <button type="submit" class="btn btn-success">Confirmer</button>
-                                    </form>
+
+                                    <button type="submit" class="btn btn-success" id="penoBtn">Confirmer</button>
+
                                 </div>
+                                </form>
+
+
                             </div>
                         </div>
                     </div>

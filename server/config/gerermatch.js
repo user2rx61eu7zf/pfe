@@ -1,18 +1,16 @@
+
+
 const socket=io();
     var timerInterval;
     var timerStarted = false;
     var timeoutID;
 
     document.addEventListener('DOMContentLoaded', function () {
-        var timerInterval; // Declare the timerInterval variable outside the start function so it can be accessed in the event handler
-        var elapsedTime = 0; // Initialize elapsed time to 0
-        var timerStarted = false; // Initialize timerStarted flag to false
-        var socket = io(); // Assuming you have socket.io library included
-    
-        // Function to pad single digit numbers with leading zero
+        var timerInterval; 
+        var elapsedTime = 0; 
+        var timerStarted = false; 
+        var socket = io();  
         function pad(val) { return (val < 10 ? "0" : "") + val; }
-    
-        // Function to update the timer display
         function updateTimerDisplay() {
             var hours = Math.floor(elapsedTime / 3600);
             var minutes = Math.floor((elapsedTime % 3600) / 60);
@@ -22,76 +20,118 @@ const socket=io();
             document.getElementById('seconds').textContent = pad(seconds);
         }
     
-        // Define the start function
+       
         function start() {
-            // Start the timer
             timerInterval = setInterval(function () {
-                elapsedTime++; // Increment elapsed time by 1 second
-                updateTimerDisplay(); // Update the timer display
-    
-                // Store the elapsed time in local storage
+                elapsedTime++;
+                updateTimerDisplay();
                 localStorage.setItem('elapsedTime', elapsedTime.toString());
-            }, 1000); // Run the interval timer every second
+            }, 1000); 
     
-            timerStarted = true; // Set timerStarted flag to true
-            // Update the timer display initially
+            timerStarted = true; 
+           
             updateTimerDisplay();
         }
     
-        // Check if there is a saved elapsed time in local storage
+      
         if (localStorage.getItem('elapsedTime')) {
             elapsedTime = parseInt(localStorage.getItem('elapsedTime'));
-            start(); // Start the timer with the elapsed time
+            start(); 
         }
     
-        // Add event listener for the "Start" button
+ 
         document.getElementById('startBtn').addEventListener('click', function () {
             console.log("Start button clicked");
            
-            start(); // Start the timer when the "Start" button is clicked
             socket.emit('start')
+            start(); 
         });
+
+
     
-        // Add event listener for the "Mi-temps" button
+   
         document.getElementById('mitempsBtn').addEventListener('click', function () {
             console.log("Mi-temps button clicked");
             socket.emit('mi-temps')
             if (timerStarted) {
                 localStorage.clear();
-                clearInterval(timerInterval); // Stop the timer if it was started
-                console.log("Timer stopped"); // Debugging statement to confirm timer stopped
-                timerStarted = false; // Reset timerStarted flag
+                clearInterval(timerInterval);
+                 
+                console.log("Timer stopped"); 
+                timerStarted = false; 
                 document.getElementById("minutes").textContent = "Mi-temps";
                 document.getElementById("seconds").textContent = "";
                 document.getElementById("separator").textContent = "";
     
-                // Clear elapsed time from local storage
+           
                 localStorage.removeItem("elapsedTime");
             }
         });
     
-        // Add event listener for the "But" button
+       
         document.getElementById('butBtn').addEventListener('click', function () {
-            if (timerStarted) {
+           
 
+            if (timerStarted) {
                 var clickedTime = pad(Math.floor(elapsedTime / 3600)) + ":" + pad(Math.floor((elapsedTime % 3600) / 60)) + ":" + pad(elapsedTime % 60);
                 console.log("Clicked time: ", clickedTime);
                 console.log(clickedTime);
+               
+               
+                    function handleEquipeDropdownItemClick(event) {
+                         clickedText = event.currentTarget.textContent.trim();
+                         console.log('Equipe clicked text:', clickedText); 
+    
+                    }
+                            var clickedText;    
+
+                    function handleJoueurDropdownItemClick(event) {
+                            var buteur = event.currentTarget.textContent.trim();
+                            console.log('Joueur clicked text:', buteur); 
+                            socket.emit('butBtnClicked', { time: clickedTime, buteur: buteur,equipe:clickedText }); 
+                    }
+
+
+                        var equipeDropdownItems = document.querySelectorAll("#dropdownEquipeMenu .dropdown-item");
+                        equipeDropdownItems.forEach(function(item) {
+                            item.addEventListener("click", handleEquipeDropdownItemClick);
+                        });
+
+
+                        var joueurDropdownItems = document.querySelectorAll("#dropdownJoueurBMenu .dropdown-item");
+                        joueurDropdownItems.forEach(function(item) {
+                            item.addEventListener("click", handleJoueurDropdownItemClick);
+                        });
+
+                   
+                    
+    
                 
-                socket.emit('butBtnClicked', { time: clickedTime });
+                
             }
         });
     
-        // Handle page refresh
+
+
+
+
+        document.getElementById('penoBtn').addEventListener('click', function () {
+            console.log("peno");
+           
+    ; 
+        });
+
+
+
+
+
+
+  
         window.addEventListener('beforeunload', function () {
-            // Store information about whether the timer was running before refresh
             localStorage.setItem('timerStarted', timerStarted ? 'true' : 'false');
         });
     
-        // If timer was running before refreshing the page, start it again
-        // if (localStorage.getItem('timerStarted') === 'true') {
-        //     start();
-        // }
+     
     });
     
 
@@ -229,18 +269,21 @@ function updateSelectedValues() {
     var selectedequiperouge = $('#dropdownrouge').text().trim();
     var selectedjoueurjaune = $('#dropdownjoueurjaune').text().trim();
     var selectedequipejaune = $('#dropdownjaune').text().trim();
+    var penalty = $('#dropdownequipepeno').text().trim();
 
 
 
-    // Update the value of the hidden input fields
+   
     $('#selectedEquipe').val(selectedEquipe);
     $('#selectedJoueur').val(selectedJoueur);
     $('#selectedpasseur').val(selectedpasseur);
+    $('#penalty').val(penalty);
 
     $('#selectedjoueurrouge').val(selectedjoueurrouge)
     $('#selectedequiperouge').val(selectedequiperouge)
     $('#selectedjoueurjaune').val(selectedjoueurjaune)
     $('#selectedequipejaune').val(selectedequipejaune)
+   
 }
 
 
