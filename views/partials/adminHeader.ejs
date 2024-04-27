@@ -6,24 +6,15 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <form class="col-8 col-md-5 col-lg-4 d-flex justify-content-center mb-2 mb-md-0" role="search" method="POST"
-    action="/search">
-    <div class="search-container">
-      <input type="search" name="searchTerm" class="form-control form-control-dark border-0"
-        placeholder="Faire une Recherche ..." aria-label="Search" style="width: 500px" />
-      <i class="bi bi-search search-icon" style="color: rgb(10, 37, 212)"></i>
-    </div>
-  </form>
-
   <div class="dropdown text-end" style="margin-right: 20px">
     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
       data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="https://avatars.githubusercontent.com/u/102063123?s=96&v=4" alt="mdo" width="32" height="32"
-        class="rounded-circle" />
+      <img src="/images/<%= pp[0].photo_profil %>" alt="" width="32" height="32" class="rounded-circle profile-picture">
+    </a>
     </a>
     <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
       <li>
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" href="/monprofile">
           <i class="bi bi-person"></i> Mon profile
         </a>
       </li>
@@ -35,7 +26,7 @@
         <hr class="dropdown-divider" />
       </li>
       <li>
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" href="/logout">
           <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800"></i> Se
           déconnecter
         </a>

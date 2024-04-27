@@ -24,7 +24,7 @@
 </div>
 
 
-<form action="/editArbitres/<%= result[0].id_ar %>?_method=PUT" method="POST">
+<form action="/editArbitres/<%= result[0].id_ar %>?_method=PUT" method="POST" enctype="multipart/form-data">
 
     <div class="row form-group mb-4">
         <div>
@@ -43,6 +43,12 @@
             <label for="validationCustom02" class="form-label">Poste</label>
             <input type="text" class="form-control" name="poste_ar" id="validationCustom02"
                 value="<%= result[0].poste_ar%>" required>
+            <div class="valid-feedback"></div>
+        </div>
+        <div>
+            <label for="validationCustom01" class="form-label">Photo:</label>
+            <input type="file" class="form-control" name="photoArbitre" id="validationCustom01" value=""
+                accept="image/*" />
             <div class="valid-feedback"></div>
         </div>
         <div>

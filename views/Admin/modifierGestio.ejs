@@ -24,7 +24,7 @@
 </div>
 
 
-<form action="/edit/<%= result[0].id_ge %>?_method=PUT" method="POST">
+<form action="/edit/<%= result[0].id_ge %>?_method=PUT" method="POST" enctype="multipart/form-data">
 
     <div class="row form-group mb-4">
         <div>
@@ -41,9 +41,16 @@
         </div>
 
         <div>
-            <label for="validationCustom01" class="form-label">Age</label>
-            <input type="text" class="form-control" name="age_ge" pattern="[0-9]{2}" id="validationCustom01"
-                value="<%= result[0].age %>" required>
+            <label for="validationCustom01" class="form-label">Date de Naissance :</label>
+            <input type="date" class="form-control" name="date" id="validationCustom01"
+                value="<%= result.length > 0 && result[0].date_naiss_gestio !== null ? result[0].date_naiss_gestio.toISOString().substring(0,10) : '' %>">
+
+            <div class="valid-feedback"></div>
+        </div>
+        <div>
+            <label for="validationCustom02" class="form-label">Photo</label>
+            <input type="file" class="form-control" name="photoGestionnaire" accept="image/*" id="validationCustom02"
+                value="<%= result.length> 0 ? result[0].photo_ge : 'null' %>">
             <div class="valid-feedback"></div>
         </div>
         <div>

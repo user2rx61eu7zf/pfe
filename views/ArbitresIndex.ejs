@@ -22,7 +22,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prenom</th>
-                        <th scope="col" class="text-end">Gerer</th>
+                        <th scope="col" class="text-end"></th>
                     </tr>
                 </thead>
 
@@ -37,6 +37,18 @@
                             </td>
                             <td>
                                 <%= element.prenom_ar%>
+                            </td>
+                            <td>
+                                <div style="position: relative; margin-left: 50px">
+                                    <% if (element.photo_ar) { %>
+                                        <img src="/images/<%= element.photo_ar %>" class="rounded-circle"
+                                            alt="Description of the image"
+                                            style="width: 50px; height: 50px; object-fit: cover" />
+                                        <% } else { %>
+                                            <img src="/images/default.jpg" class="rounded-circle" alt="image"
+                                                style="width: 50px; height: 50px; object-fit: cover" />
+                                            <% } %>
+                                </div>
                             </td>
                             <td class="text-end">
                                 <div class="d-flex flex-row justify-content-end gap-2">

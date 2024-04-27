@@ -30,78 +30,62 @@
     </li>
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px"><b> Score Equipe 1:</b></div>
-            <div class="col">
-                <%= result[0].score_eq1 %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
             <div class="col" style="max-width: 140px"><b>Equipe 2:</b></div>
             <div class="col">
                 <%= result[0].equipe_2 %>
             </div>
         </div>
     </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b> Score Equipe 2:</b></div>
-            <div class="col">
-                <%= result[0].score_eq2 %>
-            </div>
-        </div>
-    </li>
 
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px"><b>Carton jaune:</b></div>
-            <div class="col">
-                <%= result[0].carton_j_ma %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Carton rouge:</b></div>
-            <div class="col">
-                <%= result[0].carton_r_ma %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Homme du match:</b></div>
-            <div class="col">
-                <%= result[0].homme_ma %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
             <div class="col" style="max-width: 140px">
-                <b>ID gestionnaire du match:</b>
+                <b>Gestionnaire du match:</b>
             </div>
             <div class="col">
-                <%= result[0].id_ge_ma %>
+                <%= result[0].gestionnaire_nom %>
+                    <%= result[0].gestionnaire_prenom %>
             </div>
         </div>
     </li>
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px"><b>ID stade du match:</b></div>
+            <div class="col" style="max-width: 140px"><b>Stade du match:</b></div>
             <div class="col">
-                <%= result[0].id_std_ma %>
+                <%= result[0].stade_nom %>
+                    <%= result[0].stade_ville %>
             </div>
         </div>
     </li>
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px">
-                <b>ID journée du match:</b>
-            </div>
+            <div class="col" style="max-width: 140px"><b>Date du match:</b></div>
             <div class="col">
-                <%= result[0].id_journee_ma %>
+                <% if(result.length> 0) { %> <% var dateOfMatchString=result[0].date_ma; %>
+                        <% var dateOfMatch=new Date(dateOfMatchString); %>
+                            <% var formattedDateOfMatch=("0" + dateOfMatch.getDate()).slice(-2) + "/" + ("0" +
+                                (dateOfMatch.getMonth() + 1)).slice(-2) + "/" + dateOfMatch.getFullYear(); %>
+                                <%= formattedDateOfMatch %>
+                                    <% } else { %>
+                                        null <% } %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Horaire du match:</b></div>
+            <div class="col">
+                <% if(result.length> 0) { %> <% var timeComponents=result[0].horaire_ma.split(':'); %>
+                        <% if(timeComponents.length===3) { %>
+                            <% var hour=parseInt(timeComponents[0]); %>
+                                <% var minute=parseInt(timeComponents[1]); %>
+                                    <% var second=parseInt(timeComponents[2].split('.')[0]); %>
+                                        <% if(!isNaN(hour) && !isNaN(minute) && !isNaN(second)) { %>
+                                            <%= hour + ':' + minute %>
+                                                <% } else { %> Invalid time format <% } %>
+                                                        <% } else { %> Invalid time format
+                                                            <% } %>
+                                                                <% } else { %> null <% } %>
             </div>
         </div>
     </li>

@@ -23,7 +23,7 @@
 </div>
 
 
-<form action="/editArticles/<%= result[0].id_art %>?_method=PUT" method="POST">
+<form action="/editArticles/<%= result[0].id_art %>?_method=PUT" method="POST" enctype="multipart/form-data">
 
     <div class="row form-group mb-4">
         <div>
@@ -40,31 +40,32 @@
         </div>
         <div>
             <label for="validationCustom02" class="form-label">Date</label>
-            <input type="text" class="form-control" name="date_article" id="validationCustom02"
+            <input type="date" class="form-control" name="date_article" id="validationCustom02"
                 value="<%= result[0].date_art%>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
-            <label for="validationCustom02" class="form-label">Format</label>
-            <input type="text" class="form-control" name="format_article" id="validationCustom02"
-                value="<%= result[0].format_art%>" required>
+            <label for="validationCustom01" class="form-label">Photo:</label>
+            <input type="file" class="form-control" name="image_art" id="validationCustom01" value=""
+                accept="image/*" />
             <div class="valid-feedback"></div>
         </div>
         <div>
-            <label for="validationCustom02" class="form-label">Auteur</label>
-            <input type="text" class="form-control" name="auteur_article" id="validationCustom02"
-                value="<%= result[0].auteur_art%>" required>
-            <div class="valid-feedback"></div>
-        </div>
-        <div>
-        </div>
-        <div class="form-group mb-4">
-            <button type="submit" class="btn btn-primary mt-3">Modifier Article</button>
+            <div>
+                <label for="validationCustom02" class="form-label">Auteur</label>
+                <input type="text" class="form-control" name="auteur_article" id="validationCustom02"
+                    value="<%= result[0].auteur_art%>" required>
+                <div class="valid-feedback"></div>
+            </div>
+            <div>
+            </div>
+            <div class="form-group mb-4">
+                <button type="submit" class="btn btn-primary mt-3">Modifier Article</button>
 
-            <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" id="deleteButton"
-                data-bs-target="#deleteModal">Supprimer Article</button>
+                <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" id="deleteButton"
+                    data-bs-target="#deleteModal">Supprimer Article</button>
 
-        </div>
+            </div>
 
 </form>
 

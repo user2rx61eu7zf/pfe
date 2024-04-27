@@ -3,13 +3,13 @@
         <div class="col">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="/compteAdmin/<%= userId %>">Acceuil</a>
+                    <li class="breadcrumb-item"><a href="/compteAdmin">Acceuil</a>
                     </li>
                     <li class="breadcrumb-item active">Mon profile</li>
                 </ol>
             </nav>
         </div>
+
     </div>
 </div>
 
@@ -27,30 +27,43 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <% }) %>
-                        <img src="https://avatars.githubusercontent.com/u/102063123?s=96&v=4"
-                            class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="width: 150px" />
-                        <h3>
-                            <%= result[0].nom_utilisateur %>
-                        </h3>
-                        <p>
-                            <%= result[0].email_co %>
-                        </p>
+                        <% if (result[0].photo_profil) { %>
+                            <img src="/images/<%= result[0].photo_profil %>" class="img-fluid rounded-circle mb-3"
+                                alt="Description of the image" style="width: 150px; height: 150px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
+                                    style="width: 150px; height: 150px; border-radius: 50%;">
+                                <% } %>
+
+                                    <h3>
+                                        <%= result[0].nom_utilisateur %>
+                                    </h3>
+                                    <h5>
+                                        Ligue de football de relizane
+                                    </h5>
+                                    <p>
+                                        <%= result[0].email_co %>
+                                    </p>
     </div>
-    <hr />
-    <h4>Changer le mot de passe</h4>
-    <form action="/monprofile/<%= userId %>?_method=PUT" method="POST">
+    <hr>
+    <h4>Changer le mot de passe:</h4>
+    <form action="/monprofile?_method=PUT" method="POST" enctype="multipart/form-data">
         <div class="form-group">
-            <input type="password" class="form-control" name="mdpactuel" placeholder="Mot de passe actuel" />
+            <input type="password" class="form-control" name="mdpactuel" placeholder="Mot de passe actuel">
         </div>
-        <br />
+        <br>
         <div class="form-group">
-            <input type="password" class="form-control" name="nvmdp" placeholder="Nouveau mot de passe" />
+            <input type="password" class="form-control" name="nvmdp" placeholder="Nouveau mot de passe">
         </div>
 
-        <div style="text-align: center">
-            <button type="submit" class="btn btn-primary" style="margin-top: 15px">
-                Changer le mot de passe
-            </button>
+
+        <hr>
+        <h4>Changer votre photo de profil:</h4>
+        <input type="file" class="form-control" name="photo_admin">
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Confirmer</button>
         </div>
+        <div style="text-align: center;">
     </form>
+
 </div>

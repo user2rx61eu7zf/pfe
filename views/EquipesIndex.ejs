@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Accueil des Matches</h1>
+    <h1 class="h2">Accueil des Equipes</h1>
     <div class="btn-toolbar mb-2 mb-md 0">
         <div class="btn-group me-2">
-            <a href="/ajouter_matches" class="btn btn-outline-primary">+ Ajouter un Match
+            <a href="/ajouter_equipes" class="btn btn-outline-primary">+ Ajouter une Equipe
             </a>
         </div>
     </div>
@@ -20,9 +20,8 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Date de match</th>
-                        <th scope="col" class="text-end">Gerer</th>
+                        <th scope="col">Nom de l'equipe</th>
+                        <th scope="col" class="text-end"></th>
                     </tr>
                 </thead>
 
@@ -30,27 +29,36 @@
                     <% result.forEach(element=> { %>
                         <tr class="align-middle">
                             <td>
-                                <%= element.id_ma%>
+                                <%= element.id_eq%>
                             </td>
                             <td>
-                                <%= element.equipe_1 +""+"vs"+element.equipe_2%>
+                                <%= element.nom_eq%>
                             </td>
                             <td>
-                                <%= element.date_ma%>
+                                <div style="position: relative; margin-left: 50px">
+                                    <% if (element.logo_eq) { %>
+                                        <img src="/img/<%= element.logo_eq %>" class="rounded-circle"
+                                            alt="Description of the image"
+                                            style="width: 50px; height: 50px; object-fit: cover" />
+                                        <% } else { %>
+                                            <img src="/images/default.jpg" class="rounded-circle" alt="image"
+                                                style="width: 50px; height: 50px; object-fit: cover" />
+                                            <% } %>
+                                </div>
                             </td>
                             <td class="text-end">
                                 <div class="d-flex flex-row justify-content-end gap-2">
-                                    <a href="/detailsMatches/<%= element.id_ma %>" type="button"
+                                    <a href="/detailsEquipes/<%= element.id_eq %>" type="button"
                                         class="btn btn-primary btn-small">
                                         <i class="bi bi-eye"></i>
                                     </a>
 
-                                    <a href="/editMatches/<%= element.id_ma%>" type="button"
+                                    <a href="/editEquipes/<%= element.id_eq%>" type="button"
                                         class="btn btn-warning btn-small">
                                         <i class="bi bi-pencil"></i>
                                     </a>
 
-                                    <form action="/supprimerMatches/<%= element.id_ma %>?_method=DELETE" method="POST"
+                                    <form action="/supprimerEquipes/<%= element.id_eq %>?_method=DELETE" method="POST"
                                         class="position-relative">
                                         <button type="submit" class="btn btn-danger btn-small">
                                             <i class="bi bi-person-x"></i>

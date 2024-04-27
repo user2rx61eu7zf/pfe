@@ -34,26 +34,35 @@
                             </td>
                             <td>
                                 <%= element.equipe_1 +""+" vs " + "" + element.equipe_2%></td>
-        <td><%= element.date_ma%></td>
-        <td class=" text-end">
-                                    <div class="d-flex flex-row justify-content-end gap-2">
-                                        <a href="/detailsMatches/<%= element.id_ma %>" type="button"
-                                            class="btn btn-primary btn-small">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-
-                                        <a href="/editMatches/<%= element.id_ma%>" type="button"
-                                            class="btn btn-warning btn-small">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-
-                                        <form action="/supprimerMatches/<%= element.id_ma %>?_method=DELETE"
-                                            method="POST" class="position-relative">
-                                            <button type="submit" class="btn btn-danger btn-small">
-                                                <i class="bi bi-person-x"></i>
-                                            </button>
-                                        </form>
+        <td style=" font-size: 16px">
+                                    <div class="col">
+                                        <% var dateOfCreationtring=element.date_ma; var dateOfCreation=new
+                                            Date(dateOfCreationtring); var formattedDateOfCreation=("0" +
+                                            dateOfCreation.getDate()).slice(-2) + "/" + ("0" +
+                                            (dateOfCreation.getMonth() + 1)).slice(-2) + "/" +
+                                            dateOfCreation.getFullYear(); %>
+                                            <%= formattedDateOfCreation %>
                                     </div>
+                            </td>
+                            <td class="text-end">
+                                <div class="d-flex flex-row justify-content-end gap-2">
+                                    <a href="/detailsMatches/<%= element.id_ma %>" type="button"
+                                        class="btn btn-primary btn-small">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    <a href="/editMatches/<%= element.id_ma%>" type="button"
+                                        class="btn btn-warning btn-small">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <form action="/supprimerMatches/<%= element.id_ma %>?_method=DELETE" method="POST"
+                                        class="position-relative">
+                                        <button type="submit" class="btn btn-danger btn-small">
+                                            <i class="bi bi-person-x"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         <% }) %>

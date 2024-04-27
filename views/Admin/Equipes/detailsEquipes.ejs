@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">
-        <%= result[0].titre_art%>
+        <%= result[0].nom_eq%>
     </h1>
 </div>
 
@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                     <li class="breadcrumb-item active">
-                        <%= result[0].titre_art %>
+                        <%= result[0].nom_eq %>
                     </li>
                 </ol>
             </nav>
@@ -22,39 +22,27 @@
 <ul class="list-group">
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px"><b>Date:</b></div>
+            <div class="col" style="max-width: 140px"><b>Nom:</b></div>
             <div class="col">
-                <% if(result.length> 0) { var dateOfArticleString = result[0].date_art;
-                    var dateOfArticle = new Date(dateOfArticleString); var
-                    formattedDateOfArticle = ("0" + dateOfArticle.getDate()).slice(-2) + "/"
-                    + ("0" + (dateOfArticle.getMonth() + 1)).slice(-2) + "/" +
-                    dateOfArticle.getFullYear(); %> <%= formattedDateOfArticle %>
-                        <% } else { // Output 'null' if no result is available %> null <% } %>
+                <%= result[0].nom_eq %>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Abreviation:</b></div>
+            <div class="col">
+                <%= result[0].abre_eq %>
             </div>
         </div>
     </li>
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px"><b>Titre:</b></div>
-            <div class="col">
-                <%= result[0].titre_art %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Description:</b></div>
-            <div class="col">
-                <%= result[0].description_art %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Image:</b></div>
+            <div class="col" style="max-width: 140px"><b>Logo:</b></div>
             <div style="position: relative; margin-left: 50px">
-                <% if (result.length> 0 && result[0].image_art) { %>
-                    <img src="/images/<%= result[0].image_art %>" class="img-fluid mb-3 mt-3 rounded"
+                <% if (result.length> 0 && result[0].logo_eq) { %>
+                    <img src="/img/<%= result[0].logo_eq %>" class="img-fluid mb-3 mt-3 rounded"
                         alt="Description of the image" style="
             width: 200px;
             height: 200px;
@@ -74,9 +62,22 @@
     </li>
     <li class="list-group-item">
         <div class="row">
-            <div class="col" style="max-width: 140px"><b>Auteur:</b></div>
+            <div class="col" style="max-width: 140px"><b>Date de Création:</b></div>
             <div class="col">
-                <%= result[0].auteur_art %>
+                <% if(result.length> 0) { var dateOfCreationString = result[0].date_eq;
+                    var dateOfCreation = new Date(dateOfCreationString); var
+                    formattedDateOfCreation = ("0" + dateOfCreation.getDate()).slice(-2) +
+                    "/" + ("0" + (dateOfCreation.getMonth() + 1)).slice(-2) + "/" +
+                    dateOfCreation.getFullYear(); %> <%= formattedDateOfCreation %>
+                        <% } else { // Output 'null' if no result is available %> null <% } %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"><b>Ville de l'équipe:</b></div>
+            <div class="col">
+                <%= result[0].ville_eq %>
             </div>
         </div>
     </li>
