@@ -10,4 +10,4 @@
 - profile picture works all good
 - dropdown works fine also
 # DATABASE
-  use the LATEST version of db included in this repo (pfe.sql)
+- use the LATEST version of db included in this repo (pfe.sql)
