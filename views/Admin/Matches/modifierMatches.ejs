@@ -26,19 +26,139 @@
 <form action="/editMatches/<%= result[0].id_ma %>?_method=PUT" method="POST">
 
     <div class="row form-group mb-4">
-        <div>
-            <label for="validationCustom01" class="form-label">Equipe 1</label>
-            <input type="text" class="form-control" name="equipe_1_match" id="validationCustom01"
-                value="<%= result[0].equipe_1 %>" required>
+        <div class="dropdown">
+            <button
+              class="btn btn-success dropdown-toggle col-12"
+              type="button"
+              id="dropdownequipe1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="background-color: white; color: black; position: relative"
+            >
+              Equipe 1 <span class="caret"></span>
+            </button>
+            <ul
+              class="dropdown-menu"
+              aria-labelledby="dropdownequipe"
+              id="dropdownEquipeMenu"
+            >
+              <% result.forEach(function(item) { %>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="updateDropdownTextEQ1('<%= item.nom_eq %>')"
+                >
+                  <%= item.nom_eq %>
+                  <img
+                    src="/img/<%= item.logo_eq %>"
+                    alt=""
+                    width=" 32"
+                    height="32"
+                    class="rounded-circle profile-picture"
+                  />
+                </a>
+              </li>
+              <% }); %>
+            </ul>
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="dropdown">
+            <button
+              class="btn btn-success dropdown-toggle col-12"
+              type="button"
+              id="dropdownequipe2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="background-color: white; color: black; position: relative"
+            >
+              Equipe 2 <span class="caret"></span>
+            </button>
+            <ul
+              class="dropdown-menu"
+              aria-labelledby="dropdownequipe"
+              id="dropdownEquipeMenu"
+            >
+              <% result.forEach(function(item) { %>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="updateDropdownTextEQ2('<%= item.nom_eq %>')"
+                >
+                  <%= item.nom_eq %>
+                  <img
+                    src="/img/<%= item.logo_eq %>"
+                    alt=""
+                    width=" 32"
+                    height="32"
+                    class="rounded-circle profile-picture"
+                  />
+                </a>
+              </li>
+              <% }); %>
+            </ul>
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="dropdown">
+            <button
+              class="btn btn-success dropdown-toggle col-12"
+              type="button"
+              id="dropdowngestionnaire"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="background-color: white; color: black; position: relative"
+            >
+              Gestionnaire de l'équipe <span class="caret"></span>
+            </button>
+            <ul
+              class="dropdown-menu"
+              aria-labelledby="dropdowngestionnaire"
+              id="dropdownGestionnaireMenu"
+            >
+              <% results.forEach(function(item) { %>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  onclick="updateDropdownTextGest('<%= item.id_ge %> <%= item.nom %> <%= item.prenom %>')"
+                >
+                  <%=item.id_ge +""+""+ item.nom +" "+ item.prenom %>
+                </a>
+              </li>
+              <% }); %>
+            </ul>
+          </div>
+          <div>
+            <label for="validationCustom01" class="form-label">Date du match</label>
+            <input
+              type="date"
+              class="form-control"
+              name="date_ma_match"
+              id="validationCustom01"
+              value=""
+              required
+            />
             <div class="valid-feedback"></div>
-        </div>
-        <div>
-            <label for="validationCustom02" class="form-label">Equipe 2</label>
-            <input type="text" class="form-control" name="equipe_2_match" id="validationCustom02"
-                value="<%= result[0].equipe_2%>" required>
+          </div>
+          <div>
+            <label for="validationCustom01" class="form-label"
+              >Heure du match</label
+            >
+            <input
+              type="time"
+              class="form-control"
+              name="heure_ma_match"
+              id="validationCustom01"
+              value=""
+              required
+            />
             <div class="valid-feedback"></div>
-        </div>
-
+          </div>
 
         <div>
         </div>
@@ -49,7 +169,30 @@
                 data-bs-target="#deleteModal">Supprimer Match</button>
 
         </div>
-
+        <script>
+          function updateDropdownTextEQ1(text) {
+            document.getElementById("dropdownequipe1").textContent = text;
+          }
+          function updateDropdownTextEQ2(text) {
+            document.getElementById("dropdownequipe2").textContent = text;
+          }
+          function updateDropdownTextGest(text) {
+            document.getElementById("dropdowngestionnaire").textContent = text;
+          }
+          $(document).ready(function () {
+            $("form").submit(function () {
+              updateSelectedValues();
+            });
+          });
+          function updateSelectedValues() {
+            var equipe1 = $("#dropdownequipe1").text().trim();
+            $("#equipe1").val(equipe1);
+            var equipe2 = $("#dropdownequipe2").text().trim();
+            $("#equipe2").val(equipe2);
+            var gestionnaire = $("#dropdowngestionnaire").text().trim();
+            $("#gestionnaire").val(gestionnaire);
+          }
+        </script>
 </form>
 
 

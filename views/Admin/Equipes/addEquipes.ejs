@@ -1,105 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajouter une Equipe</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div
-        class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Ajouter une Equipe</h1>
-        <div class="btn-toolbar mb-2 mb-md 0">
-            <div class="btn-group me-2">
-                <button class="btn btn-outline-primary">
-                    <i class="bi bi-info-circle"></i> Aide0
-                </button>
-            </div>
+      class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+    >
+      <h1 class="h2">Ajouter une Equipe</h1>
+      <div class="btn-toolbar mb-2 mb-md 0">
+        <div class="btn-group me-2">
+          <button class="btn btn-outline-primary">
+            <i class="bi bi-info-circle"></i> Aide0
+          </button>
         </div>
+      </div>
     </div>
     <div class="col py-1">
-        <div class="row">
-            <div class="col">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/Admin">Acceuil</a></li>
-                        <li class="breadcrumb-item active">Nouvelle Equipe</li>
-                    </ol>
-                </nav>
-            </div>
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/Admin">Acceuil</a></li>
+              <li class="breadcrumb-item active">Nouvelle Equipe</li>
+            </ol>
+          </nav>
         </div>
+      </div>
     </div>
-    <form action="/ajouter_Equipes" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
-        <div>
-            <label for="validationCustom01" class="form-label">Nom</label>
-            <input type="text" class="form-control" name="nom" id="validationCustom01" value="" required />
-            <div class="valid-feedback"></div>
-        </div>
-        <div>
-            <label for="validationCustom01" class="form-label">Abreviation</label>
-            <input type="text" class="form-control" name="abreviation" id="validationCustom01" value="" required />
-            <div class="valid-feedback"></div>
-        </div>
-        <div>
-            <label for="validationCustom01" class="form-label">Photo:</label>
-            <input type="file" class="form-control" name="LogoEquipe" id="validationCustom01" value=""
-                accept="image/*" />
-            <div class="valid-feedback"></div>
-        </div>
-        <div>
-            <label for="validationCustom02" class="form-label">Ville</label>
-            <input type="text" class="form-control" name="ville" id="validationCustom02" value="" required />
-            <div class="valid-feedback"></div>
-        </div>
-        <br>
-        <div class="dropdown">
-            <button class="btn btn-success dropdown-toggle col-12" type="button" id="dropdowngestionnaire"
-                data-bs-toggle="dropdown" aria-expanded="false"
-                style="background-color: white; color: black; position: relative">
-                Gestionnaire de l'équipe <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdowngestionnaire" id="dropdownGestionnaireMenu">
-                <% result.forEach(function(item) { %>
-                    <li>
-                        <a class="dropdown-item" href="#"
-                            onclick="updateDropdownTextGest('<%= item.nom %> <%= item.prenom %>')">
-                            <%= item.nom +" "+ item.prenom %>
-                        </a>
-                    </li>
-                    <% }); %>
-            </ul>
-        </div>
+    <form
+      action="/ajouter_Equipes"
+      method="POST"
+      class="needs-validation"
+      enctype="multipart/form-data"
+      novalidate
+    >
+      <div>
+        <label for="validationCustom01" class="form-label">Nom</label>
+        <input
+          type="text"
+          class="form-control"
+          name="nom"
+          id="validationCustom01"
+          value=""
+          required
+        />
+        <div class="valid-feedback"></div>
+      </div>
+      <div>
+        <label for="validationCustom01" class="form-label">Abreviation</label>
+        <input
+          type="text"
+          class="form-control"
+          name="abreviation"
+          id="validationCustom01"
+          value=""
+          required
+        />
+        <div class="valid-feedback"></div>
+      </div>
+      <div>
+        <label for="validationCustom01" class="form-label">Photo:</label>
+        <input
+          type="file"
+          class="form-control"
+          name="LogoEquipe"
+          id="validationCustom01"
+          value=""
+          accept="image/*"
+        />
+        <div class="valid-feedback"></div>
+      </div>
+      <div>
+        <label for="validationCustom02" class="form-label">Ville</label>
+        <input
+          type="text"
+          class="form-control"
+          name="ville"
+          id="validationCustom02"
+          value=""
+          required
+        />
+        <div class="valid-feedback"></div>
+      </div>
+      <br />
+      <div class="dropdown">
+        <button
+          class="btn btn-success dropdown-toggle col-12"
+          type="button"
+          id="dropdowngestionnaire"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="background-color: white; color: black; position: relative"
+        >
+          Gestionnaire de l'équipe <span class="caret"></span>
+        </button>
+        <ul
+          class="dropdown-menu"
+          aria-labelledby="dropdowngestionnaire"
+          id="dropdownGestionnaireMenu"
+        >
+          <% result.forEach(function(item) { %>
+          <li>
+            <a
+              class="dropdown-item"
+              href="#"
+              onclick="updateDropdownTextGest('<%= item.nom %> <%= item.prenom %>')"
+            >
+              <%= item.nom +" "+ item.prenom %>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+      </div>
 
-        <div>
-            <label for=" validationCustom01" class="form-label">Date de création</label>
-                                <input type="date" class="form-control" name="date_de_creation" id="validationCustom01"
-                                    value="" required />
-                                <div class="valid-feedback"></div>
-        </div>
-        <div>
-            <button class="btn btn-primary mt-3" type="submit">Ajouter</button>
-        </div>
+      <div>
+        <label for=" validationCustom01" class="form-label"
+          >Date de création</label
+        >
+        <input
+          type="date"
+          class="form-control"
+          name="date_de_creation"
+          id="validationCustom01"
+          value=""
+          required
+        />
+        <div class="valid-feedback"></div>
+      </div>
+      <div>
+        <button class="btn btn-primary mt-3" type="submit">Ajouter</button>
+      </div>
     </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
     <script>
-        function updateDropdownTextGest(text) {
-            document.getElementById("dropdowngestionnaire").textContent = text;
-        }
+      function updateDropdownTextGest(text) {
+        document.getElementById("dropdowngestionnaire").textContent = text;
+      }
     </script>
-</body>
-
+  </body>
 </html>

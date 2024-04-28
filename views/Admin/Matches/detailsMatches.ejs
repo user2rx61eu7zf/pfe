@@ -1,92 +1,79 @@
-<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">
-        <%= result[0].equipe_1 + " vs " + result[0].equipe_2%>
-    </h1>
+<div
+  class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2"><%= match[0].equipe_1 + " vs " + match[0].equipe_2%></h1>
 </div>
 
 <div class="col py-3">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                    <li class="breadcrumb-item active">
-                        <%= result[0].equipe_1 + " vs " + result[0].equipe_2 %>
-                    </li>
-                </ol>
-            </nav>
-        </div>
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+          <li class="breadcrumb-item active">
+            <%= match[0].equipe_1 + " vs " + match[0].equipe_2 %>
+          </li>
+        </ol>
+      </nav>
     </div>
+  </div>
 </div>
 
 <ul class="list-group">
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Equipe 1:</b></div>
-            <div class="col">
-                <%= result[0].equipe_1 %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Equipe 2:</b></div>
-            <div class="col">
-                <%= result[0].equipe_2 %>
-            </div>
-        </div>
-    </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Equipe 1:</b></div>
+      <div class="col"><%= match[0].equipe_1 %></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Equipe 2:</b></div>
+      <div class="col"><%= match[0].equipe_2 %></div>
+    </div>
+  </li>
 
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px">
-                <b>Gestionnaire du match:</b>
-            </div>
-            <div class="col">
-                <%= result[0].gestionnaire_nom %>
-                    <%= result[0].gestionnaire_prenom %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Stade du match:</b></div>
-            <div class="col">
-                <%= result[0].stade_nom %>
-                    <%= result[0].stade_ville %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Date du match:</b></div>
-            <div class="col">
-                <% if(result.length> 0) { %> <% var dateOfMatchString=result[0].date_ma; %>
-                        <% var dateOfMatch=new Date(dateOfMatchString); %>
-                            <% var formattedDateOfMatch=("0" + dateOfMatch.getDate()).slice(-2) + "/" + ("0" +
-                                (dateOfMatch.getMonth() + 1)).slice(-2) + "/" + dateOfMatch.getFullYear(); %>
-                                <%= formattedDateOfMatch %>
-                                    <% } else { %>
-                                        null <% } %>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col" style="max-width: 140px"><b>Horaire du match:</b></div>
-            <div class="col">
-                <% if(result.length> 0) { %> <% var timeComponents=result[0].horaire_ma.split(':'); %>
-                        <% if(timeComponents.length===3) { %>
-                            <% var hour=parseInt(timeComponents[0]); %>
-                                <% var minute=parseInt(timeComponents[1]); %>
-                                    <% var second=parseInt(timeComponents[2].split('.')[0]); %>
-                                        <% if(!isNaN(hour) && !isNaN(minute) && !isNaN(second)) { %>
-                                            <%= hour + ':' + minute %>
-                                                <% } else { %> Invalid time format <% } %>
-                                                        <% } else { %> Invalid time format
-                                                            <% } %>
-                                                                <% } else { %> null <% } %>
-            </div>
-        </div>
-    </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px">
+        <b>Gestionnaire du match:</b>
+      </div>
+      <div class="col"></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Stade du match:</b></div>
+      <div class="col"></div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Date du match:</b></div>
+      <div class="col">
+        <% if(match.length> 0) { %> <% var dateOfMatchString=match[0].date_ma;
+        %> <% var dateOfMatch=new Date(dateOfMatchString); %> <% var
+        formattedDateOfMatch=("0" + dateOfMatch.getDate()).slice(-2) + "/" +
+        ("0" + (dateOfMatch.getMonth() + 1)).slice(-2) + "/" +
+        dateOfMatch.getFullYear(); %> <%= formattedDateOfMatch %> <% } else { %>
+        null <% } %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Horaire du match:</b></div>
+      <div class="col">
+        <% if(match.length> 0) { %> <% var
+        timeComponents=match[0].horaire_ma.split(':'); %> <%
+        if(timeComponents.length===3) { %> <% var
+        hour=parseInt(timeComponents[0]); %> <% var
+        minute=parseInt(timeComponents[1]); %> <% var
+        second=parseInt(timeComponents[2].split('.')[0]); %> <% if(!isNaN(hour)
+        && !isNaN(minute) && !isNaN(second)) { %> <%= hour + ':' + minute %> <%
+        } else { %> Invalid time format <% } %> <% } else { %> Invalid time
+        format <% } %> <% } else { %> null <% } %>
+      </div>
+    </div>
+  </li>
 </ul>
