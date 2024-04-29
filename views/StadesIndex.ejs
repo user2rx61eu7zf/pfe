@@ -2,7 +2,7 @@
     <h1 class="h2">Accueil des Stades</h1>
     <div class="btn-toolbar mb-2 mb-md 0">
         <div class="btn-group me-2">
-            <a href="/ajouter_stades" class="btn btn-outline-primary">+ Ajouter un Stade
+            <!-- <a href="/ajouter_stades" class="btn btn-outline-primary">+ Ajouter un Stade -->
             </a>
         </div>
     </div>
@@ -20,8 +20,9 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">ville</th>
+                        <th scope="col" class="text-center">Nom</th>
+                        <th scope="col" class="text-center">Ville</th>
+                        <th scope="col" class="text-center">Equipe</th>
                         <th scope="col" class="text-end">Gerer</th>
                     </tr>
                 </thead>
@@ -37,6 +38,12 @@
                             </td>
                             <td>
                                 <%= element.ville_std%>
+                            </td>
+                            <td>
+                                <%= element.nom_eq%>
+                                    <img src="/img/<%= element.logo_eq %>" class="rounded-circle "
+                                        alt="Description of the image"
+                                        style="width: 50px; height: 50px; object-fit: cover;">
                             </td>
                             <td class="text-end">
                                 <div class="d-flex flex-row justify-content-end gap-2">
