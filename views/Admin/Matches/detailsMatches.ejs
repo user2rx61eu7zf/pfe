@@ -60,6 +60,15 @@
   </li>
   <li class="list-group-item">
     <div class="row">
+      <div class="col" style="max-width: 140px"><b>Arbitre:</b></div>
+      <div class="col">
+        <%= arbitre.length> 0 ? arbitre[0].nom_ar : 'null' %>
+          <%= arbitre.length> 0 ? arbitre[0].prenom_ar : 'null' %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
       <div class="col" style="max-width: 140px"><b>Date du match:</b></div>
       <div class="col">
         <% if(match.length> 0) { %> <% var dateOfMatchString=match[0].date_ma; %>

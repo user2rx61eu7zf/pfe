@@ -40,6 +40,19 @@
     </li>
     <li class="list-group-item">
         <div class="row">
+            <div class="col" style="max-width: 140px"><b>Date de naissance:</b></div>
+            <div class="col">
+                <% if(result.length> 0) { var dateOfBirthString =
+                    result[0].date_naiss_ar; var dateOfBirth = new
+                    Date(dateOfBirthString); var formattedDateOfBirth = ("0" +
+                    dateOfBirth.getDate()).slice(-2) + "/" + ("0" + (dateOfBirth.getMonth()
+                    + 1)).slice(-2) + "/" + dateOfBirth.getFullYear(); %> <%= formattedDateOfBirth %>
+                        <% } else { // Output 'null' if no result is available %> null <% } %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
             <div class="col" style="max-width: 140px"><b>Poste:</b></div>
             <div class="col">
                 <%= result[0].poste_ar %>

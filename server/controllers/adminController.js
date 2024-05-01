@@ -36,19 +36,21 @@ exports.homepageAdmin = async (req, res) => {
 // la partie de la gestion des Gestionnaires ---------------------------------------------------------------------------
 // get gestionnaire data
 exports.viewGestionnaire = async (req, res) => {
-  const GestionnaireId = req.params.id; // Récupère l'ID du Gestionnaire depuis l'URL
+  const GestionnaireId = req.params.id; 
   const locals = {
     title: "Voir Détails",
   };
-  // Exécute une requête SQL pour récupérer les détails du Gestionnaire avec l'ID spécifié
+  
   db.query(
-    "SELECT id_ge,nom,prenom,date_naiss_gestio,photo_ge,compte.email_co FROM `gestionnaire de club` JOIN compte ON `gestionnaire de club`.id_co_ge = compte.id_co AND id_ge=?;",
-    [GestionnaireId],
+   "SELECT gd.id_ge, gd.nom, gd.prenom, gd.date_naiss_gestio, c.email_co, c.photo_profil,eq.logo_eq,eq.nom_eq FROM `gestionnaire de club` AS gd JOIN compte AS c ON gd.id_co_ge = c.id_co JOIN equipe AS eq ON c.id_co = eq.id_co_ge_eq WHERE gd.id_ge = ?;",[GestionnaireId],
     (err, result) => {
       if (err) {
         console.error("erreur sql id gestionnaire" + err);
         return res.status(500).send("erreur sql id gestionnaire");
       }
+      console.log(result);
+      
+      
       db.query(
         "SELECT photo_profil FROM compte WHERE id_co=?",
         [2],
@@ -56,7 +58,6 @@ exports.viewGestionnaire = async (req, res) => {
           if (err) {
             console.log("err avoir pfp page view joueur");
           }
-          console.log(result);
           const id = result[0].id_ge;
           res.render("../views/Admin/detailsGestio", {
             locals,
@@ -64,7 +65,7 @@ exports.viewGestionnaire = async (req, res) => {
             pp,
             result,
             layout: "./layouts/mainAdmin.ejs",
-          }); // Rend la vue avec les détails du gestionnaire
+          }); 
         }
       );
     }
@@ -101,12 +102,13 @@ exports.postGestionnaire = async (req, res) => {
   if (req.file) {
     photo = req.file.filename;
     db.query(
-      "INSERT INTO compte (id_type,nom_utilisateur, mot_de_passe, email_co) VALUES (?,?,?,?)",
+      "INSERT INTO compte (id_type,nom_utilisateur, mot_de_passe, email_co, photo_profil) VALUES (?,?,?,?,?)",
       [
         6,
         newGestionnaire.nom + " " + newGestionnaire.prenom,
         newGestionnaire.motdepasse,
         newGestionnaire.email,
+        req.file.filename,
       ],
       (err, result) => {
         if (err) {
@@ -128,14 +130,13 @@ exports.postGestionnaire = async (req, res) => {
             }
             console.log(req.file.filename);
             db.query(
-              "INSERT INTO `gestionnaire de club` (nom, prenom,id_ad_ge,date_naiss_gestio,id_co_ge,photo_ge) VALUES (?,?,?,?,?,?) ",
+              "INSERT INTO `gestionnaire de club` (nom, prenom,id_ad_ge,date_naiss_gestio,id_co_ge) VALUES (?,?,?,?,?) ",
               [
                 newGestionnaire.nom,
                 newGestionnaire.prenom,
                 2,
                 newGestionnaire.date_naiss_gestio,
                 resultid[0].id_co,
-                req.file.filename,
               ],
               async (err, result) => {
                 if (err) {
@@ -258,12 +259,14 @@ exports.gererGestionnaire = async (req, res) => {
     title: "Gestion des Gestionnaire",
   };
   db.query(
-    "SELECT id_ge,nom, prenom,photo_ge,date_naiss_gestio,compte.email_co FROM `gestionnaire de club` JOIN compte ON `gestionnaire de club`.id_co_ge = compte.id_co; ",
+    "SELECT id_ge,nom, prenom,date_naiss_gestio,equipe.logo_eq,compte.email_co,compte.photo_profil FROM `gestionnaire de club` JOIN compte ON `gestionnaire de club`.id_co_ge = compte.id_co JOIN equipe ON compte.id_co = equipe.id_co_ge_eq; ",
     (err, result) => {
       if (err) {
         console.error("erreur sql select data Gestionnaires  " + err);
         return res.status(500).send("erreur sql select data Gestionnaires");
       }
+      console.log(result);
+      
       db.query(
         "SELECT photo_profil FROM compte WHERE id_co=?",
         [2],
@@ -291,7 +294,7 @@ exports.gererGestionnaire = async (req, res) => {
 exports.editGestionnaire = async (req, res) => {
   const userId = req.params.id;
   db.query(
-    "SELECT id_ge,nom,prenom,date_naiss_gestio,photo_ge,compte.email_co,mot_de_passe FROM `gestionnaire de club` JOIN compte ON `gestionnaire de club`.id_co_ge = compte.id_co AND id_ge=?",
+    "SELECT id_ge,nom,prenom,date_naiss_gestio,compte.email_co,mot_de_passe FROM `gestionnaire de club` JOIN compte ON `gestionnaire de club`.id_co_ge = compte.id_co AND id_ge=?",
     [userId],
     (err, result) => {
       if (err) {
@@ -321,12 +324,11 @@ exports.editpostGestio = async (req, res) => {
   if (req.file) {
     photo = req.file.filename;
     db.query(
-      "UPDATE `gestionnaire de club` SET nom =?,prenom =?,date_naiss_gestio=?,photo_ge=? WHERE id_ge=?",
+      "UPDATE `gestionnaire de club` SET nom =?,prenom =?,date_naiss_gestio=? WHERE id_ge=?",
       [
         req.body.nom_ge,
         req.body.prenom_ge,
         req.body.date_naiss_gestio,
-        photo,
         req.params.id,
       ],
       (err, result) => {
@@ -344,11 +346,12 @@ exports.editpostGestio = async (req, res) => {
             }
             //console.log(residcoge);
             db.query(
-              "UPDATE compte SET nom_utilisateur=?,mot_de_passe=?,email_co=? WHERE id_co=?",
+              "UPDATE compte SET nom_utilisateur=?,mot_de_passe=?,email_co=?, photo_profil=? WHERE id_co=?",
               [
                 req.body.nom_ge + "" + req.body.prenom_ge,
                 req.body.motdepasse_ge,
                 req.body.email_ge,
+                req.file.filename,
                 residcoge[0].id_co_ge,
               ],
               (err, resultcompte) => {
@@ -429,7 +432,7 @@ exports.viewArbitres = async (req, res) => {
   };
   // Exécute une requête SQL pour récupérer les détails de l'arbitre avec l'ID spécifié
   db.query(
-    "SELECT arb.id_ar, arb.nom_ar, arb.prenom_ar, arb.poste_ar,arb.photo_ar, cpt.email_co FROM arbitre AS arb JOIN compte AS cpt ON arb.id_co_ar = cpt.id_co WHERE arb.id_ar = ?;",
+    "SELECT arb.id_ar, arb.nom_ar,arb.date_naiss_ar, arb.prenom_ar, arb.poste_ar,arb.photo_ar, cpt.email_co FROM arbitre AS arb JOIN compte AS cpt ON arb.id_co_ar = cpt.id_co WHERE arb.id_ar = ?;",
     [ArbitreId],
     (err, result) => {
       if (err) {
@@ -774,7 +777,7 @@ exports.viewStades = async (req, res) => {
   };
   // Exécute une requête SQL pour récupérer les détails du stade avec l'ID spécifié
   db.query(
-    "SELECT id_std, nom_std, ville_std, capacite_std, date_crt FROM stade WHERE id_std = ?;",
+    "SELECT id_std, nom_std, ville_std, capacite_std, date_crt,id_eq_std FROM stade WHERE id_std = ?;",
     [StadeId],
     (err, result) => {
       if (err) {
@@ -788,18 +791,24 @@ exports.viewStades = async (req, res) => {
           if (err) {
             console.log("err avoir pfp page view joueur");
           }
-          //console.log("Query result:", result); // Log the query result
-          if (result.length === 0) {
-            return res.status(404).send("Aucun stade trouvé avec cet ID");
-          }
-          const id = result[0].id_std;
-          res.render("../views/Admin/Stades/detailsStades", {
-            locals,
-            id,
-            pp,
-            result,
-            layout: "./layouts/mainAdmin.ejs",
-          }); // Rend la vue avec les détails du stade
+          db.query("SELECT logo_eq FROM equipe WHERE id_eq=?",[result[0].id_eq_std],(err,logo)=>{
+            if(err){
+              console.log('erreur avoir logo eq'+err);
+            }
+            if (result.length === 0) {
+              return res.status(404).send("Aucun stade trouvé avec cet ID");
+            }
+            const id = result[0].id_std;
+            res.render("../views/Admin/Stades/detailsStades", {
+              locals,
+              id,
+              logo,
+              pp,
+              result,
+              layout: "./layouts/mainAdmin.ejs",
+            });
+          })
+         
         }
       );
     }
@@ -1249,7 +1258,7 @@ exports.viewMatches = async (req, res) => {
       console.error("erreur sql id match" + err);
       return res.status(500).send("erreur sql id match");
     }
-    db.query("SELECT logo_eq FROM equipe WHERE nom_eq IN(?,?) ",[match[0].equipe_1,match[0].equipe_2],(err,logo)=>{
+    db.query("SELECT nom_ar,prenom_ar FROM arbitre WHERE id_ar=? ",[match[0].id_ar_ma],(err,arbitre)=>{
       if(err){
         console.log('erreur avoir logo des equipes'+err);
       }
@@ -1277,7 +1286,7 @@ exports.viewMatches = async (req, res) => {
                   locals,
                   pp,
                   match,
-                  logo,
+                  arbitre,
                   stade,
                   gest,
                   layout: "./layouts/mainAdmin.ejs",
@@ -1295,6 +1304,7 @@ exports.viewMatches = async (req, res) => {
 
 exports.gererMatches = async (req, res) => {
   const messages = await req.flash("info");
+  const messagemodi = await req.flash("infomodi");
   const locals = {
     title: "Gestion des Matches",
   };
@@ -1313,11 +1323,10 @@ exports.gererMatches = async (req, res) => {
             console.log("err avoir pfp page view joueur");
           }
 
-          //console.log("Query result:", result);
-
           res.render("MatchesIndex", {
             locals,
             messages,
+            messagemodi,
             pp,
             result,
             layout: "./layouts/mainAdmin.ejs",
@@ -1347,7 +1356,7 @@ exports.editMatches = async (req, res) => {
             if (err) {
               console.log("erreur");
             }
-            db.query("SELECT equipe_1,equipe_2,date_ma,horaire_ma,journee_ma FROM `match` WHERE id_ma=?",[MatchId],(err, equipe) => {
+            db.query("SELECT equipe_1,equipe_2,date_ma,horaire_ma,id_std_ma,id_ar_ma,journee_ma FROM `match` WHERE id_ma=?",[MatchId],(err, equipe) => {
                 if(err){
                   console.log('erreu avoir les deux equipe '+err);
                 }
@@ -1357,15 +1366,31 @@ exports.editMatches = async (req, res) => {
                   if(err){
                     console.log('avoir erreur data gestionnaire du match '+err);
                   }
-                  res.render("../views/Admin/Matches/modifierMatches", {
-                    result,
-                    results,
-                    gest,
-                    MatchId,
-                    equipe,
-                    pp,
-                    layout: "./layouts/mainAdmin.ejs",
-                  });
+                  db.query("SELECT id_std,nom_std,ville_std FROM stade",(err,stade) => {
+                    if(err){
+                      console.log('erreur sql avoir stades'+err);
+                      
+                    }
+                    db.query("SELECT id_ar,nom_ar,prenom_ar FROM arbitre",(err,arbitre) => {
+                      if(err){
+                        console.log('ererur avoir les arbites'+err);
+                      }
+                   
+                      res.render("../views/Admin/Matches/modifierMatches", {
+                        result,
+                        stade,
+                        results,
+                        arbitre,
+                        gest,
+                        MatchId,
+                        equipe,
+                        pp,
+                        layout: "./layouts/mainAdmin.ejs",
+                      });
+                    })
+                  
+                  })
+                 
                 })
                
             })
@@ -1453,13 +1478,12 @@ exports.postMatches = async (req, res) => {
           console.error("Erreur lors de l'insertion du match :", err);
           return res.status(500).send("Erreur lors de l'insertion du match");
         }
-        //console.log("Nouveau match inséré avec l'ID :", result.insertId);
-        req.flash("info", "Match ajouté avec succès !");
-        res.redirect("/gererMatches");
+      
       }
     );
   })
-
+  req.flash("info", "Match ajouté avec succès !");
+        res.redirect("/gererMatches");
 };
 
 exports.supprimerMatches = async (req, res) => {
@@ -1479,24 +1503,22 @@ exports.supprimerMatches = async (req, res) => {
 // put edit match
 exports.editpostMatches = async (req, res) => {
  
-  
-  const number = req.body.gestionnaire.match(/\d+/);
-  // console.log(number[0]);
-db.query("SELECT id_ge,id_co_ge  FROM `gestionnaire de club` WHERE id_ge=?  ",[number[0]],(err,gestio)=>{
+db.query("SELECT id_co_ge  FROM `gestionnaire de club` WHERE id_ge=?  ",[req.body.gestionnaire],(err,gestio)=>{
   if(err){
-    console.log('erreur avoir id du gestionnaire');
+    console.log('erreur avoir id du gestionnaire'+err);
   }
-  console.log(gestio);
-  
   db.query(
-    "UPDATE `match` SET equipe_1 =?,equipe_2=?,date_ma=?,horaire_ma=?,id_ge_ma=?,id_co_ge_ma=? WHERE id_ma=?",
+    "UPDATE `match` SET equipe_1 =?,equipe_2=?,date_ma=?,horaire_ma=?,id_ge_ma=?,id_co_ge_ma=?,id_std_ma=?,journee_ma=?,id_ar_ma=? WHERE id_ma=?",
     [
       req.body.equipe1,
       req.body.equipe2,
       req.body.date_ma_match,
       req.body.heure_ma_match,
-      gestio[0].id_ge,
+      req.body.gestionnaire,
       gestio[0].id_co_ge,
+      req.body.stade,
+      req.body.journee,
+      req.body.arbitre,
       req.params.id,
     ],
     (err, result) => {
@@ -1504,15 +1526,15 @@ db.query("SELECT id_ge,id_co_ge  FROM `gestionnaire de club` WHERE id_ge=?  ",[n
         console.error("erreur update match" + err);
         return res.status(500).send("erreur sql update match");
       }
+     
+
     }
   );
 })
- 
+req.flash("infomodi", "Match Modifié !!");
+res.redirect(`/gererMatches`);
 
-   await req.flash("info", "Match Modifié !!");
-
-  res.redirect(`/gererMatches`);
-
+   
 };
 
 //la partie des equipes

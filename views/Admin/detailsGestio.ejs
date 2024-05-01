@@ -54,13 +54,13 @@
         <div class="row">
             <div class="col" style="max-width: 140px"> <b>Image:</b></div>
             <div style="position: relative; margin-left: 50px;">
-                <% if (result.length> 0 && result[0].photo_ge) { %>
-                    <img src="/images/<%= result[0].photo_ge %>" class="img-fluid mb-3 mt-3 rounded"
+                <% if (result.length> 0 && result[0].photo_profil) { %>
+                    <img src="/images/<%= result[0].photo_profil %>" class="img-fluid mb-3 mt-3 rounded"
                         alt="Description of the image"
-                        style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                        style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
                     <% } else { %>
                         <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
-                            style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                            style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
                         <% } %>
             </div>
         </div>
@@ -71,6 +71,23 @@
             <div class="col" style="max-width: 140px"><b>Email:</b></div>
             <div class="col">
                 <%= result[0].email_co %>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col" style="max-width: 140px"> <b>Equipe:</b></div>
+            <div style="position: relative; margin-left: 50px;">
+
+                <% if (result.length> 0 && result[0].logo_eq) { %>
+                    <img src="/images/<%= result[0].logo_eq %>" class="img-fluid mb-3 mt-3 rounded"
+                        alt="Description of the image"
+                        style="width: 100   ; height: 100px; object-fit: cover; border-radius: 50%;">
+                    <% } else { %>
+                        <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
+                            style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;">
+                        <% } %>
+                            <%= result[0].nom_eq %>
             </div>
         </div>
     </li>
