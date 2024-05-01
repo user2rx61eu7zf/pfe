@@ -46,7 +46,7 @@
           <li>
             <a class="dropdown-item" href="#" onclick="updateDropdownTextEQ1('<%= item.nom_eq %>')">
               <%= item.nom_eq %>
-                <img src="/img/<%= item.logo_eq %>" alt="" width=" 32" height="32"
+                <img src="/images/<%= item.logo_eq %>" alt="" width=" 32" height="32"
                   class="rounded-circle profile-picture" />
             </a>
           </li>
@@ -67,7 +67,7 @@
           <li>
             <a class="dropdown-item" href="#" onclick="updateDropdownTextEQ2('<%= item.nom_eq %>')">
               <%= item.nom_eq %>
-                <img src="/img/<%= item.logo_eq %>" alt="" width=" 32" height="32"
+                <img src="/images/<%= item.logo_eq %>" alt="" width=" 32" height="32"
                   class="rounded-circle profile-picture" />
             </a>
           </li>
@@ -85,20 +85,59 @@
       <ul class="dropdown-menu" aria-labelledby="dropdowngestionnaire" id="dropdownGestionnaireMenu">
         <% results.forEach(function(item) { %>
           <li>
-            <a class="dropdown-item" href="#"
-              onclick="updateDropdownTextGest('<%= item.id_ge %> <%= item.nom %> <%= item.prenom %>')">
+            <a class="dropdown-item" href="#" onclick="updateDropdownTextGest('<%= item.id_ge %>')">
               <%=item.id_ge +""+""+ item.nom +" "+ item.prenom %>
             </a>
           </li>
           <% }); %>
         </ul>
-        <input type=" hidden" name="gestionnaire" id="gestionnaire" />
+        <input type='hidden' name='gestionnaire' id='gestionnaire' />
     </div>
 
+<br>
+    <div class=" dropdown">
+                <button class="btn btn-success dropdown-toggle col-12" type="button" id="dropdownstade"
+                  data-bs-toggle="dropdown" aria-expanded="false"
+                  style="background-color: white; color: black; position: relative">
+                  Stade <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownstade" id="dropdownstade">
+                  <% stade.forEach(function(item) { %>
+                    <li>
+                      <a class="dropdown-item" href="#" onclick="updateDropdownTextStd('<%= item.id_std %>')">
+                        <%=item.id_std +"-"+" stade "+ item.nom_std +" , "+ item.ville_std %>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+        <input type='hidden' name='stade' id='stade' />
+    </div>
+
+<br>
+    <div class=" dropdown">
+                          <button class="btn btn-success dropdown-toggle col-12" type="button" id="dropdownarbitre"
+                            data-bs-toggle="dropdown" aria-expanded="false"
+                            style="background-color: white; color: black; position: relative">
+                            Arbitre <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownstade" id="dropdownarbitre">
+                            <% arbitre.forEach(function(item) { %>
+                              <li>
+                                <a class="dropdown-item" href="#"
+                                  onclick="updateDropdownTextArbitre('<%= item.id_ar %>')">
+                                  <%=item.id_ar +" "+" "+ item.nom_ar +" "+ item.prenom_ar %>
+  </a>
+</li>
+<% }); %>
+</ul>
+<input type='hidden' name='arbitre' id='arbitre' />
+</div>
+
     <div>
-      <label for="validationCustom01" class="form-label">Date du match</label>
-      <input type="date" class="form-control" name="date_ma_match" id="validationCustom01" value="" required />
-      <div class="valid-feedback"></div>
+      <label for=" validationCustom01" class="form-label">Date du match</label>
+                                    <input type="date" class="form-control" name="date_ma_match" id="validationCustom01"
+                                      value="" required />
+                                    <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom01" class="form-label">Heure du match</label>
@@ -106,8 +145,14 @@
       <div class="valid-feedback"></div>
     </div>
     <div>
-      <button class="btn btn-primary mt-3" type="submit">Ajouter</button>
-    </div>
+      <div>
+        <label for="validationCustom01" class="form-label"> Journée:</label>
+        <input type="number" class="form-control" name="journee" id="validationCustom01" value="" required />
+        <div class="valid-feedback"></div>
+      </div>
+      <div>
+        <button class="btn btn-primary mt-3" type="submit">Ajouter</button>
+      </div>
   </form>
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -126,6 +171,12 @@
     function updateDropdownTextGest(text) {
       document.getElementById("dropdowngestionnaire").textContent = text;
     }
+    function updateDropdownTextStd(text) {
+      document.getElementById("dropdownstade").textContent = text;
+    }
+    function updateDropdownTextArbitre(text) {
+      document.getElementById("dropdownarbitre").textContent = text;
+    }
     $(document).ready(function () {
       $("form").submit(function () {
         updateSelectedValues();
@@ -138,6 +189,10 @@
       $("#equipe2").val(equipe2);
       var gestionnaire = $("#dropdowngestionnaire").text().trim();
       $("#gestionnaire").val(gestionnaire);
+      var stade = $("#dropdownstade").text().trim();
+      $("#stade").val(stade);
+      var arbitre = $("#dropdownarbitre").text().trim();
+      $("#arbitre").val(arbitre);
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

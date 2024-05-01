@@ -1481,6 +1481,12 @@ exports.fin = async (req, res) => {
                 if (err) {
                   console.log("erreur sql ajouter match perdu");
                 }
+                db.query("UPDATE equipe SET points_eq=points_eq+3 WHERE nom_eq=?",[equipes[0].equipe_2],(err, pts) => {
+                  if(err){
+                    console.log('erreu sql ajouter 3 pts'+err);
+                    
+                  }
+                })
               }
             );
           }
@@ -1501,6 +1507,12 @@ exports.fin = async (req, res) => {
                 if (err) {
                   console.log("erreur sql ajouter match perdu");
                 }
+                db.query("UPDATE equipe SET points_eq=points_eq+3 WHERE nom_eq=?",[equipes[0].equipe_1],(err, pts2) => {
+                  if(err){
+                    console.log('erreu sql ajouter 3 pts'+err);
+                    
+                  }
+                })
               }
             );
           }

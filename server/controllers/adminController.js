@@ -545,10 +545,13 @@ exports.postArbitres = async (req, res) => {
   const newArbitre = new Arbitre({
     nom_ar: req.body.nom_ar,
     prenom_ar: req.body.prenom_ar,
+    date_ar:req.body.date_ar,
     poste_ar: req.body.poste,
     email_co: req.body.email,
     motdepasse: req.body.motdepasse,
   });
+  console.log(req.body.date_ar);
+  
   if (req.file) {
     photo = req.file.filename;
     db.query(
@@ -575,12 +578,12 @@ exports.postArbitres = async (req, res) => {
                 .status(500)
                 .send("erreur sql avoir id compte d'arbitre");
             }
-            // a voir -------------------------------------------------------------------------
             db.query(
-              "INSERT INTO arbitre (nom_ar, prenom_ar,poste_ar,photo_ar,id_co_ar) VALUES (?,?,?,?,?) ",
+              "INSERT INTO arbitre (nom_ar, prenom_ar,date_naiss_ar,poste_ar,photo_ar,id_co_ar) VALUES (?,?,?,?,?,?) ",
               [
                 newArbitre.nom,
                 newArbitre.prenom,
+                req.body.date_ar,
                 newArbitre.poste,
                 photo,
                 resultid[0].id_co,
@@ -629,10 +632,11 @@ exports.postArbitres = async (req, res) => {
             }
             // a voir -------------------------------------------------------------------------
             db.query(
-              "INSERT INTO arbitre (nom_ar, prenom_ar,poste_ar,id_co_ar) VALUES (?,?,?,?) ",
+              "INSERT INTO arbitre (nom_ar, prenom_ar,date_naiss_ar,poste_ar,id_co_ar) VALUES (?,?,?,?,?) ",
               [
                 newArbitre.nom,
                 newArbitre.prenom,
+                req.body.date_ar,
                 newArbitre.poste,
                 resultid[0].id_co,
               ],
@@ -661,8 +665,8 @@ exports.editpostArbitres = async (req, res) => {
   if (req.file) {
     photo = req.file.filename;
     db.query(
-      "UPDATE arbitre SET nom_ar =?,prenom_ar =? ,photo_ar=? WHERE id_ar=?",
-      [req.body.nom_ar, req.body.prenom_ar, photo, req.params.id],
+      "UPDATE arbitre SET nom_ar =?,prenom_ar =? ,date_naiss_ar=?, photo_ar=? WHERE id_ar=?",
+      [req.body.nom_ar, req.body.prenom_ar,req.body.date_ar, photo, req.params.id],
       (err, result) => {
         if (err) {
           console.error("erreur update arbitre" + err);
@@ -698,11 +702,11 @@ exports.editpostArbitres = async (req, res) => {
     );
   } else {
     db.query(
-      "UPDATE arbitre SET nom_ar =?,prenom_ar =? WHERE id_ar=?",
-      [req.body.nom_ar, req.body.prenom_ar, req.params.id],
+      "UPDATE arbitre SET nom_ar =?,prenom_ar =?, date_naiss_ar=? WHERE id_ar=?",
+      [req.body.nom_ar, req.body.prenom_ar, req.body.date_ar,req.params.id],
       (err, result) => {
         if (err) {
-          console.error("erreur update arbitre" + err);
+          console.error("erreur update arbitreee" + err);
           return res.status(500).send("erreur sql update arbitre");
         }
         db.query(
@@ -1245,38 +1249,47 @@ exports.viewMatches = async (req, res) => {
       console.error("erreur sql id match" + err);
       return res.status(500).send("erreur sql id match");
     }
-    db.query(
-      "SELECT photo_profil FROM compte WHERE id_co=?",
-      [2],
-      (err, pp) => {
-        if (err) {
-          console.log("err avoir pfp page view joueur");
-        }
-        db.query("SELECT nom_std,ville_std FROM stade JOIN `match` ON match.id_std_ma = stade.id_std WHERE id_ma = ?",[MatchId], (err, stade) => {
-            if (err) {
-              console.log("erreur slect stade" + err);
-            }
-            db.query("SELECT nom,prenom FROM `gestionnaire de club` JOIN `match` ON match.id_ge_ma= `gestionnaire de club`.id_ge WHERE id_ma = ?",[MatchId], (err, gest) => {
-              if(err)
-              {
-                console.log('erreur avoir data gestionnare match'+err);
-                
-              }
-              console.log(gest);
-              res.render("../views/Admin/Matches/detailsMatches", {
-                locals,
-                pp,
-                match,
-                stade,
-                gest,
-                layout: "./layouts/mainAdmin.ejs",
-              });
-            })
-            
-          }
-        );
+    db.query("SELECT logo_eq FROM equipe WHERE nom_eq IN(?,?) ",[match[0].equipe_1,match[0].equipe_2],(err,logo)=>{
+      if(err){
+        console.log('erreur avoir logo des equipes'+err);
       }
-    );
+      // console.log(logo);
+      
+      db.query(
+        "SELECT photo_profil FROM compte WHERE id_co=?",
+        [2],
+        (err, pp) => {
+          if (err) {
+            console.log("err avoir pfp page view joueur");
+          }
+          db.query("SELECT nom_std,ville_std FROM stade JOIN `match` ON match.id_std_ma = stade.id_std WHERE id_ma = ?",[MatchId], (err, stade) => {
+              if (err) {
+                console.log("erreur slect stade" + err);
+              }
+              db.query("SELECT nom,prenom FROM `gestionnaire de club` JOIN `match` ON match.id_ge_ma= `gestionnaire de club`.id_ge WHERE id_ma = ?",[MatchId], (err, gest) => {
+                if(err)
+                {
+                  console.log('erreur avoir data gestionnare match'+err);
+                  
+                }
+                // console.log(gest);
+                res.render("../views/Admin/Matches/detailsMatches", {
+                  locals,
+                  pp,
+                  match,
+                  logo,
+                  stade,
+                  gest,
+                  layout: "./layouts/mainAdmin.ejs",
+                });
+              })
+              
+            }
+          );
+        }
+      );
+    })
+    
   });
 };
 
@@ -1334,7 +1347,7 @@ exports.editMatches = async (req, res) => {
             if (err) {
               console.log("erreur");
             }
-            db.query("SELECT equipe_1,equipe_2,date_ma,horaire_ma FROM `match` WHERE id_ma=?",[MatchId],(err, equipe) => {
+            db.query("SELECT equipe_1,equipe_2,date_ma,horaire_ma,journee_ma FROM `match` WHERE id_ma=?",[MatchId],(err, equipe) => {
                 if(err){
                   console.log('erreu avoir les deux equipe '+err);
                 }
@@ -1387,13 +1400,28 @@ exports.addMatches = async (req, res) => {
             if (err) {
               console.log("erreur");
             }
-            res.render("../views/Admin/Matches/addMatches", {
-              locals,
-              results,
-              pp,
-              layout: "./layouts/mainAdmin.ejs",
-              result,
-            });
+            db.query("SELECT id_std,nom_std,ville_std FROM stade ",(err,stade) => {
+              if(err){
+                console.log('ereur avoir les stades'+err);
+              }
+              db.query("SELECT id_ar,nom_ar,prenom_ar FROM arbitre",(err,arbitre) => {
+                if(err){
+                  console.log('erreur avoir arbitre'+err);
+                  
+                }
+                res.render("../views/Admin/Matches/addMatches", {
+                  locals,
+                  results,
+                  arbitre,
+                  pp,
+                  stade,
+                  layout: "./layouts/mainAdmin.ejs",
+                  result,
+                });
+              })
+             
+            })
+           
           }
         );
         //console.log(result);
@@ -1403,37 +1431,40 @@ exports.addMatches = async (req, res) => {
 };
 
 exports.postMatches = async (req, res) => {
-  data = {
-    equipe1: req.body.equipe1,
-    equipe2: req.body.equipe2,
-    gestionnaire: req.body.gestionnaire,
-    date: req.body.date_ma_match,
-    heure: req.body.heure_ma_match,
-  };
-  db.query(
-    "INSERT INTO `match` (equipe_1, equipe_2,id_ge_ma,date_ma,horaire_ma) VALUES (?, ?,?,?,?)",
-    [
-      req.body.equipe1,
-      req.body.equipe2,
-      req.body.gestionnaire.match,
-      req.body.date_ma_match,
-      req.body.heure_ma_match,
-    ],
-    (err, result) => {
-      if (err) {
-        console.error("Erreur lors de l'insertion du match :", err);
-        return res.status(500).send("Erreur lors de l'insertion du match");
-      }
-      //console.log("Nouveau match inséré avec l'ID :", result.insertId);
-      req.flash("info", "Match ajouté avec succès !");
-      res.redirect("/gererMatches");
+  db.query("SELECT id_co_ge FROM `gestionnaire de club` WHERE id_ge=?",[req.body.gestionnaire],(err,gestionnaire) =>{
+    if(err){
+      console.log('erreur avoir id gestionnaire '+err);
     }
-  );
+    db.query(
+      "INSERT INTO `match` (equipe_1, equipe_2,id_ge_ma,id_co_ge_ma,id_std_ma,id_ar_ma,journee_ma,date_ma,horaire_ma) VALUES (?,?,?,?,?,?,?,?,?)",
+      [
+        req.body.equipe1,
+        req.body.equipe2,
+        req.body.gestionnaire,
+        gestionnaire[0].id_co_ge,
+        req.body.stade,
+        req.body.arbitre,
+        req.body.journee,
+        req.body.date_ma_match,
+        req.body.heure_ma_match,
+      ],
+      (err, result) => {
+        if (err) {
+          console.error("Erreur lors de l'insertion du match :", err);
+          return res.status(500).send("Erreur lors de l'insertion du match");
+        }
+        //console.log("Nouveau match inséré avec l'ID :", result.insertId);
+        req.flash("info", "Match ajouté avec succès !");
+        res.redirect("/gererMatches");
+      }
+    );
+  })
+
 };
 
 exports.supprimerMatches = async (req, res) => {
   db.query(
-    "DELETE FROM match WHERE id_ma= ?",
+    "DELETE FROM `match` WHERE id_ma= ?",
     [req.params.id],
     (err, result) => {
       if (err) {
@@ -1560,6 +1591,8 @@ exports.editEquipes = async (req, res) => {
         console.error("erreur sql select data equipe  " + err);
         return res.status(500).send("erreur sql select data equipes");
       }
+     
+      
       db.query(
         "SELECT photo_profil FROM compte WHERE id_co=?",
         [2],

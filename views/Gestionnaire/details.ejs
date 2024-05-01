@@ -85,8 +85,7 @@
           // Format the date to your desired format (e.g., "DD/MM/YYYY")
           var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
           + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
-          + dateOfBirth.getFullYear();
-
+          + dateOfBirth.getFullYear();d
           // Output the formatted date
           %> <%= formattedDateOfBirth %>
             <% } else { // Output 'null' if no result is available %> null <% } %>

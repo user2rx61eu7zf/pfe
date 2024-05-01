@@ -49,7 +49,7 @@
             </div>
             <a href="/clubs">Clubs</a>
             <a href="/login">
-                <% if (user===7 ||user===120 ) { %>
+                <% if (user===7 || user===120) { %>
                     <a href="/compteGestionnaire/<%= user %>">
                         <% if (pp[0].photo_profil) { %>
                             <img src="/images/<%= pp[0].photo_profil %>"
@@ -60,14 +60,17 @@
                     </a>
                     <% } else { %>
                         <% if (user) { %>
-                            <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
-                                    style="width: 32px; height: 32px; border-radius: 50%;"></a>
-                            <% } else { %>
-                                <!-- If the user is not logged in, display the link to login -->
-                                <a href="/login">Se connecter</a>
-                                <% } %>
+                            <% if (user===2) { %>
+                                <a href="/compteAdmin/2"><img src="/images/<%= pp[0].photo_profil %>"
+                                        style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                <% } else { %>
+                                    <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                            style="width: 32px; height: 32px; border-radius: 50%;"></a>
                                     <% } %>
-
+                                        <% } else { %>
+                                            <a href="/login">Se connecter</a>
+                                            <% } %>
+                                                <% } %>
             </a>
             <form class="search-form">
                 <input type="text" placeholder="Search">
