@@ -1,0 +1,33 @@
+<header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow" style="background-color: #16659e">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/compteJoueur/<%= userId %>">Joueur</a>
+
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+        data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="dropdown text-end" style="margin-right: 20px">
+        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/images/<%= results[0].photo_profil %>" alt="" width="32" height="32"
+                class="rounded-circle profile-picture">
+        </a>
+        </a>
+        <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser1">
+            <li>
+                <a class="dropdown-item" href="/profileJoueur/<%= userId %>">
+                    <i class="bi bi-person"></i> Mon profile
+                </a>
+            </li>
+            <li>
+                <hr class="dropdown-divider" />
+            </li>
+            <li>
+                <a class="dropdown-item" href="/logout">
+                    <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800"></i> Se
+                    déconnecter
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>

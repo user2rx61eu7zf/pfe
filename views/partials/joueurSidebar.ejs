@@ -1,0 +1,45 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div class="position-sticky pt-3 sidebar-sticky d-flex flex-column">
+        <ul class="nav flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link active " href="/" aria-current="page">
+                    <img src="/img/LFW-R.png" alt="Logo" class="logo" width="64" height="64">
+                    LFWR
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/compteJoueur/<%= userId %>" aria-current="page">
+                    <i class="bi bi-house-door-fill"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mes_entrainement/<%= userId %>">
+                    <i class="bi bi-clipboard-x"></i>
+                    Entrainements
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mes_matchs/<%= userId %>">
+                    <i class="bi bi-calendar-event"></i>
+                    Matchs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mes_stats/<%= userId %>">
+                    <i class="bi bi-bar-chart"></i>
+                    Statistiques
+                </a>
+            </li>
+
+        </ul>
+        <ul class="nav flex-column mt-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">
+                    <i class="bi bi-box-arrow-left m pb-2" style="color: #fe0800"></i>
+                    Se déconnecter
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

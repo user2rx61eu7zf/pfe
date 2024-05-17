@@ -1,0 +1,69 @@
+<div class="col py-1">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteJoueur/<%= userId %>">Acceuil</a>
+                    </li>
+                    <li class="breadcrumb-item active">Mon profile</li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<div class="profile-card">
+    <div class="text-center">
+        <% message_err.forEach(element=> { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= element %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% }) %>
+                <% message_scc.forEach(element=> { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= element %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% }) %>
+                        <% if (results[0].photo_profil) { %>
+                            <img src="/images/<%= results[0].photo_profil %>" class="img-fluid rounded-circle mb-3"
+                                alt="Description of the image" style="width: 150px; height: 150px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
+                                    style="width: 150px; height: 150px; border-radius: 50%;">
+                                <% } %>
+
+                                    <h3>
+                                        <%= results[0].nom_utilisateur %>
+                                    </h3>
+                                    <h5>
+
+                                    </h5>
+                                    <p>
+                                        <%= results[0].email_co %>
+                                    </p>
+    </div>
+    <hr>
+    <h4>Changer le mot de passe:</h4>
+    <form action="/monprofile_joueur/<%= userId %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="password" class="form-control" name="mdpactuel" placeholder="Mot de passe actuel">
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="password" class="form-control" name="nvmdp" placeholder="Nouveau mot de passe">
+        </div>
+
+
+        <hr>
+        <h4>Changer votre photo de profil:</h4>
+        <input type="file" class="form-control" name="photo_joueur">
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Confirmer</button>
+        </div>
+        <div style="text-align: center;">
+    </form>
+
+</div>

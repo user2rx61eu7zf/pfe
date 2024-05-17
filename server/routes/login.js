@@ -25,6 +25,7 @@ router.post('/compte', loginController.comptePage);
 router.post('/addaccount', upload.single('photovisiteur'),loginController.creer);
 router.get('/compteGestionnaire/:idgest', requireAuth, loginController.comptegestionnaire);
 router.get('/compteAdmin/:id', loginController.compteadmin);
+router.get('/compteJoueur/:id', loginController.compteJoueur);
 
 
 

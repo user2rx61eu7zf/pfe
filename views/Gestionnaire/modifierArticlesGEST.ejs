@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Modification: <%= result[0].nom_eq%>
+    <h1 class="h2">Modification: <%= result[0].titre_art%>
     </h1>
 
 </div>
@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
                     <li class="breadcrumb-item active">
-                        <%= result[0].nom_eq%>
+                        <%= result[0].titre_art%>
 
                     </li>
                 </ol>
@@ -23,51 +23,51 @@
 </div>
 
 
-<form action="/editEquipes/<%= result[0].id_eq %>?_method=PUT" method="POST" enctype="multipart/form-data">
+<form action="/editArticles/<%= result[0].id_art %>/<%= gestId %>?_method=PUT" method="POST"
+    enctype="multipart/form-data">
 
     <div class="row form-group mb-4">
         <div>
-            <label for="validationCustom01" class="form-label">Nom</label>
-            <input type="text" class="form-control" name="nom_equipe" id="validationCustom01"
-                value="<%= result[0].nom_eq %>" required>
+            <label for="validationCustom01" class="form-label">Titre</label>
+            <input type="text" class="form-control" name="titre_article" id="validationCustom01"
+                value="<%= result[0].titre_art %>" required>
             <div class="valid-feedback"></div>
         </div>
         <div>
-            <label for="validationCustom02" class="form-label">Abreviation</label>
-            <input type="text" class="form-control" name="abreviation_equipe" id="validationCustom02"
-                value="<%= result[0].abre_eq%>">
+            <label for="validationCustom02" class="form-label">Description</label>
+            <input type="text" class="form-control" name="description_article" id="validationCustom02"
+                value="<%= result[0].description_art%>" required>
             <div class="valid-feedback"></div>
+        </div>
+        <div>
+            <label for="validationCustom02" class="form-label">Date</label>
+            <% var date=new Date(result[0].date_art); var year=date.getFullYear(); var month=("0" + (date.getMonth() +
+                1)).slice(-2); var day=("0" + date.getDate()).slice(-2); %>
+
+                <input type="date" class="form-control" name="date_article" id="validationCustom01"
+                    value="<%= year + '-' + month + '-' + day %>" required>
+                <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Photo:</label>
-            <input type="file" class="form-control" name="LogoEquipe" id="validationCustom01" value=""
+            <input type="file" class="form-control" name="image_art" id="validationCustom01" value=""
                 accept="image/*" />
             <div class="valid-feedback"></div>
         </div>
         <div>
             <div>
-                <label for="validationCustom02" class="form-label">Ville</label>
-                <input type="text" class="form-control" name="ville_equipe" id="validationCustom02"
-                    value="<%= result[0].ville_eq%>">
+                <label for="validationCustom02" class="form-label">Auteur</label>
+                <input type="text" class="form-control" name="auteur_article" id="validationCustom02"
+                    value="<%= result[0].auteur_art%>" required>
                 <div class="valid-feedback"></div>
-            </div>
-            <div>
-                <label for="validationCustom02" class="form-label">Date de création</label>
-                <% var date=new Date(result[0].date_eq); var year=date.getFullYear(); var month=("0" + (date.getMonth()
-                    + 1)).slice(-2); var day=("0" + date.getDate()).slice(-2); %>
-
-                    <input type="date" class="form-control" name="date_de_creation_equipe" id="validationCustom01"
-                        value="<%= year + '-' + month + '-' + day %>" required>
-
-                    <div class="valid-feedback"></div>
             </div>
             <div>
             </div>
             <div class="form-group mb-4">
-                <button type="submit" class="btn btn-primary mt-3">Modifier Equipe</button>
+                <button type="submit" class="btn btn-primary mt-3">Modifier Article</button>
 
                 <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" id="deleteButton"
-                    data-bs-target="#deleteModal">Supprimer Equipe</button>
+                    data-bs-target="#deleteModal">Supprimer Article</button>
 
             </div>
 
@@ -79,23 +79,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title">Vous etes sur le point de SUPPRIMER une Equipe .</div>
+                <div class="modal-title">Vous etes sur le point de SUPPRIMER un article .</div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>
-                    Ceci supprimera l'équipe de votre systeme <b class="fw-bold">
-                        <%= result[0].nom_eq%> de la ville
-                            <%= result[0].ville_eq%>
+                    Ceci supprimera l'article de votre systeme <b class="fw-bold">
+                        <%= result[0].titre_art%> de l'auteur
+                            <%= result[0].auteur_art%>
                     </b><br />
                     Etes-vous sur ?
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <form action="/supprimerEquipes/<%= result[0].id_ed %>?_method=DELETE" method="POST"
+                <form action="/supprimer_Articles/<%= result[0].id_art %>/<%= gestId %>?_method=DELETE" method="POST"
                     class="position-relative">
-                    <button type="submit" class="btn btn-danger">Oui, Supprimer l'équipe</button>
+                    <button type="submit" class="btn btn-danger">Oui, Supprimer l'article</button>
                 </form>
             </div>
         </div>

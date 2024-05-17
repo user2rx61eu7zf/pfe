@@ -85,6 +85,20 @@ exports.comptePage = async (req, res) => {
             });
             res.redirect(`/compteAdmin/${userId}`);
             break;
+            case 2:
+              token = jwt.sign(
+                { id: userId },
+                process.env.JWT_SECRET,
+                jwtOptions
+              );
+              res.cookie("jwt", token, {
+                expires: new Date(
+                  Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+                ),
+                httpOnly: true,
+              });
+              res.redirect(`/compteJoueur/${userId}`);
+              break;
           case 6:
             token = jwt.sign(
               { id: userId },
@@ -162,6 +176,43 @@ exports.compteadmin = async (req, res) => {
       });
     }
   );
+};
+exports.compteJoueur = async (req, res) => {
+  const userId = req.params.id;
+  const locals = {
+    title: "Joueur",
+  };
+  db.query("select * from compte where id_co=?",[userId],(err,results) => {
+    if(err){
+      console.log("err avoir pfp page view joueur"+err);
+    }
+    db.query("select id_eq_jo from joueur where id_co_jo=?",[userId],(err,result) =>{
+      if(err){
+        console.log('erreur avoir id equipe'+err);
+      }
+      db.query("select nom_eq,logo_eq from equipe where id_eq=?",[result[0].id_eq_jo],(err,eq) =>{
+        if(err){
+          console.log('erreur avoir equipe'+err);
+          
+        }
+        console.log(eq);
+        res.render("../views/Joueur/homepageJoueur", {
+          userId,
+          results,
+          eq,
+          locals,
+          layout: "./layouts/mainJoueur.ejs",
+        });
+      })
+      
+      
+     
+    } )
+ 
+    
+   
+  })
+ 
 };
 
 exports.creer = (req, res) => {

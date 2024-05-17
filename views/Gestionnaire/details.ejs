@@ -75,19 +75,11 @@
     <div class="row">
       <div class="col" style="max-width: 140px"> <b>Date de Naissance:</b></div>
       <div class="col">
-        <% if(result.length> 0) {
-          // Get the date of birth string
-          var dateOfBirthString = result[0].date_naiss_jo;
-
-          // Create a new Date object from the date string
-          var dateOfBirth = new Date(dateOfBirthString);
-
-          // Format the date to your desired format (e.g., "DD/MM/YYYY")
-          var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
-          + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
-          + dateOfBirth.getFullYear();d
-          // Output the formatted date
-          %> <%= formattedDateOfBirth %>
+        <% if(result.length> 0) { var dateOfBirthString =
+          result[0].date_naiss_jo; var dateOfBirth = new
+          Date(dateOfBirthString); var formattedDateOfBirth = ("0" +
+          dateOfBirth.getDate()).slice(-2) + "/" + ("0" + (dateOfBirth.getMonth()
+          + 1)).slice(-2) + "/" + dateOfBirth.getFullYear(); %> <%= formattedDateOfBirth %>
             <% } else { // Output 'null' if no result is available %> null <% } %>
       </div>
     </div>

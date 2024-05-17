@@ -40,9 +40,12 @@
         </div>
         <div>
             <label for="validationCustom02" class="form-label">Date</label>
-            <input type="date" class="form-control" name="date_article" id="validationCustom02"
-                value="<%= result[0].date_art%>" required>
-            <div class="valid-feedback"></div>
+            <% var date=new Date(result[0].date_art); var year=date.getFullYear(); var month=("0" + (date.getMonth() +
+                1)).slice(-2); var day=("0" + date.getDate()).slice(-2); %>
+
+                <input type="date" class="form-control" name="date_article" id="validationCustom01"
+                    value="<%= year + '-' + month + '-' + day %>" required>
+                <div class="valid-feedback"></div>
         </div>
         <div>
             <label for="validationCustom01" class="form-label">Photo:</label>

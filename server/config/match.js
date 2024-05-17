@@ -88,10 +88,19 @@ socket.on("start", () => {
   startTimer();
 });
 
+
+socket.on("2eme_periode", () => {
+  const messageDiv = document.getElementById("messageCartonJaune");
+  const messageParagraph = document.createElement("p");
+  messageParagraph.textContent = `Deuxieme Periode `;
+  messageDiv.appendChild(messageParagraph);
+});
+
 socket.on("score", (data) => {
   document.getElementById("score2").textContent = data.score1;
   document.getElementById("score1").textContent = data.score2;
 });
+
 
 socket.on("penalty", function (data) {
   var clickedTime =

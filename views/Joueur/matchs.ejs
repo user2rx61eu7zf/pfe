@@ -1,0 +1,72 @@
+<div class="col py-1">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteJoueur/<%= userId %>">Acceuil</a>
+                    </li>
+                    <li class="breadcrumb-item active">Prochains Matchs </li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+</div>
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Prochains Matchs </h1>
+    <div class="btn-toolbar mb-2 mb-md 0">
+
+    </div>
+</div>
+
+
+
+
+
+<div class="table-responsive">
+
+    <table class="table table-striped  table-sm">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Match</th>
+                <th scope="col" class="text-center">Date</th>
+                <th class="text-center">Heure</th>
+                <th class="text-center"> Lieu</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <% matchs.forEach(element=> { %>
+                <tr class="align-middle">
+                    <td style="font-size: 16px;">
+                        <%= element.equipe_1 %> vs <%= element.equipe_2 %>
+                    </td>
+                    <td style="font-size: 16px;">
+                        <div class="col">
+                            <% var dateOfBirthString=element.date_ma; var dateOfBirth=new Date(dateOfBirthString); var
+                                formattedDateOfBirth=("0" + dateOfBirth.getDate()).slice(-2) + "/" + ("0" +
+                                (dateOfBirth.getMonth() + 1)).slice(-2) + "/" + dateOfBirth.getFullYear(); %>
+                                <%= formattedDateOfBirth %>
+                        </div>
+                    </td>
+                    <td style="font-size: 16px;">
+                        <div class="col">
+                            <% const timeString=element.horaire_ma; const [hours,
+                                minutes]=timeString.split(":").slice(0, 2); const formattedTime=`${hours}:${minutes}`;
+                                %>
+                                <%= formattedTime %>
+                        </div>
+                    </td>
+                    <td style="font-size: 16px;">
+                        <%= element.nom_std %>,
+                            <%= element.adresse_std %>,
+                                <%= element.ville_std %>
+                    </td>
+
+
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
+</div>

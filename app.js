@@ -28,6 +28,10 @@ io.on('connection', socket => {
         console.log("debut de match");
         socket.broadcast.emit('start');
     });
+    socket.on('2eme_periode', () => {
+        console.log("debut 2eme periode");
+        socket.broadcast.emit('2eme_periode');
+    });
     socket.on('butBtnClicked', (data) => {
         console.log('But button clicked at:', data.time);
         console.log('equipe:', data.equipe);
@@ -74,6 +78,7 @@ app.use('/', require('./server/routes/gestionnaire'));
 app.use('/', require('./server/routes/admin'));
 app.use('/', require('./server/routes/visiteur'));
 app.use('/', require('./server/routes/login.JS'));
+app.use('/', require('./server/routes/joueur.js'));
 
 // handle 404 
 app.get('*', (req, res) => {

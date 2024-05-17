@@ -55,6 +55,9 @@
     <div>
       <label for="validationCustom04" class="form-label">Poste</label>
       <select class="form-select" name="poste" id="validationCustom04" required>
+        <option selected>
+          <%= result[0].poste_jo %>
+        </option>
         <option>Gardien</option>
         <option>Defenseur</option>
         <option>Milieu de terrain</option>
@@ -70,7 +73,7 @@
     </div>
     <div>
       <label for="validationCustom01" class="form-label">Date de naissance </label>
-      <input type="date" class="form-control" name="date" id="validationCustom01"
+      <input type="date" class="form-control" name="date_jo" id="validationCustom01"
         value="<%= result.length > 0 && result[0].date_naiss_jo !== null ? result[0].date_naiss_jo.toISOString().substring(0,10) : '' %>">
       <div class="valid-feedback"></div>
     </div>

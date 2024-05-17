@@ -79,6 +79,39 @@ exports.addPlayer = async (req, res) => {
   );
 };
 
+exports.ajouterEntrainement = async (req, res) => {
+  gestId = req.params.idgest;
+
+  const messages2 = await req.flash("inf");
+
+  const locals = {
+    title: "Ajouter un entrainement ",
+  };
+  db.query(
+    "SELECT photo_profil FROM compte WHERE id_co=?",
+    [gestId],
+    (err, results) => {
+      if (err) {
+        console.log("err avoir pfp" + err);
+      }
+      db.query("SELECT * FROM stade",(err, stade) => {
+        if(err){
+          cl("erreur avoir stade",+err)
+        }
+        res.render("../views/Gestionnaire/add_entrainement", {
+          locals,
+          gestId,
+          messages2,
+          results,
+          stade,
+        });
+      })
+
+      
+    }
+  );
+};
+
 // post nouveau joueur
 
 exports.postPlayer = async (req, res) => {
@@ -113,8 +146,8 @@ exports.postPlayer = async (req, res) => {
       } else {
         // Email doesn't exist, proceed with insertion
         db.query(
-          "INSERT INTO compte (id_type, nom_utilisateur, mot_de_passe, email_co) VALUES (?,?,?,?)",
-          [2, `${nom} ${prenom}`, motdepasse, email],
+          "INSERT INTO compte (id_type, nom_utilisateur, mot_de_passe, email_co, photo_profil) VALUES (?,?,?,?,?)",
+          [2, `${nom} ${prenom}`, motdepasse, email,req.file.filename],
           (err, result) => {
             if (err) {
               console.error("Erreur lors de la création du compte: " + err);
@@ -224,6 +257,18 @@ exports.postPlayer = async (req, res) => {
     }
   );
 };
+exports.postEntrainement = async (req, res) => {
+gestId = req.params.idgest;
+  db.query("INSERT INTO entrainement (date_ent,heure_ent,lieu_ent,remarque_ent,id_gest_ent) VALUES (?,?,?,?,?)",[
+    req.body.date,
+    req.body.heure,
+    req.body.stade,
+    req.body.remarque,
+    gestId,
+  ])
+  req.flash("info_ent", "Entrainement ajouté !");
+  res.redirect(`/entrainement/${gestId}`);
+};
 
 // get paley data
 exports.viewPlayer = async (req, res) => {
@@ -262,10 +307,54 @@ exports.viewPlayer = async (req, res) => {
     }
   );
 };
+exports.viewEntrainement = async (req, res) => {
+  const entId = req.params.id; 
+  const gestId = req.params.idgest;
+
+  const locals = {
+    title: "Voir Détails",
+  };
+  
+  db.query(
+    "SELECT * FROM entrainement WHERE id_ent=?",
+    [entId],
+    (err, result) => {
+      if (err) {
+        console.error("erreur sql ent" + err);
+        return res.status(500).send("erreur sql id joueur");
+      }
+      db.query(
+        "SELECT photo_profil FROM compte WHERE id_co=?",
+        [gestId],
+        (err, results) => {
+          if (err) {
+            console.log("err avoir pfp page view joueur");
+          }
+          db.query("select * from stade where id_std=?",[result[0].lieu_ent],(err,stade) =>{
+            if(err){
+              console.log('erreur avoir stade'+err);
+              
+            }
+            res.render("../views/Gestionnaire/details_entrainement", {
+              locals,
+              result,
+              results,
+              gestId,
+              entId,
+              stade,
+            }); 
+          })
+          
+        
+        }
+      );
+    }
+  );
+};
 exports.article = async (req, res) => {
   const gestId = req.params.idgest;
 
-  const messages = await req.flash("article");
+
 
   const locals = {
     title: "Article",
@@ -280,7 +369,6 @@ exports.article = async (req, res) => {
       res.render("../views/Gestionnaire/article", {
         results,
         gestId,
-        messages,
       });
     }
   );
@@ -307,7 +395,7 @@ exports.articlepost = async (req, res) => {
     }
   );
   await req.flash("article", "Article ajouté !!");
-  res.redirect(`/ecrire_article/${gestId}`);
+  res.redirect(`/gerer_articles/${gestId}`);
 };
 // voir entraineur
 exports.voirEntraineur = async (req, res) => {
@@ -414,6 +502,84 @@ exports.editPlayer = async (req, res) => {
       );
     }
   );
+};
+
+
+exports.editArticle = async (req, res) => {
+  gestId = req.params.idgest;
+  const ArticleId = req.params.id;
+  db.query(
+    "SELECT id_art, date_art, titre_art, description_art,image_art,auteur_art FROM article where id_art=?",
+    [ArticleId],
+    (err, result) => {
+      if (err) {
+        console.error("erreur sql select data stades  " + err);
+        return res.status(500).send("erreur sql select data stades");
+      }
+      db.query(
+        "SELECT photo_profil FROM compte WHERE id_co=?",
+        [gestId],
+        (err, results) => {
+          if (err) {
+            console.log("err avoir pfp page view joueur");
+          }
+          res.render("../views/Gestionnaire/modifierArticlesGEST", {
+            result,
+            gestId,
+            results,
+            ArticleId,
+          });
+        }
+      );
+    }
+  );
+};
+
+exports.editENT = async (req, res) => {
+  entId = req.params.id;
+  gestId = req.params.idgest;
+
+
+  const locals = {
+    title: "Modifier Entrainement",
+  };
+
+  db.query(
+    "SELECT entrainement.*, stade.* FROM entrainement JOIN stade ON entrainement.lieu_ent = stade.id_std WHERE id_ent = ?",
+    [entId],
+    (err, ent) => {
+      if (err) {
+        console.error("erreur sql id entainement" + err);
+        return res.status(500).send("erreur sql id enrainement");
+      }
+      db.query(
+        "SELECT photo_profil FROM compte WHERE id_co=?",
+        [gestId],
+        (err, results) => {
+          if (err) {
+            console.log("erreur avoir pfp page edit joueur");
+          }
+          db.query("SELECT * FROM stade",(err,stade)=>{
+            if (err) {
+              console.log("erreur avoir stade");
+            }
+ 
+            
+            res.render("../views/Gestionnaire/modifier_entrainement", {
+              locals,
+              results,
+              ent,
+              gestId,
+              stade
+            });
+          })
+         
+        
+        }
+      );
+    }
+  );
+
 };
 // edit entraineur
 exports.editEntraineur = async (req, res) => {
@@ -532,7 +698,7 @@ exports.editpost = async (req, res) => {
             photo = req.file.filename;
 
             db.query(
-              "UPDATE joueur SET nom_jo=?, prenom_jo=?, photo_jo=?, nationalite_jo=?, poste_jo=?, num_mai_jo=?, date_naiss_jo=?, taille_jo=?, poids_jo=?,id_co_jo=? WHERE id_jo=?",
+              "UPDATE joueur SET nom_jo=?, prenom_jo=?, photo_jo=?, nationalite_jo=?, poste_jo=?, num_mai_jo=?date_naiss_jo=?, taille_jo=?, poids_jo=?,id_co_jo=? WHERE id_jo=?",
               [
                 newjoueur.nom,
                 newjoueur.prenom,
@@ -540,7 +706,7 @@ exports.editpost = async (req, res) => {
                 newjoueur.nationalite,
                 newjoueur.poste,
                 newjoueur.maillot,
-                newjoueur.date,
+                req.body.date_jo,
                 newjoueur.taille,
                 newjoueur.poids,
                 resultid[0].id_co,
@@ -562,7 +728,7 @@ exports.editpost = async (req, res) => {
                 newjoueur.nationalite,
                 newjoueur.poste,
                 newjoueur.maillot,
-                newjoueur.date,
+                req.body.date_jo,
                 newjoueur.taille,
                 newjoueur.poids,
                 resultid[0].id_co,
@@ -585,6 +751,34 @@ exports.editpost = async (req, res) => {
 
   res.redirect(`/gererjoueurs/${playerId}`);
 };
+
+
+
+
+exports.editEntrainement = async (req, res) => {
+ 
+db.query("UPDATE entrainement SET date_ent=?, heure_ent=?, lieu_ent=?, remarque_ent=?, id_gest_ent=? WHERE id_ent=?",[
+  req.body.date,
+  req.body.heure,
+  req.body.stade,
+  req.body.remarque,
+  req.params.idgest,
+  req.params.id,
+  
+],(err,result) => {
+  if(err){
+    console.log('erreur modifier entrainement'+err);
+      
+  }
+})
+  
+
+   await req.flash("info_modif", "Entrainement Modifié !!");
+   res.redirect(`/entrainement/${req.params.idgest}`);
+};
+
+
+
 exports.editpostEntraineur = async (req, res) => {
   const userId = req.params.id;
 
@@ -680,6 +874,52 @@ exports.editpostEntraineur = async (req, res) => {
   }
 };
 
+exports.editpostArticles = async (req, res) => {
+ //console.log(req.params.id);
+ if (req.file) {
+  photo = req.file.filename;
+  console.log(photo);
+  db.query(
+    "UPDATE article SET titre_art =?,description_art =?,date_art=?,image_art=?,auteur_art=? WHERE id_art=?",
+    [
+      req.body.titre_article,
+      req.body.description_article,
+      req.body.date_article,
+      photo,
+      req.body.auteur_article,
+      req.params.id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("erreur update article" + err);
+        return res.status(500).send("erreur sql update article");
+      }
+    }
+  );
+} else {
+  db.query(
+    "UPDATE article SET titre_art =?,description_art =?,date_art=?,auteur_art=? WHERE id_art=?",
+    [
+      req.body.titre_article,
+      req.body.description_article,
+      req.body.date_article,
+      req.body.auteur_article,
+      req.params.id,
+    ],
+    (err, result) => {
+      if (err) {
+        console.error("erreur update article" + err);
+        return res.status(500).send("erreur sql update article");
+      }
+    }
+  );
+}
+
+await req.flash("info", "Article Modifié !!");
+
+res.redirect(`/gerer_articles/${req.params.idgest}`);
+};
+
 exports.editpostStade = async (req, res) => {
   userId = req.params.id;
 
@@ -752,6 +992,26 @@ exports.supprimerJoueur = async (req, res) => {
   );
   await req.flash("info", "Joueur Supprime !!");
   res.redirect(`/gererjoueurs/${req.params.idgest}`);
+};
+
+exports.supprimerEntrainement = async (req, res) => {
+  userId = req.params.idgest;
+
+  
+      db.query(
+        "DELETE FROM entrainement WHERE id_ent= ?",
+        [req.params.id],
+        (err, result) => {
+          if (err) {
+            console.error("erreur sql supp ent" + err);
+            return res.status(500).send("erreur sql supp ent");
+          }
+        }
+      );
+    
+  
+  await req.flash("info_ent2", "Entrainement Supprime !!");
+  res.redirect(`/entrainement/${req.params.idgest}`);
 };
 
 exports.gererJoueur = async (req, res) => {
@@ -1226,6 +1486,91 @@ exports.gerermatch = async (req, res) => {
     );
   });
 };
+exports.gererarticle = async (req, res) => {
+  const messages1 = await req.flash("article");
+  const messages = await req.flash("info");
+  gestId=req.params.id;
+
+  
+  const locals = {
+    title: "Gestion des Articles",
+  };
+  db.query(
+    "SELECT id_art,titre_art,auteur_art FROM article;",
+    (err, result) => {
+      if (err) {
+        console.error("erreur sql select data articles: " + err);
+        return res.status(500).send("erreur sql select data articles");
+      }
+      db.query(
+        "SELECT photo_profil FROM compte WHERE id_co=?",
+        [gestId],
+        (err, results) => {
+          if (err) {
+            console.log("err avoir pfp page view joueur");
+          }
+
+          //console.log("Query result:", result);
+
+          if (!result || result.length === 0) {
+            return res
+              .status(404)
+              .send("Aucun article trouvé dans la base de données");
+          }
+
+          res.render("ArticlesIndexGest", {
+            locals,
+            messages,
+            messages1,
+            gestId,
+            results,
+            result,
+          });
+        }
+      );
+    }
+  );
+};
+
+exports.detailsArticles = async (req, res) => {
+  const ArticleId = req.params.id; 
+  gestId=req.params.idgest;
+  const locals = {
+    title: "Voir Détails",
+  };
+  
+  db.query(
+    "SELECT id_art, date_art, titre_art, description_art,image_art,auteur_art FROM article WHERE id_art = ?;",
+    [ArticleId],
+    (err, result) => {
+      if (err) {
+        console.error("erreur sql id article" + err);
+        return res.status(500).send("erreur sql id article");
+      }
+      db.query(
+        "SELECT photo_profil FROM compte WHERE id_co=?",
+        [gestId],
+        (err, results) => {
+          if (err) {
+            console.log("err avoir pfp page view joueur");
+          }
+          //console.log("Query result:", result); // Log the query result
+          if (result.length === 0) {
+            return res.status(404).send("Aucun article trouvé avec cet ID");
+          }
+          const id = result[0].id_art;
+          res.render("../views/Admin/Articles/detailsArticles", {
+            locals,
+            id,
+            results,
+            result,
+            
+          }); 
+        }
+      );
+    }
+  );
+};
 
 exports.match = async (req, res) => {
   try {
@@ -1538,7 +1883,63 @@ exports.changement = async (req, res) => {
   res.redirect(`/match/${gestId}/${matchId}`);
 };
 
-function dbQuery(sql, params) {
+
+
+
+exports.entrainement = async (req, res) => {
+
+  const messages2 = await req.flash("info_ent");
+  const messages1 = await req.flash("info_ent2");
+  const messages = await req.flash("info_modif");
+
+  gestId = req.params.idgest;
+  
+  
+  const locals = {
+    title: "Entainement ",
+  };
+  db.query(
+    "SELECT photo_profil FROM compte WHERE id_co=?",
+    [gestId],
+    (err, results) => {
+      if (err) {
+        console.log("err avoir pfp" + err);
+      }
+      db.query("SELECT entrainement.*, stade.* FROM entrainement  JOIN stade ON entrainement.lieu_ent=stade.id_std WHERE id_gest_ent =?",[gestId],(err,ent)=>{
+        if(err){
+          console.log('erreur avoir les entrainements'+err);          
+        }
+           
+                    
+              res.render("EntrainementIndex",{locals,results,ent,messages2,messages1,messages});
+          })
+        
+  
+   
+});
+
+
+
+
+ }
+
+ exports.supprimerArticles = async (req, res) => {
+  db.query(
+    "DELETE FROM article WHERE id_art= ?",
+    [req.params.id],
+    (err, result) => {
+      if (err) {
+        console.error("erreur supprimer article" + err);
+        return res.status(500).send("erreur sql supprimer article");
+      }
+    }
+  );
+  await req.flash("info", "Article Supprime !!");
+  res.redirect(`/gerer_articles/${req.params.idgest}`);
+};
+
+
+ function dbQuery(sql, params) {
   return new Promise((resolve, reject) => {
     db.query(sql, params, (err, results) => {
       if (err) {

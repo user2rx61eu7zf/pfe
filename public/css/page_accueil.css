@@ -99,10 +99,12 @@ nav span {
 
 nav a:nth-child(2):hover~span {
     left: 13.3%;
+    width: 80px;  
+}
+
+nav a:nth-child(3):hover~span {
+    left: 19.1%;
     width: 80px;
-    
-    
-   
 }
 
 nav a:nth-child(3):hover~span {

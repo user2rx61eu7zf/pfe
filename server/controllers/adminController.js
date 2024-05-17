@@ -500,7 +500,7 @@ exports.gererArbitres = async (req, res) => {
 exports.editArbitre = async (req, res) => {
   const ArbitreId = req.params.id;
   db.query(
-    "SELECT id_ar,nom_ar,prenom_ar,poste_ar,compte.email_co,mot_de_passe FROM arbitre JOIN compte ON arbitre.id_co_ar = compte.id_co AND id_ar=?",
+    "SELECT id_ar,nom_ar,prenom_ar,poste_ar,date_naiss_ar,compte.email_co,mot_de_passe FROM arbitre JOIN compte ON arbitre.id_co_ar = compte.id_co AND id_ar=?",
     [ArbitreId],
     (err, result) => {
       if (err) {
@@ -1360,7 +1360,7 @@ exports.editMatches = async (req, res) => {
                 if(err){
                   console.log('erreu avoir les deux equipe '+err);
                 }
-                console.log(equipe);
+                // console.log(equipe);
                 
                 db.query("SELECT nom, prenom, id_ge FROM `gestionnaire de club` JOIN `match` ON `match`.id_ge_ma = `gestionnaire de club`.id_ge WHERE id_ma = ? ",[MatchId],(err,gest) => {
                   if(err){

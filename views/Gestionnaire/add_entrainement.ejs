@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Ajouter un entrainement</title>
+</head>
+
+<body>
+
+
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Ajouter un entrainement </h1>
+
+        <div class="btn-toolbar mb-2 mb-md 0">
+            <div class="btn-group me-2">
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-info-circle"></i> Aide
+                </button>
+            </div>
+        </div>
+    </div>
+    <% messages2.forEach(element=> { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= element %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% }) %>
+            <div class="col py-1">
+                <div class="row">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a></li>
+                                <li class="breadcrumb-item"><a href="/entrainement/<%= gestId %>">Gestion des
+                                        entrainements
+                                    </a></li>
+                                <li class="breadcrumb-item active">Nouveau entrainement</li>
+                            </ol>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+            <form action="/ajouter_entrainement/<%= gestId %>" method="POST" class="needs-validation" novalidate>
+
+
+                <div>
+                    <label for="validationCustom01" class="form-label">Date de l'entrainement </label>
+                    <input type="date" class="form-control" name="date" id="validationCustom01" required>
+                    <div class="valid-feedback"></div>
+                </div>
+
+                <div>
+                    <label for="validationCustom01" class="form-label">Heure</label>
+                    <input type="time" class="form-control" name="heure" pattern="[0-9]{3}" id="validationCustom01"
+                        value="" required>
+
+                </div>
+                <br>
+                <label for="validationCustom01" class="form-label">Lieu </label>
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle col-12" type="button" id="dropdownequipe1"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="background-color: white; color: black; position: relative">
+                        Stade <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownequipe" id="dropdownEquipeMenu">
+                        <% stade.forEach(function(item) { %>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="updateDropdownText('<%= item.id_std %>')">
+                                    <%= item.nom_std %>,
+                                        <%= item.adresse_std %>,
+                                            <%= item.ville_std %>
+
+                                </a>
+                            </li>
+                            <% }); %>
+                    </ul>
+                    <input type="hidden" name="stade" id="equipe1" />
+                </div>
+                <div>
+                    <label for="validationCustom02" class="form-label">Remarque:</label>
+                    <textarea class="form-control" name="remarque" id="validationCustom02" required></textarea>
+                    <div class="valid-feedback"></div>
+                </div>
+                <div>
+                    <button class="btn btn-primary mt-3  " type="submit">Ajouter</button>
+                </div>
+            </form>
+
+
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+                integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+                integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+                crossorigin="anonymous"></script>
+            <script>
+                function updateDropdownText(text) {
+                    document.getElementById("dropdownequipe1").textContent = text;
+                }
+                $(document).ready(function () {
+                    $("form").submit(function () {
+                        updateSelectedValues();
+                    });
+                });
+                function updateSelectedValues() {
+                    var equipe1 = $("#dropdownequipe1").text().trim();
+                    $("#equipe1").val(equipe1)
+                }
+            </script>
+</body>
+
+</html>

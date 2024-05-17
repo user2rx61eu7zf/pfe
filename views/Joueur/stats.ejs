@@ -1,0 +1,58 @@
+<div class="col py-3">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteJoueur/<%= userId %>">Accueil</a></li>
+                    <li class="breadcrumb-item">Mes statistiques</li>
+
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-center align-items-center" style="height: 450px;">
+    <div class="card" style="width: 800px;">
+        <div class="card-header text-center">
+            <i class="bi bi-info-circle"></i>
+        </div>
+
+        <div class="card-body">
+            <h2 class="card-title text-center" style="font-size: 30px; font-weight: 900;">STATISQUES DE CETTE SAISON
+                💯↗️
+            </h2>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">N° buts</th>
+                        <th scope="col">N° passes decisives</th>
+                        <th scope="col">N° cartons rouge</th>
+                        <th scope="col">N° cartons jaune</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <%= stats[0].nbr_buts_jo %>
+                        </th>
+                        <td>
+                            <%= stats[0].nbr_passe_jo %>
+                        </td>
+                        <td>
+                            <%= stats[0].nbr_crt_rouge %>
+                        </td>
+                        <td>
+                            <%= stats[0].nbr_crt_jaune %>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

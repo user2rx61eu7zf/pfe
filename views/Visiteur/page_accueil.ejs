@@ -48,7 +48,7 @@
             </div>
             <a href="/clubs">Clubs</a>
             <a href="/login">
-                <% if (user===7 || user===120) { %>
+                <% if (user===7 || user===120 ) { %>
                     <a href="/compteGestionnaire/<%= user %>">
                         <% if (pp[0].photo_profil) { %>
                             <img src="/images/<%= pp[0].photo_profil %>"

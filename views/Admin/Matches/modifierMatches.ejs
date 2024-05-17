@@ -133,13 +133,17 @@
 
     <div>
       <label for=" validationCustom01" class="form-label">Date du match</label>
-                                    <input type="date" class="form-control" name="date_ma_match" id="validationCustom01"
-                                      value="" required />
-                                    <div class="valid-feedback"></div>
+                                    <% var date=new Date(equipe[0].date_ma); var year=date.getFullYear(); var month=("0"
+                                      + (date.getMonth() + 1)).slice(-2); var day=("0" + date.getDate()).slice(-2); %>
+
+                                      <input type="date" class="form-control" name="date_ma_match"
+                                        id="validationCustom01" value="<%= year + '-' + month + '-' + day %>" required>
+                                      <div class="valid-feedback"></div>
     </div>
     <div>
       <label for="validationCustom01" class="form-label">Heure du match</label>
-      <input type="time" class="form-control" name="heure_ma_match" id="validationCustom01" value="" required />
+      <input type="time" class="form-control" name="heure_ma_match" id="validationCustom01"
+        value="<%= equipe[0].horaire_ma %>" required />
       <div class="valid-feedback"></div>
     </div>
     <div>
